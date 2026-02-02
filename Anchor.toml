@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-minkyc = "DqULmbVsScRQGDtjUJEdptTjLkcPiH1rNCZRVUQc2hDL"
+minkyc = "7nVLEY34rXaRTUjYHcbqeKZgSjxayCqeBPfCd1AtTAoW"
 
 [programs.devnet]
 minkyc = "DqULmbVsScRQGDtjUJEdptTjLkcPiH1rNCZRVUQc2hDL"
@@ -16,7 +16,7 @@ url = "https://api.apr.dev"
 
 [provider]
 cluster = "devnet"
-wallet = "~/.config/solana/id.json"
+wallet = "/Users/user2/.config/solana/minkyc-devnet.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
