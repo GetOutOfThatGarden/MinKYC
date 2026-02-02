@@ -6,13 +6,16 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-minkyc = "9wFAzCP1SEDA6zz6TMnyCwmDfLN5mu7343CzE4vPHM6J"
+minkyc = "DqULmbVsScRQGDtjUJEdptTjLkcPiH1rNCZRVUQc2hDL"
+
+[programs.devnet]
+minkyc = "DqULmbVsScRQGDtjUJEdptTjLkcPiH1rNCZRVUQc2hDL"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
