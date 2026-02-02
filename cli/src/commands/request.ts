@@ -1,3 +1,20 @@
+/**
+ * MinKYC Platform Request Generator
+ * 
+ * This command simulates a relying party (e.g., a crypto exchange or app) requesting KYC.
+ * It generates a JSON file defining the requirements for the user.
+ * 
+ * Options:
+ * --over-18       : Require the user to be over 18 years old.
+ * --country-not   : Comma-separated list of disallowed country codes (e.g., "USA,CAN").
+ * --name          : Require a name match (mock).
+ * 
+ * Usage:
+ * $ npx tsx cli/src/index.ts platform request --over-18
+ * 
+ * Output:
+ * - Saves requirements to `request.json` for the `prove` command to use.
+ */
 import { Command } from 'commander';
 import fs from 'fs';
 import chalk from 'chalk';
