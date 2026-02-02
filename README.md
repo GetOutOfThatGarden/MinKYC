@@ -1,89 +1,199 @@
 # MinKYC — Privacy-Preserving KYC on Solana
 
-MinKYC is a CLI-first MVP demonstrating privacy-preserving identity verification on Solana. It uses mocked Zero-Knowledge (ZK) proofs to allow users to prove they meet specific requirements (e.g., "Over 18") without revealing their underlying personal data (e.g., birthdate).
+MinKYC is a minimal, privacy-preserving KYC protocol built on Solana.
+
+It demonstrates how platforms can verify that users meet regulatory requirements (for example, age or residency checks) without collecting or storing personal identity data. Instead of uploading documents, users provide cryptographic proof that requirements are satisfied.
+
+This repository contains a CLI-based MVP used for development and hackathon demonstration purposes only. In a production setting, MinKYC is designed to be used via mobile apps for users and dedicated desktop or cloud tools for platforms.
+
+---
+
+## Why MinKYC?
+
+Traditional KYC forces platforms to:
+* Collect highly sensitive identity data
+* Store it long-term
+* Secure it against breaches
+* Carry ongoing regulatory and reputational liability
+
+In practice, platforms rarely need raw identity data. They only need assurance that a user satisfies specific constraints.
+
+MinKYC minimizes risk by:
+* Keeping identity data local to the user
+* Storing only cryptographic commitments on-chain
+* Using on-chain verification transactions as compliance receipts
+
+---
+
+## MVP Scope (Important)
+
+This MVP is intentionally simplified for rapid prototyping and hackathon submission:
+* Identity data is mocked
+* Zero-Knowledge proofs are mocked
+* The CLI simulates both user and platform interactions
+
+However, the architecture is designed to support:
+* Real NFC passport reads (ICAO 9303)
+* Real ZK circuits (for example, Noir)
+* Secure mobile key storage
+* Production-grade platform integrations
+
+---
 
 ## Prerequisites
 
-- **Node.js** v18+
-- **Rust** & **Cargo**
-- **Solana CLI**
-- **Anchor CLI**
+* Node.js v18+
+* Rust & Cargo
+* Solana CLI
+* Anchor CLI
+
+---
 
 ## Installation
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Build the Anchor program:
-   ```bash
-   anchor build
-   ```
+Clone the repository and install dependencies:
+
+```bash
+npm install
+```
+
+Build the Anchor program:
+
+```bash
+anchor build
+```
+
+---
 
 ## Setup & Deployment (Devnet)
 
-1. **Configure Solana CLI:**
-   ```bash
-   solana config set --url devnet
-   ```
-2. **Fund your wallet:**
-   ```bash
-   solana airdrop 2
-   ```
-3. **Deploy the program:**
-   ```bash
-   solana program deploy target/deploy/minkyc.so --url devnet
-   ```
-   *Note: Ensure you have sufficient funds (approx 1.6 SOL) for deployment.*
+Configure the Solana CLI:
 
-## CLI Demo Flow
+```bash
+solana config set --url devnet
+```
 
-The CLI (`minkyc`) guides you through the entire identity lifecycle.
+Fund your wallet:
+
+```bash
+solana airdrop 2
+```
+
+Deploy the program:
+
+```bash
+solana program deploy target/deploy/minkyc.so --url devnet
+```
+
+> **Note:** Deployment typically requires approximately 1.6 SOL on Devnet.
+
+---
+
+## CLI Demo Flow (Development Interface)
+
+The CLI (`minkyc`) demonstrates the full identity lifecycle end-to-end.
 
 ### 1. Initialize Identity
-Create your on-chain identity PDA. This derives a commitment from your local passport data (mocked) and registers it on-chain.
+
+Creates a local identity using mocked passport data, derives a cryptographic commitment, and stores it in a Solana PDA.
 
 ```bash
 npx tsx cli/src/index.ts identity init
 ```
 
-### 2. Check Status
-Verify your identity status on-chain.
+---
+
+### 2. Check Identity Status
+
+Fetches and displays the on-chain identity state.
 
 ```bash
 npx tsx cli/src/index.ts identity status
 ```
 
-### 3. Generate Platform Request
-Simulate a 3rd-party platform requesting KYC (e.g., "Must be over 18").
+---
+
+### 3. Platform KYC Request
+
+Simulates a third-party platform requesting verification (for example, “Must be over 18”).
 
 ```bash
 npx tsx cli/src/index.ts platform request --over-18
 ```
 
+---
+
 ### 4. Prove & Verify
-Generate a local ZK proof (mocked) satisfying the request and submit it to the smart contract for verification.
+
+Generates a local proof (mocked) and submits a verification transaction on-chain.
 
 ```bash
 npx tsx cli/src/index.ts prove
 ```
-*Or use the alias:*
+
+Alias:
+
 ```bash
 npx tsx cli/src/index.ts verify
 ```
 
+The resulting Solana transaction signature serves as an immutable on-chain receipt that verification occurred.
+
+---
+
 ## Project Structure
 
-- **programs/minkyc**: Anchor smart contract (Rust).
-  - `lib.rs`: Contains instructions for `initialize` and `verify_proof`.
-- **cli**: TypeScript CLI tool.
-  - `commands/`: Command implementations (`init`, `status`, `request`, `prove`).
-  - `utils/`: Crypto helpers and connection logic.
-  - `fixtures/`: Mocked passport data.
+```
+programs/minkyc/      # Anchor smart contract (Rust)
+  └─ lib.rs           # Identity initialization and proof verification
 
-## Technical Details
+cli/                  # TypeScript CLI (development & demo)
+  ├─ commands/        # init, status, request, prove
+  ├─ utils/           # crypto helpers & Solana connections
+  └─ fixtures/        # mocked passport data
+```
 
-- **PDA**: Identity state is stored in a Program Derived Address seeded by `["identity", owner_pubkey]`.
-- **Commitment**: SHA256 hash of `passport_data + secret`.
-- **Proof**: Mocked implementation where the client checks requirements locally and the contract verifies the commitment match (MVP shortcut). Real ZK proofs would be generated by Circom/Groth16.
+---
+
+## Technical Overview
+
+### Identity Storage
+* Each identity is stored in a Program Derived Address (PDA)
+* Seeded by: `["identity", owner_pubkey]`
+
+### Commitment
+* `commitment = SHA256(passport_data || secret_nonce)`
+* Only the commitment is stored on-chain
+* Raw identity data never leaves the user’s device
+
+### Proof (MVP)
+* Requirements are evaluated locally
+* Smart contract verifies commitment consistency
+* ZK logic is mocked for simplicity
+
+### Zero-Knowledge Roadmap
+* Replace mocked proofs with real ZK circuits (Noir)
+* Proof generation entirely client-side
+* On-chain verification without revealing attributes
+
+---
+
+## Roadmap
+
+* Mobile app for users (secure local storage, NFC passport scanning)
+* Desktop or cloud tooling for platforms
+* Real Zero-Knowledge proofs using Noir
+* Fine-grained selective disclosure (age, residency, sanctions checks)
+* Cross-platform integrations beyond Solana
+
+---
+
+## Summary
+
+MinKYC demonstrates how KYC can be:
+* Privacy-preserving
+* Minimal by default
+* Verifiable on-chain
+* Safer for both users and platforms
+
+This CLI MVP proves the core concept today, while laying the foundation for production-ready identity verification tomorrow.
