@@ -5,3 +5,22 @@ target
 node_modules
 test-ledger
 .yarn
+
+# Sensitive data - NEVER commit these
+.secret
+passport.json
+request.json
+user-wallet*.json
+*.key
+*.keypair
+.env
+.env.*
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+Thumbs.db
