@@ -92,11 +92,12 @@ export const statusCommand = new Command('status')
                 spinner.stop();
                 
                 console.log(chalk.bold('Identity PDA Found:'));
-                console.log(`Address:    ${identityPda.toString()}`);
-                console.log(`Owner:      ${identityAccount.owner.toString()}`);
-                console.log(`Index:      ${identityAccount.index.toString()}`);
-                console.log(`Revoked:    ${identityAccount.revoked ? chalk.red('YES') : chalk.green('NO')}`);
-                console.log(`Commitment: ${Buffer.from(identityAccount.commitment).toString('hex')}`);
+                console.log(`Address:              ${identityPda.toString()}`);
+                console.log(`Owner:                ${identityAccount.owner.toString()}`);
+                console.log(`Index:                ${identityAccount.index.toString()}`);
+                console.log(`Revoked:              ${identityAccount.revoked ? chalk.red('YES') : chalk.green('NO')}`);
+                console.log(`Verification Count:   ${identityAccount.verificationCount?.toString() || '0'}`);
+                console.log(`Commitment:           ${Buffer.from(identityAccount.commitment).toString('hex')}`);
                 
                 console.log('\n' + chalk.green('✔ Identity is active on Solana Devnet'));
 

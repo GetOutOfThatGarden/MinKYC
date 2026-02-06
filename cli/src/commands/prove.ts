@@ -23,7 +23,7 @@ import fs from 'fs';
 import path from 'path';
 import { generateMockProof, hash, createCommitment } from '../utils/crypto';
 import { getProvider, getProgram } from '../utils/connection';
-import { PublicKey } from '@solana/web3.js';
+import { PublicKey, SystemProgram } from '@solana/web3.js';
 import { BN } from '@coral-xyz/anchor';
 
 export const proveAction = async () => {
@@ -86,12 +86,26 @@ export const proveAction = async () => {
             spinner.warn(`Computed PDA (${identityPda.toString()}) differs from stored PDA (${meta.identityPda}). Using computed one.`);
         }
 
+        // Derive the proof receipt PDA (for replay protection)
+        const proofHash = hash(proof.toString('hex'));
+        const [proofReceiptPda] = PublicKey.findProgramAddressSync(
+            [
+                Buffer.from("proof_receipt"),
+                identityPda.toBuffer(),
+                proofHash
+            ],
+            program.programId
+        );
+
         spinner.start(`Verifying proof on-chain for Identity #${index.toString()}...`);
         
         // @ts-ignore
         const tx = await program.methods.verifyProof(proofArray, requirementHashArray, index)
             .accounts({
                 identity: identityPda,
+                proofReceipt: proofReceiptPda,
+                verifier: provider.wallet.publicKey,  // Current wallet pays for receipt account
+                systemProgram: SystemProgram.programId,
             })
             .rpc();
             
@@ -114,6 +128,10 @@ export const proveAction = async () => {
         
         console.log(chalk.gray('\nIdentity PDA:'));
         console.log(chalk.cyan(identityPda.toString()));
+
+        console.log(chalk.gray('\nProof Receipt PDA (Replay Protection):'));
+        console.log(chalk.cyan(proofReceiptPda.toString()));
+        console.log(chalk.dim('This ensures this proof cannot be reused.'));
 
         console.log(chalk.gray('\n------------------------------------------------------------------'));
         console.log(chalk.italic.white('This transaction signature serves as a regulatory-grade receipt,'));
