@@ -12,9 +12,16 @@ export interface MockPassportData {
     expiryDate: string;            // YYYY-MM-DD
 }
 
-const COUNTRIES = ['USA', 'GBR', 'CAN', 'AUS', 'FRA', 'DEU', 'JPN', 'KOR', 'BRA', 'IND'];
-const SURNAMES = ['SMITH', 'JOHNSON', 'WILLIAMS', 'BROWN', 'JONES', 'GARCIA', 'MILLER', 'DAVIS', 'RODRIGUEZ', 'MARTINEZ', 'HERNANDEZ', 'LOPEZ', 'GONZALEZ', 'WILSON', 'ANDERSON', 'THOMAS', 'TAYLOR', 'MOORE', 'JACKSON', 'MARTIN'];
-const GIVEN_NAMES = ['JAMES', 'MARY', 'JOHN', 'PATRICIA', 'ROBERT', 'JENNIFER', 'MICHAEL', 'LINDA', 'WILLIAM', 'ELIZABETH', 'DAVID', 'BARBARA', 'RICHARD', 'SUSAN', 'JOSEPH', 'JESSICA', 'THOMAS', 'SARAH', 'CHARLES', 'KAREN'];
+// Irish and Canadian passports for testing (user has both)
+const COUNTRIES = ['IRL', 'CAN'] as const;
+
+// Irish surnames
+const IRL_SURNAMES = ['MURPHY', 'KELLY', 'O\'BRIEN', 'WALSH', 'RYAN', 'BYRNE', 'O\'SULLIVAN', 'MCCARTHY', 'DOYLE', 'KENNEDY', 'LYNCH', 'MURRAY', 'QUINN', 'MOORE', 'COLLINS', 'DUNNE', 'BRENNAN', 'BURKE'];
+const IRL_GIVEN_NAMES = ['JAMES', 'MARY', 'JOHN', 'PATRICIA', 'MICHAEL', 'CATHERINE', 'SEAN', 'AOIFE', 'CONOR', 'CIARA', 'LIAM', 'SINEAD', 'CIAN', 'NIAMH', 'DANIEL', 'EMMA', 'DARRAGH', 'GRAINNE', 'FINN', 'ORLA'];
+
+// Canadian surnames
+const CAN_SURNAMES = ['SMITH', 'JOHNSON', 'WILLIAMS', 'BROWN', 'JONES', 'GARCIA', 'MILLER', 'DAVIS', 'RODRIGUEZ', 'MARTINEZ', 'WILSON', 'ANDERSON', 'THOMAS', 'TAYLOR', 'MOORE', 'JACKSON', 'MARTIN', 'LEE', 'THOMPSON', 'WHITE'];
+const CAN_GIVEN_NAMES = ['JAMES', 'MARY', 'JOHN', 'PATRICIA', 'ROBERT', 'JENNIFER', 'MICHAEL', 'LINDA', 'WILLIAM', 'ELIZABETH', 'DAVID', 'BARBARA', 'RICHARD', 'SUSAN', 'JOSEPH', 'JESSICA', 'THOMAS', 'SARAH', 'CHARLES', 'KAREN'];
 
 function getRandomElement<T>(array: T[]): T {
     return array[Math.floor(Math.random() * array.length)];
@@ -47,20 +54,26 @@ export function generateMockPassport(): MockPassportData {
     const expiryEnd = new Date(now.getFullYear() + 10, 11, 31);
     const expiryDate = getRandomDate(expiryStart, expiryEnd);
 
-    // Passport Number: 1 Letter + 7 Digits or similar
-    // ICAO 9303 doesn't strictly define the format for all countries, but commonly 9 chars.
-    // Let's use 9 alphanumeric characters.
-    const passportNumber = generateRandomString(9, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
-
+    // Randomly select country (IRL or CAN)
     const country = getRandomElement(COUNTRIES);
+    
+    // Use appropriate name lists
+    const surnames = country === 'IRL' ? IRL_SURNAMES : CAN_SURNAMES;
+    const givenNames = country === 'IRL' ? IRL_GIVEN_NAMES : CAN_GIVEN_NAMES;
+    
+    // Passport number format varies by country
+    // IRL: 9 alphanumeric, CAN: typically 2 letters + 7 numbers
+    const passportNumber = country === 'IRL' 
+        ? generateRandomString(9, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+        : generateRandomString(2, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') + generateRandomString(7, '0123456789');
 
     return {
         documentType: "P",
         issuingCountry: country,
         passportNumber: passportNumber,
-        surname: getRandomElement(SURNAMES),
-        givenNames: getRandomElement(GIVEN_NAMES),
-        nationality: country, // Keep consistent with issuing country for simplicity, though can differ
+        surname: getRandomElement(surnames),
+        givenNames: getRandomElement(givenNames),
+        nationality: country,
         dateOfBirth: dateOfBirth,
         sex: getRandomElement(["M", "F", "X"]),
         expiryDate: expiryDate
