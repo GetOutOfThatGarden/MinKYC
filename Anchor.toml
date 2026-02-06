@@ -16,7 +16,8 @@ url = "https://api.apr.dev"
 
 [provider]
 cluster = "devnet"
-wallet = "/Users/user2/.config/solana/minkyc-devnet.json"
+# Use ANCHOR_WALLET env var or default to ~/.config/solana/id.json
+# For AgentWallet: set ANCHOR_WALLET env var to your keypair file
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

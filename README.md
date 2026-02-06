@@ -65,6 +65,43 @@ anchor build
 
 ---
 
+## Wallet Setup
+
+MinKYC supports multiple wallet options:
+
+### Option 1: AgentWallet (Recommended for Hackathon)
+
+MinKYC is configured to work with [AgentWallet](https://agentwallet.mcpay.tech) for seamless hackathon participation.
+
+**AgentWallet for MinKYC:**
+- Username: `renovaterelocate`
+- Solana Address: `AmhTt5Cfk69MUi3q1ySwHn6mndUHJ1gD3Boi5ngWd2BS`
+- Network: Devnet (10 SOL funded)
+
+**To use with CLI:**
+```bash
+# Set environment variable for AgentWallet secret key
+export AGENT_WALLET_SECRET_KEY=<your-base64-secret-key>
+
+# Then run CLI commands
+npx tsx cli/src/index.ts identity init
+```
+
+Or set a local keypair file:
+```bash
+export ANCHOR_WALLET=~/.config/solana/id.json
+```
+
+### Option 2: Local Solana Wallet
+
+```bash
+solana config set --url devnet
+solana-keygen new -o ~/.config/solana/id.json
+solana airdrop 2
+```
+
+---
+
 ## Setup & Deployment (Devnet)
 
 Configure the Solana CLI:
