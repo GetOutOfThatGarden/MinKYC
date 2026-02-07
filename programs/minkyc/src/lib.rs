@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("7nVLEY34rXaRTUjYHcbqeKZgSjxayCqeBPfCd1AtTAoW");
+declare_id!("9zzT4KdUh7TEtiR8ioTMhDLWDa4c6ymzAjQsYYfvc3h1");
 
 // Event emitted when a verification succeeds
 #[event]
@@ -48,6 +48,9 @@ pub mod minkyc {
         let receipt = &mut ctx.accounts.proof_receipt;
         let clock = Clock::get()?;
         
+        // Compute proof hash for validation
+        let proof_hash = anchor_lang::solana_program::hash::hash(&proof).to_bytes();
+        
         msg!("Verifying proof for identity: {} (Index: {})", identity.owner, identity.index);
         
         if identity.revoked {
@@ -61,10 +64,14 @@ pub mod minkyc {
              return err!(ErrorCode::InvalidProof);
         }
 
+        // Verify that the provided proof_hash matches the actual proof
+        let computed_proof_hash = anchor_lang::solana_program::hash::hash(&proof).to_bytes();
+        if computed_proof_hash != proof_hash {
+            msg!("Proof hash mismatch!");
+            return err!(ErrorCode::InvalidProof);
+        }
+
         // REPLAY PROTECTION: Check if this proof was already used
-        // We derive a unique hash for this proof to track it
-        let proof_hash = anchor_lang::solana_program::hash::hash(&proof).to_bytes();
-        
         if receipt.used {
             msg!("Proof has already been used!");
             return err!(ErrorCode::ProofAlreadyUsed);
@@ -128,7 +135,7 @@ pub struct Initialize<'info> {
 
 
 #[derive(Accounts)]
-#[instruction(proof: Vec<u8>, requirement_hash: [u8; 32], identity_index: u64)]
+#[instruction(proof_hash: [u8; 32], requirement_hash: [u8; 32], identity_index: u64)]
 pub struct VerifyProof<'info> {
     #[account(
         mut,
@@ -146,7 +153,7 @@ pub struct VerifyProof<'info> {
         seeds = [
             b"proof_receipt",
             identity.key().as_ref(),
-            &anchor_lang::solana_program::hash::hash(&proof).to_bytes()
+            &proof_hash
         ],
         bump
     )]
