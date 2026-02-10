@@ -210,11 +210,38 @@ npx tsx cli/src/index.ts identity init
 # Check identity status
 npx tsx cli/src/index.ts identity status
 
-# Create platform request
-npx tsx cli/src/index.ts platform request --over-18
-
-# Submit proof
+# Platform verify (combined request + proof submission)
 npx tsx cli/src/index.ts prove
+```
+
+---
+
+## Three-Role Demo Scripts
+
+MinKYC includes three shell scripts that simulate a complete KYC ecosystem:
+
+| Script | Role | Purpose |
+|--------|------|---------|
+| `./user.sh` | 👤 User | Creates identity with mock passport data |
+| `./platform.sh` | 🏢 Platform | Verifies users meet KYC requirements |
+| `./regulator.sh` | 🏛️ Regulator | Audits verification transactions |
+
+### User Script
+```bash
+./user.sh init       # Create new identity
+./user.sh status     # Check identity status
+```
+
+### Platform Script
+```bash
+./platform.sh verify --over-18     # Verify user is over 18
+./platform.sh verify --eu-resident # Verify EU residency
+```
+
+### Regulator Script
+```bash
+./regulator.sh check        # Audit a specific transaction
+./regulator.sh events       # View recent program activity
 ```
 
 ---
