@@ -61,7 +61,8 @@ export const proveAction = async () => {
         const commitment = createCommitment(passport, secret);
         
         const proof = generateMockProof(commitment, request, secret);
-        const proofArray = Buffer.from(proof);
+        const proofHash = hash(proof.toString('hex'));
+        const proofHashArray = Array.from(proofHash);
         
         const requirementHash = hash(JSON.stringify(request));
         const requirementHashArray = Array.from(requirementHash);
@@ -87,7 +88,6 @@ export const proveAction = async () => {
         }
 
         // Derive the proof receipt PDA (for replay protection)
-        const proofHash = hash(proof.toString('hex'));
         const [proofReceiptPda] = PublicKey.findProgramAddressSync(
             [
                 Buffer.from("proof_receipt"),
@@ -100,11 +100,11 @@ export const proveAction = async () => {
         spinner.start(`Verifying proof on-chain for Identity #${index.toString()}...`);
         
         // @ts-ignore
-        const tx = await program.methods.verifyProof(proofArray, requirementHashArray, index)
+        const tx = await program.methods.verifyProof(proofHashArray, requirementHashArray, index)
             .accounts({
                 identity: identityPda,
                 proofReceipt: proofReceiptPda,
-                verifier: provider.wallet.publicKey,  // Current wallet pays for receipt account
+                verifier: provider.wallet.publicKey,
                 systemProgram: SystemProgram.programId,
             })
             .rpc();

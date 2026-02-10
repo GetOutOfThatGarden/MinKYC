@@ -40,16 +40,13 @@ pub mod minkyc {
 
     pub fn verify_proof(
         ctx: Context<VerifyProof>, 
-        proof: Vec<u8>, 
+        proof_hash: [u8; 32],
         requirement_hash: [u8; 32], 
         identity_index: u64
     ) -> Result<()> {
         let identity = &mut ctx.accounts.identity;
         let receipt = &mut ctx.accounts.proof_receipt;
         let clock = Clock::get()?;
-        
-        // Compute proof hash for validation
-        let proof_hash = anchor_lang::solana_program::hash::hash(&proof).to_bytes();
         
         msg!("Verifying proof for identity: {} (Index: {})", identity.owner, identity.index);
         
@@ -58,17 +55,10 @@ pub mod minkyc {
             return err!(ErrorCode::IdentityRevoked);
         }
 
-        // Mocked ZK Verification Logic
-        if proof.is_empty() {
-             msg!("Proof is empty! Verification failed.");
+        // Mocked ZK Verification Logic - proof hash must be non-zero
+        if proof_hash == [0u8; 32] {
+             msg!("Proof hash is empty! Verification failed.");
              return err!(ErrorCode::InvalidProof);
-        }
-
-        // Verify that the provided proof_hash matches the actual proof
-        let computed_proof_hash = anchor_lang::solana_program::hash::hash(&proof).to_bytes();
-        if computed_proof_hash != proof_hash {
-            msg!("Proof hash mismatch!");
-            return err!(ErrorCode::InvalidProof);
         }
 
         // REPLAY PROTECTION: Check if this proof was already used

@@ -28,9 +28,9 @@ MinKYC minimizes risk by:
 ## MVP Scope (Important)
 
 This MVP is intentionally simplified for rapid prototyping and hackathon submission:
-* Identity data is mocked
+* Identity data is mocked (Irish passports by default for EU/GDPR compliance testing)
 * Zero-Knowledge proofs are mocked
-* The CLI simulates both user and platform interactions
+* The CLI simulates user, platform, and regulator interactions
 
 However, the architecture is designed to support:
 * Real NFC passport reads (ICAO 9303)
@@ -126,55 +126,96 @@ solana program deploy target/deploy/minkyc.so --url devnet
 
 ---
 
-## CLI Demo Flow (Development Interface)
+## Quick Demo Flow
 
-The CLI (`minkyc`) demonstrates the full identity lifecycle end-to-end.
+MinKYC provides three shell scripts that simulate the complete KYC workflow from three perspectives:
 
-### 1. Initialize Identity
+### 1. User — Create Identity
 
-Creates a local identity using mocked passport data, derives a cryptographic commitment, and stores it in a Solana PDA.
+The user creates their identity by scanning their passport (mocked NFC read) and uploading a cryptographic commitment to Solana.
 
 ```bash
+./user.sh init
+```
+
+**What happens:**
+- Generates mock Irish passport data
+- Creates cryptographic commitment
+- Stores commitment on-chain in a Program Derived Address (PDA)
+- Displays the Identity PDA (needed by platform)
+
+---
+
+### 2. Platform — Verify User
+
+The platform requests KYC verification and submits proof in one step.
+
+```bash
+./platform.sh verify --over-18
+```
+
+**What happens:**
+- Prompts for user's Identity PDA
+- Creates KYC requirements (e.g., "over 18")
+- Generates proof from user's local passport data
+- Submits verification to Solana blockchain
+- Displays transaction receipt
+
+---
+
+### 3. Regulator — Audit Verification
+
+The regulator checks that proper KYC verification was performed by looking up the transaction.
+
+```bash
+./regulator.sh check
+```
+
+**What happens:**
+- Prompts for transaction signature
+- Confirms transaction on Solana blockchain
+- Displays verification receipt details
+- Links to Solana Explorer for full audit trail
+
+---
+
+## Full Demo Example
+
+```bash
+# Terminal 1: User creates identity
+./user.sh init
+# Output: Identity PDA: 7K7yRj2hjngPME8KN3YmJ2y6irTPPNhwJWBsgWmAi11p
+
+# Terminal 2: Platform verifies user
+./platform.sh verify --over-18
+# Enter PDA: 7K7yRj2hjngPME8KN3YmJ2y6irTPPNhwJWBsgWmAi11p
+# Output: Transaction Signature: xxx...
+
+# Terminal 3: Regulator audits
+./regulator.sh check
+# Enter tx signature: xxx...
+# Output: Verification receipt confirmed
+```
+
+---
+
+## Advanced CLI Commands
+
+For development and debugging, you can also use the underlying CLI directly:
+
+```bash
+# Initialize identity
 npx tsx cli/src/index.ts identity init
-```
 
----
-
-### 2. Check Identity Status
-
-Fetches and displays the on-chain identity state.
-
-```bash
+# Check identity status
 npx tsx cli/src/index.ts identity status
-```
 
----
-
-### 3. Platform KYC Request
-
-Simulates a third-party platform requesting verification (for example, “Must be over 18”).
-
-```bash
+# Create platform request
 npx tsx cli/src/index.ts platform request --over-18
-```
 
----
-
-### 4. Prove & Verify
-
-Generates a local proof (mocked) and submits a verification transaction on-chain.
-
-```bash
+# Submit proof
 npx tsx cli/src/index.ts prove
 ```
-
-Alias:
-
-```bash
-npx tsx cli/src/index.ts verify
-```
-
-The resulting Solana transaction signature serves as an immutable on-chain receipt that verification occurred.
 
 ---
 
@@ -188,6 +229,10 @@ cli/                  # TypeScript CLI (development & demo)
   ├─ commands/        # init, status, request, prove
   ├─ utils/           # crypto helpers & Solana connections
   └─ fixtures/        # mocked passport data
+
+user.sh               # User-side identity creation script
+platform.sh           # Platform verification script
+regulator.sh          # Regulator audit script
 ```
 
 ---
@@ -196,12 +241,22 @@ cli/                  # TypeScript CLI (development & demo)
 
 ### Identity Storage
 * Each identity is stored in a Program Derived Address (PDA)
-* Seeded by: `["identity", owner_pubkey]`
+* Seeded by: `["identity", owner_pubkey, index]`
 
 ### Commitment
 * `commitment = SHA256(passport_data || secret_nonce)`
 * Only the commitment is stored on-chain
-* Raw identity data never leaves the user’s device
+* Raw identity data never leaves the user's device
+
+### Replay Protection
+* Each proof creates a unique `ProofReceipt` PDA on-chain
+* Proof receipts prevent the same proof from being reused
+* Enables regulatory audit trails
+
+### Events
+* `VerificationEvent` emitted on successful verification
+* Contains identity reference, timestamps, and proof hashes
+* Platforms can subscribe for real-time tracking
 
 ### Proof (MVP)
 * Requirements are evaluated locally
@@ -212,6 +267,16 @@ cli/                  # TypeScript CLI (development & demo)
 * Replace mocked proofs with real ZK circuits (Noir)
 * Proof generation entirely client-side
 * On-chain verification without revealing attributes
+
+---
+
+## Smart Contract Features
+
+- ✅ **Identity Commitments** — Store only cryptographic hashes, not raw data
+- ✅ **Replay Protection** — ProofReceipt PDAs prevent double-spending
+- ✅ **Events** — On-chain events for indexing and monitoring
+- ✅ **Verification Count** — Track how many times an identity was verified
+- ✅ **Multi-verifier Support** — Any platform can verify, not just the owner
 
 ---
 
@@ -228,9 +293,20 @@ cli/                  # TypeScript CLI (development & demo)
 ## Summary
 
 MinKYC demonstrates how KYC can be:
-* Privacy-preserving
-* Minimal by default
-* Verifiable on-chain
-* Safer for both users and platforms
+* **Privacy-preserving** — No raw identity data on-chain
+* **Minimal by default** — Only store what's necessary
+* **Verifiable on-chain** — Immutable compliance receipts
+* **Regulator-friendly** — Full audit trail without exposing data
+* **Safer for everyone** — Reduced breach risk for platforms
 
 This CLI MVP proves the core concept today, while laying the foundation for production-ready identity verification tomorrow.
+
+---
+
+## Hackathon Submissions
+
+This project was built for:
+- **Colosseum Agent Hackathon** (Feb 2026)
+- **Superteam Earn Open Innovation Track** (Mar 2026)
+
+**Program ID (Devnet):** `9zzT4KdUh7TEtiR8ioTMhDLWDa4c6ymzAjQsYYfvc3h1`

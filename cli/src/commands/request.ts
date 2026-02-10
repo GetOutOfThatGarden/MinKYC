@@ -24,6 +24,7 @@ export const requestCommand = new Command('request')
     .option('--over-18', 'Require user to be over 18')
     .option('--country-not <countries>', 'Disallowed countries (comma separated)')
     .option('--name', 'Require name match')
+    .option('--identity <pda>', 'Target identity PDA (optional)')
     .action((options) => {
         console.log(chalk.yellow('╔════════════════════════════════════╗'));
         console.log(chalk.yellow('║      MinKYC — Platform Request     ║'));
@@ -35,11 +36,16 @@ export const requestCommand = new Command('request')
                 countryNot: options.countryNot ? options.countryNot.split(',') : [],
                 nameMatch: options.name || false
             },
+            targetIdentity: options.identity || null,
             timestamp: Date.now()
         };
         
         fs.writeFileSync('request.json', JSON.stringify(request, null, 2));
         console.log(chalk.green('✔ Request generated successfully'));
         console.log(chalk.dim(JSON.stringify(request, null, 2)));
-        console.log(chalk.yellow('\nNext: Run "minkyc prove" to generate proof.'));
+        
+        if (options.identity) {
+            console.log(chalk.cyan(`\nTargeting Identity: ${options.identity}`));
+        }
+        console.log(chalk.yellow('\nNext: Run "./platform.sh verify" to submit proof.'));
     });

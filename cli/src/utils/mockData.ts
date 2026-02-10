@@ -12,8 +12,8 @@ export interface MockPassportData {
     expiryDate: string;            // YYYY-MM-DD
 }
 
-// Irish and Canadian passports for testing (user has both)
-const COUNTRIES = ['IRL', 'CAN'] as const;
+// Irish passports for testing (EU/GDPR compliance focus)
+const COUNTRIES = ['IRL'] as const;
 
 // Irish surnames
 const IRL_SURNAMES = ['MURPHY', 'KELLY', 'O\'BRIEN', 'WALSH', 'RYAN', 'BYRNE', 'O\'SULLIVAN', 'MCCARTHY', 'DOYLE', 'KENNEDY', 'LYNCH', 'MURRAY', 'QUINN', 'MOORE', 'COLLINS', 'DUNNE', 'BRENNAN', 'BURKE'];
