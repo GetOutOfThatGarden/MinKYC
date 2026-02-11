@@ -4,7 +4,33 @@ MinKYC is a minimal, privacy-preserving KYC protocol built on Solana.
 
 It demonstrates how platforms can verify that users meet regulatory requirements (for example, age or residency checks) without collecting or storing personal identity data. Instead of uploading documents, users provide cryptographic proof that requirements are satisfied.
 
-This repository contains a CLI-based MVP used for development and hackathon demonstration purposes only. In a production setting, MinKYC is designed to be used via mobile apps for users and dedicated desktop or cloud tools for platforms.
+This MVP demonstrates the core concept via CLI. Production use would involve mobile apps for users and dedicated tools for platforms.
+
+---
+
+## 🎥 Demo Video
+
+**Watch the 5-minute demo:** https://www.loom.com/share/9dced184732f48e0b754a2ad7c822687
+
+The video covers:
+- The problem with traditional KYC
+- The MinKYC solution
+- Live demo of the three-role workflow (user, platform, regulator)
+
+---
+
+## 🚀 Quick Start
+
+```bash
+git clone https://github.com/GetOutOfThatGarden/MinKYC.git
+cd MinKYC
+npm install
+
+# Run the three-role demo
+./user.sh init
+./platform.sh verify --over-18
+./regulator.sh check
+```
 
 ---
 
@@ -80,7 +106,7 @@ MinKYC is configured to work with [AgentWallet](https://agentwallet.mcpay.tech) 
 
 **To use with CLI:**
 ```bash
-# Set environment variable for AgentWallet secret key
+# Export your AgentWallet secret key (get it from AgentWallet dashboard)
 export AGENT_WALLET_SECRET_KEY=<your-base64-secret-key>
 
 # Then run CLI commands
@@ -160,6 +186,15 @@ The platform requests KYC verification and submits proof in one step.
 - Generates proof from user's local passport data
 - Submits verification to Solana blockchain
 - Displays transaction receipt
+
+**Example output:**
+```
+📋 Requesting KYC verification...
+
+✅ KYC request created! 
+Transaction Signature: 5UfDu...a3X2
+View on Solana Explorer: https://explorer.solana.com/tx/5UfDu...a3X2?cluster=devnet
+```
 
 ---
 
@@ -334,7 +369,7 @@ This CLI MVP proves the core concept today, while laying the foundation for prod
 
 This project was built for:
 - **Solana Privacy Hackathon** (Feb 2026)
-- **Colosseum Agent Hackathon** (Feb 2026)
+- **Colosseum Agent Hackathon** (Feb 2026) — https://colosseum.com/agent-hackathon/projects/minkyc-e5qc5l
 - **Superteam Earn Open Innovation Track** (Mar 2026)
 
 **Program ID (Devnet):** `9zzT4KdUh7TEtiR8ioTMhDLWDa4c6ymzAjQsYYfvc3h1`
