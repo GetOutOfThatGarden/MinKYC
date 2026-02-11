@@ -333,6 +333,7 @@ This CLI MVP proves the core concept today, while laying the foundation for prod
 ## Hackathon Submissions
 
 This project was built for:
+- **Solana Privacy Hackathon** (Feb 2026)
 - **Colosseum Agent Hackathon** (Feb 2026)
 - **Superteam Earn Open Innovation Track** (Mar 2026)
 
