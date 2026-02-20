@@ -24,3 +24,13 @@ user-wallet*.json
 
 # OS
 Thumbs.db
+
+# Backup and temp files
+*.bak
+*.backup
+*~
+
+# Credentials directory (security)
+.secrets/
+*.credentials
+credentials.*

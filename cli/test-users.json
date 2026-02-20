@@ -1,0 +1,102 @@
+{
+  "generatedAt": "2026-02-20T10:11:17.441Z",
+  "currentDate": "2026-02-20",
+  "testUsers": [
+    {
+      "id": "test-user-17",
+      "name": "Emma Murphy",
+      "description": "17 years old - Should FAIL over-18 check",
+      "expectedAgeCheck": false,
+      "passport": {
+        "documentType": "P",
+        "issuingCountry": "IRL",
+        "passportNumber": "EMMA20092",
+        "surname": "MURPHY",
+        "givenNames": "EMMA",
+        "nationality": "IRL",
+        "dateOfBirth": "2009-02-20",
+        "sex": "F",
+        "expiryDate": "2034-02-20"
+      },
+      "secret": "3fffd963536ff6d0074f89dff7cabcd80276180de8f8ed05e77dd08e34e9481e",
+      "commitment": "c0227160144cfc2e7d03d00c3293e1b05a80fe06f33205c8ecb9d37925e756cf",
+      "zkInputs": {
+        "dob": "20090220",
+        "nameHash": "11111",
+        "secret": "3fffd963536ff6d0074f89dff7cabcd80276180de8f8ed05e77dd08e34e9481e"
+      }
+    },
+    {
+      "id": "test-user-18",
+      "name": "Sean O'Brien",
+      "description": "Exactly 18 years old - Should PASS over-18 check",
+      "expectedAgeCheck": true,
+      "passport": {
+        "documentType": "P",
+        "issuingCountry": "IRL",
+        "passportNumber": "SEAN20082",
+        "surname": "O'BRIEN",
+        "givenNames": "SEAN",
+        "nationality": "IRL",
+        "dateOfBirth": "2008-02-20",
+        "sex": "M",
+        "expiryDate": "2033-02-20"
+      },
+      "secret": "91273e348ffbca735ff26dcc2d0a7768f539e5d0a3ef9f4ac85fa8026bacad89",
+      "commitment": "c1999ce4b00ae5fa722f3d05664b4c432c3ab338e53483e0a512cd6df7ce7ba4",
+      "zkInputs": {
+        "dob": "20080220",
+        "nameHash": "11111",
+        "secret": "91273e348ffbca735ff26dcc2d0a7768f539e5d0a3ef9f4ac85fa8026bacad89"
+      }
+    },
+    {
+      "id": "test-user-25",
+      "name": "Niamh Ryan",
+      "description": "25 years old - Should PASS over-18 check",
+      "expectedAgeCheck": true,
+      "passport": {
+        "documentType": "P",
+        "issuingCountry": "IRL",
+        "passportNumber": "NIAMH2001",
+        "surname": "RYAN",
+        "givenNames": "NIAMH",
+        "nationality": "IRL",
+        "dateOfBirth": "2001-02-20",
+        "sex": "F",
+        "expiryDate": "2031-02-20"
+      },
+      "secret": "181c474a26792a5daba8bbb898ccb76b5eb9a2b779a77ca7ae805117f8a78967",
+      "commitment": "130173e9541e99ccace1336d5e70e288c378474bd9d45056ea8408ba01b0584e",
+      "zkInputs": {
+        "dob": "20010220",
+        "nameHash": "11111",
+        "secret": "181c474a26792a5daba8bbb898ccb76b5eb9a2b779a77ca7ae805117f8a78967"
+      }
+    },
+    {
+      "id": "test-user-60",
+      "name": "James Kelly",
+      "description": "60 years old - Should PASS over-18 check",
+      "expectedAgeCheck": true,
+      "passport": {
+        "documentType": "P",
+        "issuingCountry": "IRL",
+        "passportNumber": "JAMES1966",
+        "surname": "KELLY",
+        "givenNames": "JAMES",
+        "nationality": "IRL",
+        "dateOfBirth": "1966-02-20",
+        "sex": "M",
+        "expiryDate": "2026-02-20"
+      },
+      "secret": "fd9b017fcfd212352fbcce6dbe52f930ca072866f9396259461ec20775a92148",
+      "commitment": "f1765e5241b5eebb7daa261fe42b0f3afaf93ed0b3e22f7aa2ef168413625f2d",
+      "zkInputs": {
+        "dob": "19660220",
+        "nameHash": "11111",
+        "secret": "fd9b017fcfd212352fbcce6dbe52f930ca072866f9396259461ec20775a92148"
+      }
+    }
+  ]
+}
