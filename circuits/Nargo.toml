@@ -2,6 +2,6 @@
 name = "minkyc_circuits"
 type = "bin"
 authors = ["Niall"]
-compiler_version = "0.31.0"
+compiler_version = ">=0.31.0"
 
 [dependencies]

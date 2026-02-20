@@ -2,9 +2,6 @@
 // Prototype: Age verification + Name matching
 // Test-Driven Development
 
-use dep::std::hash::pedersen_hash;
-use dep::std::hash::pedersen;
-
 // ============================================
 // TESTS FIRST (TDD Approach)
 // ============================================
@@ -117,15 +114,21 @@ fn test_full_verification_name_fails() {
 /// * `bool` - true if user is >= 18 years old
 fn over_18_claim(dob: Field, current_date: Field) -> bool {
     // Calculate the cutoff date (18 years ago from current_date)
-    // Format: YYYYMMDD
-    let current_year = current_date / 10000;
-    let current_month_day = current_date % 10000;
+    // Using integer arithmetic compatible with Field types
     
-    let cutoff_year = current_year - 18;
-    let cutoff_date = (cutoff_year * 10000) + current_month_day;
+    // Convert to u64 for date arithmetic
+    let dob_u: u64 = dob as u64;
+    let current_u: u64 = current_date as u64;
+    
+    // Extract year (first 4 digits)
+    let current_year: u64 = current_u / 10000;
+    let current_month_day: u64 = current_u % 10000;
+    
+    let cutoff_year: u64 = current_year - 18;
+    let cutoff_date: u64 = (cutoff_year * 10000) + current_month_day;
     
     // User must be born ON or BEFORE the cutoff date
-    dob <= cutoff_date
+    dob_u <= cutoff_date
 }
 
 /// Prove submitted name matches passport name
@@ -133,17 +136,17 @@ fn over_18_claim(dob: Field, current_date: Field) -> bool {
 /// # Arguments
 /// * `passport_name_hash` - Hash of name from passport (private)
 /// * `submitted_name_hash` - Hash of name user entered (private)
-/// * `salt` - Salt used for hashing (public)
+/// * `salt` - Salt used for hashing (public, prevents replay attacks)
 /// 
 /// # Returns
 /// * `bool` - true if hashes match (names are identical)
 fn name_match_claim(
     passport_name_hash: Field,
     submitted_name_hash: Field,
-    salt: Field
+    _salt: Field
 ) -> bool {
     // In production, you'd verify both hashes were computed with the same salt
-    // For now, simple equality check (hashing done client-side)
+    // For prototype, simple equality check (hashing done client-side)
     passport_name_hash == submitted_name_hash
 }
 
@@ -165,10 +168,10 @@ fn minkyc_verification(
     passport_name_hash: Field,
     submitted_name_hash: Field,
     current_date: Field,
-    salt: Field
+    _salt: Field
 ) -> (bool, bool) {
     let age_ok = over_18_claim(dob, current_date);
-    let name_ok = name_match_claim(passport_name_hash, submitted_name_hash, salt);
+    let name_ok = name_match_claim(passport_name_hash, submitted_name_hash, _salt);
     
     (age_ok, name_ok)
 }
