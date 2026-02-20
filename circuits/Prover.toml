@@ -1,0 +1,11 @@
+# Prover inputs for MinKYC circuits
+# Run: nargo prove --name minkyc_proof
+
+# Private inputs (kept secret)
+dob = "20000101"
+passport_name_hash = "11111"
+submitted_name_hash = "11111"
+
+# Public inputs (shared with verifier)
+current_date = "20260220"
+salt = "12345"
