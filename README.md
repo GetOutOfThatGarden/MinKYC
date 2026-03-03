@@ -2,7 +2,7 @@
 
 MinKYC is a minimal, privacy-preserving KYC protocol built on Solana.
 
-It demonstrates how platforms can verify that users meet regulatory requirements (for example, age or residency checks) without collecting or storing personal identity data. Instead of uploading documents, users provide cryptographic proof that requirements are satisfied.
+It demonstrates how platforms can verify that users meet regulatory requirements (for example, age or citizenship checks) without collecting or storing personal identity data. Instead of uploading documents, users provide cryptographic proof that requirements are satisfied.
 
 This MVP demonstrates the core concept via CLI. Production use would involve mobile apps for users and dedicated tools for platforms.
 
