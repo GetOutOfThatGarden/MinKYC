@@ -4,8 +4,15 @@
  * Provides wallet connection functionality for Phantom/Solflare Mobile
  */
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { PublicKey, Transaction } from '@solana/web3.js';
+import { transact, Web3MobileWallet } from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
+
+// Polyfill buffer for React Native
+import { Buffer } from 'buffer';
+if (typeof global.Buffer === 'undefined') {
+  global.Buffer = Buffer;
+}
 
 interface WalletContextType {
   publicKey: PublicKey | null;
@@ -24,24 +31,29 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [connected, setConnected] = useState(false);
   const [connecting, setConnecting] = useState(false);
 
-  // TODO: Integrate with Solana Mobile Wallet Adapter
-  // For hackathon demo, using mock implementation
-  
+  const [authorizationResult, setAuthorizationResult] = useState<any>(null);
+
   const connect = useCallback(async () => {
     setConnecting(true);
     try {
-      // Integration point: Use @solana-mobile/wallet-adapter-mobile
-      // const wallet = new SolanaMobileWalletAdapter({
-      //   appIdentity: { name: 'MinKYC' },
-      //   authorizationResultCache: createDefaultAuthorizationResultCache(),
-      //   cluster: WalletAdapterNetwork.Devnet,
-      // });
-      // await wallet.connect();
-      
-      // Mock for scaffold
-      console.log('Connecting to wallet...');
-      // setPublicKey(wallet.publicKey);
-      // setConnected(true);
+      await transact(async (wallet: Web3MobileWallet) => {
+        const authResult = await wallet.authorize({
+          cluster: 'devnet',
+          identity: {
+            name: 'MinKYC',
+            uri: 'https://minkyc.com',
+            icon: 'favicon.ico',
+          },
+        });
+
+        setAuthorizationResult(authResult);
+
+        if (authResult.accounts && authResult.accounts.length > 0) {
+          const addressBuffer = Buffer.from(authResult.accounts[0].address, 'base64');
+          setPublicKey(new PublicKey(authResult.accounts[0].address));
+          setConnected(true);
+        }
+      });
     } catch (error) {
       console.error('Connection failed:', error);
     } finally {
@@ -50,20 +62,65 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   }, []);
 
   const disconnect = useCallback(async () => {
-    // await wallet.disconnect();
+    if (authorizationResult) {
+      try {
+        await transact(async (wallet: Web3MobileWallet) => {
+          await wallet.deauthorize({ auth_token: authorizationResult.auth_token });
+        });
+      } catch (err) {
+        console.error('Failed to deauthorize fallback', err);
+      }
+    }
     setPublicKey(null);
     setConnected(false);
-  }, []);
+    setAuthorizationResult(null);
+  }, [authorizationResult]);
 
   const signTransaction = useCallback(async (tx: Transaction): Promise<Transaction> => {
-    // return wallet.signTransaction(tx);
-    throw new Error('Not implemented');
-  }, []);
+    if (!authorizationResult) throw new Error('Not connected');
+
+    let signedTx: Transaction = tx;
+    await transact(async (wallet: Web3MobileWallet) => {
+      await wallet.reauthorize({
+        auth_token: authorizationResult.auth_token,
+        identity: {
+          name: 'MinKYC',
+          uri: 'https://minkyc.com',
+          icon: 'favicon.ico',
+        },
+      });
+
+      const [signed] = await wallet.signTransactions({
+        transactions: [tx],
+      });
+
+      signedTx = signed as Transaction;
+    });
+
+    return signedTx;
+  }, [authorizationResult]);
 
   const signAllTransactions = useCallback(async (txs: Transaction[]): Promise<Transaction[]> => {
-    // return wallet.signAllTransactions(txs);
-    throw new Error('Not implemented');
-  }, []);
+    if (!authorizationResult) throw new Error('Not connected');
+
+    let signedTxs: Transaction[] = [];
+    await transact(async (wallet: Web3MobileWallet) => {
+      await wallet.reauthorize({
+        auth_token: authorizationResult.auth_token,
+        identity: {
+          name: 'MinKYC',
+          uri: 'https://minkyc.com',
+          icon: 'favicon.ico',
+        },
+      });
+
+      const signed = await wallet.signTransactions({ transactions: txs });
+
+      signedTxs = signed as Transaction[];
+    });
+
+    return signedTxs;
+  }, [authorizationResult]);
 
   return (
     <WalletContext.Provider

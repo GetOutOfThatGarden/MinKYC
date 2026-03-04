@@ -11,19 +11,11 @@ import {
   TouchableOpacity,
   Platform,
   Alert,
+  ScrollView,
 } from 'react-native';
+import { MOCK_PROFILES, PassportData } from '../constants/mockProfiles';
 
-interface PassportData {
-  documentType: string;
-  issuingCountry: string;
-  passportNumber: string;
-  surname: string;
-  givenNames: string;
-  nationality: string;
-  dateOfBirth: string;
-  sex: string;
-  expiryDate: string;
-}
+
 
 const ScanScreen: React.FC = () => {
   const [scanning, setScanning] = useState(false);
@@ -49,17 +41,7 @@ const ScanScreen: React.FC = () => {
       // Mock delay for demo
       setTimeout(() => {
         setScanning(false);
-        setScannedData({
-          documentType: 'P',
-          issuingCountry: 'USA',
-          passportNumber: 'X12345678',
-          surname: 'SMITH',
-          givenNames: 'JOHN',
-          nationality: 'USA',
-          dateOfBirth: '1990-01-15',
-          sex: 'M',
-          expiryDate: '2028-03-20',
-        });
+        setScannedData(MOCK_PROFILES.profile1); // Default to Profile 1 on "scan"
       }, 3000);
 
     } catch (error) {
@@ -73,8 +55,13 @@ const ScanScreen: React.FC = () => {
     Alert.alert('Coming Soon', 'Identity creation with scanned data will be implemented');
   };
 
+  const selectMockProfile = (profileKey: string) => {
+    setScannedData(MOCK_PROFILES[profileKey]);
+    setIsMasked(true);
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {!scannedData ? (
         <>
           <View style={styles.scanArea}>
@@ -123,6 +110,24 @@ const ScanScreen: React.FC = () => {
               <Text style={styles.stepNumber}>3</Text>
               <Text style={styles.stepText}>Hold phone near the chip area</Text>
             </View>
+          </View>
+
+          <View style={styles.mockProfilesSection}>
+            <Text style={styles.infoTitle}>🧪 Testing: Select Mock Profile</Text>
+            {Object.keys(MOCK_PROFILES).map((key, index) => {
+              const profile = MOCK_PROFILES[key];
+              return (
+                <TouchableOpacity
+                  key={key}
+                  style={styles.mockProfileButton}
+                  onPress={() => selectMockProfile(key)}
+                >
+                  <Text style={styles.mockProfileText}>
+                    Profile {index + 1}: {profile.nationality} {profile.sex === 'M' ? 'Male' : 'Female'}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
 
           <View style={styles.securityNote}>
@@ -185,7 +190,7 @@ const ScanScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -288,6 +293,22 @@ const styles = StyleSheet.create({
   stepText: {
     fontSize: 14,
     color: '#555',
+  },
+  mockProfilesSection: {
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 16,
+  },
+  mockProfileButton: {
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  mockProfileText: {
+    fontSize: 14,
+    color: '#9945FF',
+    fontWeight: '500',
   },
   securityNote: {
     backgroundColor: '#e8f4f8',
