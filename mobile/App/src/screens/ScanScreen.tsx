@@ -28,15 +28,16 @@ interface PassportData {
 const ScanScreen: React.FC = () => {
   const [scanning, setScanning] = useState(false);
   const [scannedData, setScannedData] = useState<PassportData | null>(null);
+  const [isMasked, setIsMasked] = useState(true);
 
   const startNFCScan = async () => {
     setScanning(true);
-    
+
     try {
       // Integration point: NFC passport scanning
       // iOS: Use CoreNFC with NFCPassportReader
       // Android: Use android.nfc with JMRTD library
-      
+
       // TODO: Implement actual NFC scanning
       // const passportReader = new PassportReader();
       // const data = await passportReader.scan({
@@ -44,7 +45,7 @@ const ScanScreen: React.FC = () => {
       //   dateOfBirth: dob,
       //   dateOfExpiry: expiry,
       // });
-      
+
       // Mock delay for demo
       setTimeout(() => {
         setScanning(false);
@@ -60,7 +61,7 @@ const ScanScreen: React.FC = () => {
           expiryDate: '2028-03-20',
         });
       }, 3000);
-      
+
     } catch (error) {
       setScanning(false);
       Alert.alert('Scan Failed', 'Could not read passport chip. Please try again.');
@@ -80,13 +81,13 @@ const ScanScreen: React.FC = () => {
             <View style={[styles.nfcIcon, scanning && styles.scanningActive]}>
               <Text style={styles.nfcIconText}>📡</Text>
             </View>
-            
+
             <Text style={styles.title}>
               {scanning ? 'Scanning...' : 'Scan ePassport'}
             </Text>
-            
+
             <Text style={styles.instructions}>
-              {scanning 
+              {scanning
                 ? 'Hold your phone near the passport chip. Keep it steady...'
                 : 'Hold your phone near the passport chip to read data securely.'}
             </Text>
@@ -127,7 +128,7 @@ const ScanScreen: React.FC = () => {
           <View style={styles.securityNote}>
             <Text style={styles.securityTitle}>🔒 Security Note</Text>
             <Text style={styles.securityText}>
-              Passport data is read locally and never transmitted. 
+              Passport data is read locally and never transmitted.
               Only a cryptographic hash is stored on-chain.
             </Text>
           </View>
@@ -135,23 +136,37 @@ const ScanScreen: React.FC = () => {
       ) : (
         <View style={styles.resultContainer}>
           <Text style={styles.resultTitle}>✓ Scan Complete</Text>
-          
+
+          <TouchableOpacity
+            style={styles.toggleMaskButton}
+            onPress={() => setIsMasked(!isMasked)}
+          >
+            <Text style={styles.toggleMaskText}>
+              {isMasked ? '👁️ Show Sensitive Data' : '🙈 Hide Sensitive Data'}
+            </Text>
+          </TouchableOpacity>
+
           <View style={styles.dataCard}>
             <View style={styles.dataRow}>
-              <Text style={styles.dataLabel}>Name</Text>
-              <Text style={styles.dataValue}>{scannedData.surname}, {scannedData.givenNames}</Text>
+              <Text style={styles.dataLabel}>Surname</Text>
+              <Text style={styles.dataValue}>{isMasked ? '****' : scannedData.surname}</Text>
             </View>
-            
+
+            <View style={styles.dataRow}>
+              <Text style={styles.dataLabel}>Given Names</Text>
+              <Text style={styles.dataValue}>{isMasked ? '****' : scannedData.givenNames}</Text>
+            </View>
+
             <View style={styles.dataRow}>
               <Text style={styles.dataLabel}>Nationality</Text>
-              <Text style={styles.dataValue}>{scannedData.nationality}</Text>
+              <Text style={styles.dataValue}>{isMasked ? '****' : scannedData.nationality}</Text>
             </View>
-            
+
             <View style={styles.dataRow}>
               <Text style={styles.dataLabel}>Date of Birth</Text>
-              <Text style={styles.dataValue}>{scannedData.dateOfBirth}</Text>
+              <Text style={styles.dataValue}>{isMasked ? '****' : scannedData.dateOfBirth}</Text>
             </View>
-            
+
             <View style={styles.dataRow}>
               <Text style={styles.dataLabel}>Passport No.</Text>
               <Text style={styles.dataValue}>***{scannedData.passportNumber.slice(-4)}</Text>
@@ -159,11 +174,11 @@ const ScanScreen: React.FC = () => {
           </View>
 
           <TouchableOpacity style={styles.saveButton} onPress={saveToIdentity}>
-            <Text style={styles.saveButtonText}>Create Identity from Passport</Text>
+            <Text style={styles.saveButtonText}>Create Identity</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
-            style={styles.scanAgainButton} 
+          <TouchableOpacity
+            style={styles.scanAgainButton}
             onPress={() => setScannedData(null)}
           >
             <Text style={styles.scanAgainText}>Scan Again</Text>
@@ -311,6 +326,20 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+  },
+  toggleMaskButton: {
+    backgroundColor: '#e8f4f8',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#b3e5fc',
+  },
+  toggleMaskText: {
+    color: '#0288d1',
+    fontWeight: '600',
+    fontSize: 14,
   },
   dataRow: {
     flexDirection: 'row',

@@ -34,3 +34,5 @@ Thumbs.db
 .secrets/
 *.credentials
 credentials.*
+mobile/App/cmdline.zip
+mobile/App/android/app/build/

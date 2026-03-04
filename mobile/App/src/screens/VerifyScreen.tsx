@@ -18,6 +18,7 @@ import { useWallet } from '../hooks/useWallet';
 interface VerificationRequest {
   platform: string;
   requirements: string[];
+  timestamp: string;
 }
 
 const VerifyScreen: React.FC = () => {
@@ -30,11 +31,17 @@ const VerifyScreen: React.FC = () => {
   const mockRequest: VerificationRequest = {
     platform: 'Example DEX',
     requirements: ['Age >= 18', 'Not in sanctioned countries'],
+    timestamp: new Date().toLocaleString(),
+  };
+
+  const denyRequest = () => {
+    Alert.alert('Request Denied', 'You have rejected this verification request.');
+    // In a real app, this would navigate back or notify the platform
   };
 
   const generateProof = async () => {
     setGenerating(true);
-    
+
     try {
       // Integration point:
       // 1. Load passport data from secure storage
@@ -43,14 +50,14 @@ const VerifyScreen: React.FC = () => {
       // 4. Create mock ZK proof (or real Noir proof in future)
       // 5. Derive proof receipt PDA
       // 6. Submit to Solana
-      
+
       // Mock delay
       await new Promise(resolve => setTimeout(resolve, 3000));
-      
+
       // Mock successful verification
       setVerified(true);
       setTxSignature('5KT...'); // Would be real signature
-      
+
     } catch (error) {
       Alert.alert('Verification Failed', 'Could not generate proof. Please try again.');
     } finally {
@@ -78,12 +85,17 @@ const VerifyScreen: React.FC = () => {
         <>
           <View style={styles.requestCard}>
             <Text style={styles.requestTitle}>Verification Request</Text>
-            
+
             <View style={styles.platformRow}>
               <Text style={styles.platformLabel}>Platform</Text>
               <Text style={styles.platformName}>{mockRequest.platform}</Text>
             </View>
-            
+
+            <View style={styles.platformRow}>
+              <Text style={styles.platformLabel}>Requested On</Text>
+              <Text style={styles.platformName}>{mockRequest.timestamp}</Text>
+            </View>
+
             <View style={styles.requirementsSection}>
               <Text style={styles.requirementsTitle}>Requirements to Prove:</Text>
               {mockRequest.requirements.map((req, index) => (
@@ -97,7 +109,7 @@ const VerifyScreen: React.FC = () => {
 
           <View style={styles.processCard}>
             <Text style={styles.processTitle}>What Happens Next:</Text>
-            
+
             <View style={styles.stepItem}>
               <View style={styles.stepNumber}>
                 <Text style={styles.stepNumberText}>1</Text>
@@ -107,7 +119,7 @@ const VerifyScreen: React.FC = () => {
                 <Text style={styles.stepDesc}>Create ZK proof locally on your device</Text>
               </View>
             </View>
-            
+
             <View style={styles.stepItem}>
               <View style={styles.stepNumber}>
                 <Text style={styles.stepNumberText}>2</Text>
@@ -117,7 +129,7 @@ const VerifyScreen: React.FC = () => {
                 <Text style={styles.stepDesc}>Send proof to Solana blockchain</Text>
               </View>
             </View>
-            
+
             <View style={styles.stepItem}>
               <View style={styles.stepNumber}>
                 <Text style={styles.stepNumberText}>3</Text>
@@ -129,25 +141,35 @@ const VerifyScreen: React.FC = () => {
             </View>
           </View>
 
-          <TouchableOpacity
-            style={[styles.verifyButton, generating && styles.verifyingButton]}
-            onPress={generateProof}
-            disabled={generating}
-          >
-            {generating ? (
-              <>
-                <ActivityIndicator color="#fff" style={styles.buttonSpinner} />
-                <Text style={styles.verifyButtonText}>Generating Proof...</Text>
-              </>
-            ) : (
-              <Text style={styles.verifyButtonText}>Generate & Submit Proof</Text>
-            )}
-          </TouchableOpacity>
+          <View style={styles.actionRow}>
+            <TouchableOpacity
+              style={styles.denyButton}
+              onPress={denyRequest}
+              disabled={generating}
+            >
+              <Text style={styles.denyButtonText}>Deny</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.approveButton, generating && styles.verifyingButton]}
+              onPress={generateProof}
+              disabled={generating}
+            >
+              {generating ? (
+                <>
+                  <ActivityIndicator color="#fff" style={styles.buttonSpinner} />
+                  <Text style={styles.approveButtonText}>Proving...</Text>
+                </>
+              ) : (
+                <Text style={styles.approveButtonText}>Approve</Text>
+              )}
+            </TouchableOpacity>
+          </View>
 
           <View style={styles.privacyNote}>
             <Text style={styles.privacyTitle}>🔒 Privacy Guaranteed</Text>
             <Text style={styles.privacyText}>
-              Your passport data stays on your device. Only a cryptographic 
+              Your passport data stays on your device. Only a cryptographic
               proof is submitted — your actual identity remains private.
             </Text>
           </View>
@@ -157,7 +179,7 @@ const VerifyScreen: React.FC = () => {
           <View style={styles.successIcon}>
             <Text style={styles.successIconText}>✓</Text>
           </View>
-          
+
           <Text style={styles.successTitle}>Verified!</Text>
           <Text style={styles.successText}>
             Your identity has been verified on-chain.
@@ -165,19 +187,19 @@ const VerifyScreen: React.FC = () => {
 
           <View style={styles.receiptCard}>
             <Text style={styles.receiptTitle}>Verification Receipt</Text>
-            
+
             <View style={styles.receiptRow}>
               <Text style={styles.receiptLabel}>Platform</Text>
               <Text style={styles.receiptValue}>{mockRequest.platform}</Text>
             </View>
-            
+
             <View style={styles.receiptRow}>
               <Text style={styles.receiptLabel}>Status</Text>
               <View style={styles.statusBadge}>
                 <Text style={styles.statusText}>VERIFIED ✅</Text>
               </View>
             </View>
-            
+
             <View style={styles.receiptRow}>
               <Text style={styles.receiptLabel}>Proof Receipt</Text>
               <Text style={styles.receiptValueSmall}>Created</Text>
@@ -188,8 +210,8 @@ const VerifyScreen: React.FC = () => {
             <Text style={styles.explorerButtonText}>View on Solana Explorer</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
-            style={styles.doneButton} 
+          <TouchableOpacity
+            style={styles.doneButton}
             onPress={() => setVerified(false)}
           >
             <Text style={styles.doneButtonText}>Verify Another</Text>
@@ -317,12 +339,31 @@ const styles = StyleSheet.create({
     color: '#666',
     marginTop: 2,
   },
-  verifyButton: {
-    backgroundColor: '#14F195',
-    margin: 16,
-    marginTop: 0,
+  actionRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 16,
+    marginBottom: 16,
+  },
+  denyButton: {
+    backgroundColor: '#ff4d4f',
     padding: 18,
     borderRadius: 12,
+    flex: 1,
+    marginRight: 8,
+    alignItems: 'center',
+  },
+  denyButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  approveButton: {
+    backgroundColor: '#14F195',
+    padding: 18,
+    borderRadius: 12,
+    flex: 1,
+    marginLeft: 8,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -333,7 +374,7 @@ const styles = StyleSheet.create({
   buttonSpinner: {
     marginRight: 8,
   },
-  verifyButtonText: {
+  approveButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',

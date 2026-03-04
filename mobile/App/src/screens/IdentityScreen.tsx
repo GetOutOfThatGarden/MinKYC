@@ -12,6 +12,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
+  Linking,
 } from 'react-native';
 import { useWallet } from '../hooks/useWallet';
 
@@ -21,6 +22,7 @@ interface IdentityData {
   revoked: boolean;
   index: string;
   verificationCount: string;
+  pda: string;
 }
 
 const IdentityScreen: React.FC = () => {
@@ -41,10 +43,17 @@ const IdentityScreen: React.FC = () => {
     try {
       // Integration point: Fetch from Solana
       // const identityAccount = await program.account.identity.fetch(identityPda);
-      
+
       // Mock for scaffold
-      setHasIdentity(false);
-      setIdentity(null);
+      setHasIdentity(true);
+      setIdentity({
+        owner: publicKey?.toString() || 'unknown',
+        commitment: Array.from({ length: 32 }, () => Math.floor(Math.random() * 256)),
+        revoked: false,
+        index: '1',
+        verificationCount: '0',
+        pda: '7K7yRj2hjngPME8KN3YmJ2y6irTPPNhwJWBsgWmAi11p', // Mock PDA from README
+      });
     } catch (error) {
       console.log('No identity found');
       setHasIdentity(false);
@@ -60,7 +69,7 @@ const IdentityScreen: React.FC = () => {
       // 1. Generate mock passport data or use scanned data
       // 2. Create commitment hash
       // 3. Submit to Solana
-      
+
       Alert.alert('Coming Soon', 'Identity creation will be implemented with Solana Mobile SDK');
     } catch (error) {
       Alert.alert('Error', 'Failed to create identity');
@@ -72,6 +81,12 @@ const IdentityScreen: React.FC = () => {
   const formatCommitment = (commitment: number[]): string => {
     const hex = Buffer.from(commitment).toString('hex');
     return `${hex.slice(0, 8)}...${hex.slice(-8)}`;
+  };
+
+  const openExplorer = () => {
+    if (identity?.pda) {
+      Linking.openURL(`https://explorer.solana.com/address/${identity.pda}?cluster=devnet`);
+    }
   };
 
   if (loading) {
@@ -90,8 +105,8 @@ const IdentityScreen: React.FC = () => {
           <Text style={styles.emptyIcon}>📋</Text>
           <Text style={styles.emptyTitle}>No Identity Found</Text>
           <Text style={styles.emptyText}>
-            Create an on-chain identity to start using MinKYC. Your identity 
-            will be stored as a cryptographic commitment — no personal data 
+            Create an on-chain identity to start using MinKYC. Your identity
+            will be stored as a cryptographic commitment — no personal data
             is revealed.
           </Text>
           <TouchableOpacity style={styles.createButton} onPress={createIdentity}>
@@ -101,14 +116,14 @@ const IdentityScreen: React.FC = () => {
       ) : (
         <View style={styles.identityCard}>
           <Text style={styles.cardTitle}>Identity Details</Text>
-          
+
           {identity && (
             <>
               <View style={styles.detailRow}>
                 <Text style={styles.detailLabel}>Index</Text>
                 <Text style={styles.detailValue}>{identity.index}</Text>
               </View>
-              
+
               <View style={styles.detailRow}>
                 <Text style={styles.detailLabel}>Status</Text>
                 <View style={styles.statusBadge}>
@@ -117,12 +132,12 @@ const IdentityScreen: React.FC = () => {
                   </Text>
                 </View>
               </View>
-              
+
               <View style={styles.detailRow}>
                 <Text style={styles.detailLabel}>Verifications</Text>
                 <Text style={styles.detailValue}>{identity.verificationCount}</Text>
               </View>
-              
+
               <View style={styles.commitmentSection}>
                 <Text style={styles.detailLabel}>Commitment</Text>
                 <Text style={styles.commitmentValue}>
@@ -132,6 +147,10 @@ const IdentityScreen: React.FC = () => {
                   Cryptographic hash of your identity data
                 </Text>
               </View>
+
+              <TouchableOpacity style={styles.explorerButton} onPress={openExplorer}>
+                <Text style={styles.explorerButtonText}>🔗 View on Solana Explorer</Text>
+              </TouchableOpacity>
             </>
           )}
         </View>
@@ -255,6 +274,20 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999',
     marginTop: 4,
+  },
+  explorerButton: {
+    marginTop: 20,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#9945FF',
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  explorerButtonText: {
+    color: '#9945FF',
+    fontWeight: '600',
+    fontSize: 14,
   },
   infoBox: {
     backgroundColor: '#e8f4f8',
