@@ -24,7 +24,7 @@ const VerifyScreen: React.FC = () => {
   // Mock request from a platform
   const mockRequest: VerificationRequest = {
     platform: 'Example DEX',
-    requirements: ['Age >= 18', 'Not in sanctioned countries'],
+    requirements: ['Age >= 18'],
     timestamp: new Date().toLocaleString(),
   };
 

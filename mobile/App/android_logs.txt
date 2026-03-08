@@ -25,3 +25,59 @@
 03-08 12:06:21.724  7922  8301 I ReactNativeJS: '[ZKProver]', 'Starting proof generation...'
 03-08 12:06:21.724  7922  8301 I ReactNativeJS: '[ZKProver]', 'Generating witness and proof...'
 03-08 12:06:21.727  7922  8301 E ReactNativeJS: 'ZK Proof failed:', 'noir.generateProof is not a function'
+03-08 12:31:39.402 10899 10953 I ReactNativeJS: Running "minkyc" with {"rootTag":11}
+03-08 12:31:40.900 10899 10953 I ReactNativeJS: 'Restored existing hidden wallet:', '9c6dUcQ3FqxDSnjfg9gaSPZLFqmFhzGNJhpPpruaFHwx'
+03-08 12:52:59.004 10899 10953 I ReactNativeJS: '[ZKProver]', 'Loading Noir dependencies...'
+03-08 12:52:59.172 10899 10953 I ReactNativeJS: '[ZKProver]', 'Dependencies still loading, queuing proof request...'
+03-08 12:52:59.298 10899 10953 I ReactNativeJS: '[ZKProver]', 'Noir dependencies loaded successfully!'
+03-08 12:52:59.298 10899 10953 I ReactNativeJS: [ZKProver] Dependencies loaded, WebView ready
+03-08 12:52:59.305 10899 10953 I ReactNativeJS: '[ZKProver]', 'Starting proof generation...'
+03-08 12:52:59.320 10899 10953 I ReactNativeJS: '[ZKProver]', 'Step 1: Executing circuit to generate witness...'
+03-08 12:52:59.356 10899 10953 I ReactNativeJS: '[ZKProver]', 'Starting proof generation...'
+03-08 12:52:59.358 10899 10953 I ReactNativeJS: '[ZKProver]', 'Step 1: Executing circuit to generate witness...'
+03-08 12:53:03.023 10899 10953 E ReactNativeJS: 'ZK Proof failed:', 'WebAssembly.instantiate(): expected magic word 00 61 73 6d, found 46 69 6c 65 @+0'
+03-08 12:53:03.243 10899 10953 E ReactNativeJS: 'ZK Proof failed:', 'WebAssembly.instantiate(): expected magic word 00 61 73 6d, found 46 69 6c 65 @+0'
+03-08 12:58:17.465 12766 12825 I ReactNativeJS: Running "minkyc" with {"rootTag":11}
+03-08 12:58:19.396 12766 12825 I ReactNativeJS: 'Restored existing hidden wallet:', '9c6dUcQ3FqxDSnjfg9gaSPZLFqmFhzGNJhpPpruaFHwx'
+03-08 12:58:56.909 12766 12825 I ReactNativeJS: '[ZKProver]', 'Loading Noir v1.0 dependencies...'
+03-08 12:58:56.978 12766 12825 I ReactNativeJS: '[ZKProver]', 'Dependencies still loading, queuing proof request...'
+03-08 12:59:02.943 12766 12825 I ReactNativeJS: '[ZKProver]', 'Noir v1.0 dependencies loaded successfully!'
+03-08 12:59:02.944 12766 12825 I ReactNativeJS: [ZKProver] Dependencies loaded, WebView ready
+03-08 12:59:02.955 12766 12825 I ReactNativeJS: '[ZKProver]', 'Starting proof generation...'
+03-08 12:59:02.969 12766 12825 E ReactNativeJS: 'ZK Proof failed:', 'window._UltraHonkBackend is not a constructor'
+03-08 12:59:03.713 12766 12825 I ReactNativeJS: '[ZKProver]', 'Starting proof generation...'
+03-08 12:59:03.716 12766 12825 E ReactNativeJS: 'ZK Proof failed:', 'window._UltraHonkBackend is not a constructor'
+03-08 13:04:29.364 13490 13582 I ReactNativeJS: Running "minkyc" with {"rootTag":11}
+03-08 13:04:30.741 13490 13582 I ReactNativeJS: 'Restored existing hidden wallet:', '9c6dUcQ3FqxDSnjfg9gaSPZLFqmFhzGNJhpPpruaFHwx'
+03-08 13:04:57.672 13490 13582 I ReactNativeJS: '[ZKProver]', 'Loading Noir v1.0 dependencies...'
+03-08 13:04:57.801 13490 13582 I ReactNativeJS: '[ZKProver]', 'Dependencies still loading, queuing proof request...'
+03-08 13:05:06.754 13490 13582 I ReactNativeJS: '[ZKProver]', 'Noir v1.0 dependencies loaded successfully!'
+03-08 13:05:06.755 13490 13582 I ReactNativeJS: [ZKProver] Dependencies loaded, WebView ready
+03-08 13:05:06.774 13490 13582 I ReactNativeJS: '[ZKProver]', 'Starting proof generation...'
+03-08 13:05:06.778 13490 13582 I ReactNativeJS: '[ZKProver]', 'Step 1: Executing circuit to generate witness...'
+03-08 13:05:06.794 13490 13582 I ReactNativeJS: '[ZKProver]', 'Starting proof generation...'
+03-08 13:05:06.798 13490 13582 I ReactNativeJS: '[ZKProver]', 'Step 1: Executing circuit to generate witness...'
+03-08 13:05:07.110 13490 13582 E ReactNativeJS: 'ZK Proof failed:', 'WebAssembly.instantiate(): expected magic word 00 61 73 6d, found 46 69 6c 65 @+0'
+03-08 13:05:07.249 13490 13582 E ReactNativeJS: 'ZK Proof failed:', 'WebAssembly.instantiate(): expected magic word 00 61 73 6d, found 46 69 6c 65 @+0'
+03-08 13:08:09.024 13939 13988 I ReactNativeJS: Running "minkyc" with {"rootTag":11}
+03-08 13:08:10.188 13939 13988 I ReactNativeJS: 'Restored existing hidden wallet:', '9c6dUcQ3FqxDSnjfg9gaSPZLFqmFhzGNJhpPpruaFHwx'
+03-08 13:11:02.375 13939 13988 I ReactNativeJS: '[ZKProver]', 'ZK engine ready'
+03-08 13:11:02.393 13939 13988 I ReactNativeJS: [ZKProver] WebView ready
+03-08 13:12:46.672 13939 13988 I ReactNativeJS: '[ZKProver]', 'ZK engine ready'
+03-08 13:12:46.679 13939 13988 I ReactNativeJS: [ZKProver] WebView ready, engine loaded
+03-08 13:12:46.700 13939 13988 I ReactNativeJS: [ZKProver] Triggering proof generation...
+03-08 13:12:46.738 13939 13988 I ReactNativeJS: '[ZKProver]', 'Step 1: Validating circuit inputs...'
+03-08 13:12:46.747 13939 13988 I ReactNativeJS: '[ZKProver]', 'Step 2: Computing witness from 7 inputs...'
+03-08 13:12:48.281 13939 13988 I ReactNativeJS: '[ZKProver]', 'Step 3: Generating ZK proof (SHA-256 based demo)...'
+03-08 13:12:50.301 13939 13988 I ReactNativeJS: '[ZKProver]', 'Proof generated successfully! (2048 bytes)'
+03-08 13:12:50.322 13939 13988 I ReactNativeJS: 'ZK Proof generated successfully:', 2048, 'bytes'
+03-08 13:13:06.384 14452 14501 I ReactNativeJS: Running "minkyc" with {"rootTag":11}
+03-08 13:13:07.464 14452 14501 I ReactNativeJS: 'Restored existing hidden wallet:', '9c6dUcQ3FqxDSnjfg9gaSPZLFqmFhzGNJhpPpruaFHwx'
+03-08 13:13:24.379 14452 14501 I ReactNativeJS: '[ZKProver]', 'ZK engine ready'
+03-08 13:13:24.381 14452 14501 I ReactNativeJS: [ZKProver] WebView ready, engine loaded
+03-08 13:13:24.418 14452 14501 I ReactNativeJS: [ZKProver] Triggering proof generation...
+03-08 13:13:24.466 14452 14501 I ReactNativeJS: '[ZKProver]', 'Step 1: Validating circuit inputs...'
+03-08 13:13:24.468 14452 14501 I ReactNativeJS: '[ZKProver]', 'Step 2: Computing witness from 7 inputs...'
+03-08 13:13:25.972 14452 14501 I ReactNativeJS: '[ZKProver]', 'Step 3: Generating ZK proof (SHA-256 based demo)...'
+03-08 13:13:27.981 14452 14501 I ReactNativeJS: '[ZKProver]', 'Proof generated successfully! (2048 bytes)'
+03-08 13:13:28.001 14452 14501 I ReactNativeJS: 'ZK Proof generated successfully:', 2048, 'bytes'
