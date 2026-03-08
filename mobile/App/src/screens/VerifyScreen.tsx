@@ -4,16 +4,9 @@
  */
 
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  ActivityIndicator,
-  Alert,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator, Alert } from 'react-native';
 import { useWallet } from '../hooks/useWallet';
+import { ZKProver } from '../components/ZKProver';
 
 interface VerificationRequest {
   platform: string;
@@ -26,6 +19,7 @@ const VerifyScreen: React.FC = () => {
   const [generating, setGenerating] = useState(false);
   const [verified, setVerified] = useState(false);
   const [txSignature, setTxSignature] = useState<string | null>(null);
+  const [zkInputs, setZkInputs] = useState<any>(null);
 
   // Mock request from a platform
   const mockRequest: VerificationRequest = {
@@ -41,28 +35,47 @@ const VerifyScreen: React.FC = () => {
 
   const generateProof = async () => {
     setGenerating(true);
+    // Integration point:
+    // We pass inputs to ZKProver, which will do the generation heavily asynchronously
+    
+    // In production, these come from SecureStorage (the NFC passport read)
+    // For now we mock the exact structure expected by main.nr
+    
+    // Test User 1: 17 years old (should fail age check)
+    // Name: Emma Murphy (IRL)
+    // DOB: 2009-02-20
+    
+    // Mock user data for prototyping
+    const dobInput = '20010220'; // 25 years old
+    const nameHash = '11111';
+    const secret = '99999';
+    // Match the simple computing logic in main.nr (dob + name_hash + secret)
+    const commitment = String(Number(dobInput) + Number(nameHash) + Number(secret));
+    
+    setZkInputs({
+      dob: dobInput,
+      passport_name_hash: nameHash,
+      submitted_name_hash: nameHash,
+      secret: secret,
+      current_date: '20260220', // Mocking current block time Date
+      salt: '12345',
+      commitment: commitment
+    });
+  };
 
-    try {
-      // Integration point:
-      // 1. Load passport data from secure storage
-      // 2. Load secret from Keychain/Keystore
-      // 3. Generate commitment
-      // 4. Create mock ZK proof (or real Noir proof in future)
-      // 5. Derive proof receipt PDA
-      // 6. Submit to Solana
+  const handleProofGenerated = (proofBytes: Uint8Array, publicInputs: string[]) => {
+    console.log('ZK Proof generated successfully:', proofBytes.length, 'bytes');
+    setGenerating(false);
+    setVerified(true);
+    setTxSignature('5KT... (Proof Size: ' + proofBytes.length + ' bytes)');
+    setZkInputs(null); // Reset
+  };
 
-      // Mock delay
-      await new Promise(resolve => setTimeout(resolve, 3000));
-
-      // Mock successful verification
-      setVerified(true);
-      setTxSignature('5KT...'); // Would be real signature
-
-    } catch (error) {
-      Alert.alert('Verification Failed', 'Could not generate proof. Please try again.');
-    } finally {
-      setGenerating(false);
-    }
+  const handleProofError = (err: string) => {
+    console.error('ZK Proof failed:', err);
+    setGenerating(false);
+    Alert.alert('Verification Failed', 'Could not generate proof. Please try again.');
+    setZkInputs(null);
   };
 
   const viewOnExplorer = () => {
@@ -76,6 +89,14 @@ const VerifyScreen: React.FC = () => {
     <ScrollView style={styles.container}>
       {!verified ? (
         <>
+          {zkInputs && (
+            <ZKProver 
+              inputs={zkInputs} 
+              onProofGenerated={handleProofGenerated} 
+              onError={handleProofError} 
+            />
+          )}
+
           <View style={styles.requestCard}>
             <Text style={styles.requestTitle}>Verification Request</Text>
 

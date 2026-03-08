@@ -84,14 +84,23 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   }, [keypair]);
 
   const disconnect = useCallback(async () => {
-    // In a frictionless local wallet, "disconnecting" usually means wiping the identity
-    // For demo purposes, we will just wipe the secure storage and reload
+    // Wipe old identity and generate a fresh one automatically
     try {
       await EncryptedStorage.removeItem(LOCAL_WALLET_KEY);
       setKeypair(null);
       console.log('Hidden local wallet wiped.');
+
+      // Auto-regenerate a new wallet so the app never gets stuck
+      const newKeypair = Keypair.generate();
+      const secretKeyArray = Array.from(newKeypair.secretKey);
+      await EncryptedStorage.setItem(
+        LOCAL_WALLET_KEY,
+        JSON.stringify(secretKeyArray)
+      );
+      setKeypair(newKeypair);
+      console.log('Auto-generated new hidden wallet:', newKeypair.publicKey.toBase58());
     } catch (e) {
-      console.error('Failed to wipe wallet', e);
+      console.error('Failed to reset wallet', e);
     }
   }, []);
 

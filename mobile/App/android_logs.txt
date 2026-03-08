@@ -1,0 +1,27 @@
+--------- beginning of main
+03-08 11:43:05.221  7049  7131 I ReactNativeJS: Running "minkyc" with {"rootTag":11}
+03-08 11:43:10.678  7049  7131 E ReactNativeJS: ReferenceError: Property 'TextEncoder' doesn't exist, js engine: hermes
+03-08 11:43:10.726  7049  7131 E ReactNativeJS: 'Failed to initialize local wallet securely:', [TypeError: Cannot read property 'Keypair' of undefined]
+03-08 11:43:55.492  7049  7247 I ReactNativeJS: Running "minkyc" with {"rootTag":41}
+03-08 11:43:58.006  7049  7247 I ReactNativeJS: 'Generated NEW hidden wallet:', 'Cm9n4wYwX2qH4etjJstRca2AGjSvfrDLzKAdKS8UFqg8'
+03-08 11:47:20.075  7049  7247 I ReactNativeJS: Running "minkyc" with {"rootTag":71}
+03-08 11:47:21.070  7049  7247 I ReactNativeJS: 'Restored existing hidden wallet:', 'Cm9n4wYwX2qH4etjJstRca2AGjSvfrDLzKAdKS8UFqg8'
+03-08 11:48:08.716  7049  7247 I ReactNativeJS: Hidden local wallet wiped.
+03-08 11:52:52.334  7922  7977 I ReactNativeJS: Running "minkyc" with {"rootTag":11}
+03-08 11:52:54.100  7922  7977 I ReactNativeJS: 'Generated NEW hidden wallet:', 'F8EubgxbqwdvhrfSFUHrbXu4MZsSHtW37hBhvqUAH4Wx'
+03-08 11:55:14.534  7922  7977 I ReactNativeJS: Hidden local wallet wiped.
+03-08 11:57:02.680  7922  7977 I ReactNativeJS: 'Generated NEW hidden wallet:', 'DyxJHkUniXcznZYAwkHpD9gkpb2HfovGVjgY1xby2xd5'
+03-08 11:57:22.849  7922  8301 I ReactNativeJS: Running "minkyc" with {"rootTag":31}
+03-08 11:57:23.732  7922  8301 I ReactNativeJS: 'Restored existing hidden wallet:', 'DyxJHkUniXcznZYAwkHpD9gkpb2HfovGVjgY1xby2xd5'
+03-08 11:58:37.589  7922  8301 I ReactNativeJS: Hidden local wallet wiped.
+03-08 11:58:37.685  7922  8301 I ReactNativeJS: 'Auto-generated new hidden wallet:', '9c6dUcQ3FqxDSnjfg9gaSPZLFqmFhzGNJhpPpruaFHwx'
+03-08 12:06:12.213  7922  8301 I ReactNativeJS: '[ZKProver]', 'Loading Noir dependencies...'
+03-08 12:06:12.262  7922  8301 I ReactNativeJS: '[ZKProver]', 'Dependencies still loading, queuing proof request...'
+03-08 12:06:21.539  7922  8301 I ReactNativeJS: '[ZKProver]', 'Noir dependencies loaded successfully!'
+03-08 12:06:21.539  7922  8301 I ReactNativeJS: [ZKProver] Dependencies loaded, WebView ready
+03-08 12:06:21.551  7922  8301 I ReactNativeJS: '[ZKProver]', 'Starting proof generation...'
+03-08 12:06:21.565  7922  8301 I ReactNativeJS: '[ZKProver]', 'Generating witness and proof...'
+03-08 12:06:21.578  7922  8301 E ReactNativeJS: 'ZK Proof failed:', 'noir.generateProof is not a function'
+03-08 12:06:21.724  7922  8301 I ReactNativeJS: '[ZKProver]', 'Starting proof generation...'
+03-08 12:06:21.724  7922  8301 I ReactNativeJS: '[ZKProver]', 'Generating witness and proof...'
+03-08 12:06:21.727  7922  8301 E ReactNativeJS: 'ZK Proof failed:', 'noir.generateProof is not a function'
