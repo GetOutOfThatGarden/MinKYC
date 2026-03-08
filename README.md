@@ -66,6 +66,13 @@ The MinKYC Mobile App (found in `mobile/App`) provides the primary user experien
 2. **Identity**: Create a unique Identity PDA on Solana with a commitment hash derived from the passport data.
 3. **Verify**: Prove age requirements (e.g., "Age >= 18") without revealing the date of birth, issuing a verification receipt on-chain.
 
+### 🚀 Running on a Physical Device
+
+1. **Enable Developer Mode**: Go to Settings > About phone > Build number (tap 7 times) and enable **USB Debugging**.
+2. **Connect**: Plug into your Mac.
+3. **Forward Port**: Run `/Users/user2/Library/Android/sdk/platform-tools/adb reverse tcp:8081 tcp:8081` to link the Metro bundler.
+4. **Launch**: From `mobile/App`, run `npm run android`.
+
 > [!TIP]
 > Use the **Mock Profiles** in the Scan screen to test different scenarios (e.g., expired passports, underage users) even without a physical passport.
 

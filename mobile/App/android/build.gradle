@@ -5,7 +5,8 @@ buildscript {
         buildToolsVersion = "33.0.0"
         minSdkVersion = 21
         compileSdkVersion = 34
-        targetSdkVersion = 33
+        targetSdkVersion = 34
+        kotlinVersion = "1.8.10"
 
         // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
         ndkVersion = "23.1.7779620"
@@ -17,6 +18,7 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
 }
 
@@ -28,6 +30,20 @@ allprojects {
     configurations.all {
         resolutionStrategy {
             force("androidx.webkit:webkit:1.11.0")
+            // Fix D8 dexing crash by forcing a stable version of error_prone_annotations
+            force("com.google.errorprone:error_prone_annotations:2.26.0")
+        }
+    }
+
+    subprojects {
+        afterEvaluate { project ->
+            if (project.hasProperty('android')) {
+                // Ensure all modules have access to coroutines used by NFC library
+                project.dependencies {
+                    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+                    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+                }
+            }
         }
     }
 }

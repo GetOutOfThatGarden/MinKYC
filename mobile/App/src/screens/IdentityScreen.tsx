@@ -3,7 +3,7 @@
  * Manage user's on-chain identity
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,8 @@ import {
 } from 'react-native';
 import { useWallet } from '../hooks/useWallet';
 import { getIdentityPda } from '../utils/solana';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { getCommitment, hasPassportData } from '../utils/secureStorage';
 
 interface IdentityData {
   owner: string;
@@ -31,44 +33,63 @@ const IdentityScreen: React.FC = () => {
   const [identity, setIdentity] = useState<IdentityData | null>(null);
   const [loading, setLoading] = useState(false);
   const [hasIdentity, setHasIdentity] = useState(false);
-  // ... (lines skipped)
+  const navigation = useNavigation<any>();
 
   // Auto-fetch or populate identity when local wallet is ready
-  useEffect(() => {
-    if (connected && publicKey) {
-      setHasIdentity(true);
+  useFocusEffect(
+    React.useCallback(() => {
+      let mounted = true;
+      async function loadIdentity() {
+        if (connected && publicKey) {
+          const hasData = await hasPassportData();
+          if (!hasData) {
+            if (mounted) {
+              setHasIdentity(false);
+              setIdentity(null);
+            }
+            return;
+          }
 
-      // Calculate the deterministic PDA for this user's generated keypair
-      const { pda } = getIdentityPda(publicKey);
+          setHasIdentity(true);
+          const { pda } = getIdentityPda(publicKey);
 
-      setIdentity({
-        owner: publicKey.toBase58(),
-        commitment: Array.from({ length: 32 }, () => Math.floor(Math.random() * 256)),
-        revoked: false,
-        index: '1',
-        verificationCount: '0',
-        pda: pda.toBase58(), // Actual deterministic PDA!
-      });
-    } else {
-      setHasIdentity(false);
-      setIdentity(null);
-    }
-  }, [connected, publicKey]);
+          const storedCommitmentHex = await getCommitment();
+          let commitmentArray = Array.from({ length: 32 }, () => 0);
 
-  const createIdentity = async () => {
-    setLoading(true);
-    try {
-      // Integration point: Call initialize on program
-      // 1. Generate mock passport data or use scanned data
-      // 2. Create commitment hash
-      // 3. Submit to Solana
+          if (storedCommitmentHex) {
+            const bytes = [];
+            for (let i = 0; i < storedCommitmentHex.length; i += 2) {
+              bytes.push(parseInt(storedCommitmentHex.substr(i, 2), 16));
+            }
+            if (bytes.length === 32) {
+              commitmentArray = bytes;
+            }
+          }
 
-      Alert.alert('Coming Soon', 'Identity creation will be implemented with Solana Mobile SDK');
-    } catch (error) {
-      Alert.alert('Error', 'Failed to create identity');
-    } finally {
-      setLoading(false);
-    }
+          if (mounted) {
+            setIdentity({
+              owner: publicKey.toBase58(),
+              commitment: commitmentArray,
+              revoked: false,
+              index: '1',
+              verificationCount: '0',
+              pda: pda.toBase58(),
+            });
+          }
+        } else {
+          if (mounted) {
+            setHasIdentity(false);
+            setIdentity(null);
+          }
+        }
+      }
+      loadIdentity();
+      return () => { mounted = false; };
+    }, [connected, publicKey])
+  );
+
+  const goToScan = () => {
+    navigation.navigate('Scan');
   };
 
   const formatCommitment = (commitment: number[]): string => {
@@ -102,8 +123,8 @@ const IdentityScreen: React.FC = () => {
             will be stored as a cryptographic commitment — no personal data
             is revealed.
           </Text>
-          <TouchableOpacity style={styles.createButton} onPress={createIdentity}>
-            <Text style={styles.createButtonText}>Create Identity</Text>
+          <TouchableOpacity style={styles.createButton} onPress={goToScan}>
+            <Text style={styles.createButtonText}>Scan Passport to Create</Text>
           </TouchableOpacity>
         </View>
       ) : (

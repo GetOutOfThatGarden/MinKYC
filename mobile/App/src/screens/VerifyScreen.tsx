@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator, Alert } from 'react-native';
 import { useWallet } from '../hooks/useWallet';
 import { ZKProver } from '../components/ZKProver';
+import { getPassportData, getCommitment } from '../utils/secureStorage';
 
 interface VerificationRequest {
   platform: string;
@@ -35,22 +36,20 @@ const VerifyScreen: React.FC = () => {
 
   const generateProof = async () => {
     setGenerating(true);
-    // Integration point:
-    // We pass inputs to ZKProver, which will do the generation heavily asynchronously
     
-    // In production, these come from SecureStorage (the NFC passport read)
-    // For now we mock the exact structure expected by main.nr
+    const passportData = await getPassportData();
+    const storedCommitmentHex = await getCommitment();
     
-    // Test User 1: 17 years old (should fail age check)
-    // Name: Emma Murphy (IRL)
-    // DOB: 2009-02-20
+    if (!passportData || !storedCommitmentHex) {
+      setGenerating(false);
+      Alert.alert('No Identity', 'Please scan your passport and create an identity first.');
+      return;
+    }
     
-    // Mock user data for prototyping
-    const dobInput = '20010220'; // 25 years old
-    const nameHash = '11111';
-    const secret = '99999';
-    // Match the simple computing logic in main.nr (dob + name_hash + secret)
-    const commitment = String(Number(dobInput) + Number(nameHash) + Number(secret));
+    // For MVP prototyping matching main.nr structure:
+    const dobInput = passportData.dateOfBirth.replace(/-/g, '');
+    const nameHash = '11111'; // Mock representing hashed names
+    const secret = 'min_kyc_secret_nonce_2026';
     
     setZkInputs({
       dob: dobInput,
@@ -59,7 +58,7 @@ const VerifyScreen: React.FC = () => {
       secret: secret,
       current_date: '20260220', // Mocking current block time Date
       salt: '12345',
-      commitment: commitment
+      commitment: storedCommitmentHex
     });
   };
 

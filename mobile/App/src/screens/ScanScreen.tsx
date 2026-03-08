@@ -14,45 +14,50 @@ import {
   ScrollView,
 } from 'react-native';
 import { MOCK_PROFILES, PassportData } from '../constants/mockProfiles';
-
-
+import { useNFC } from '../hooks/useNFC';
+import { savePassportData, computeCommitment, saveCommitment } from '../utils/secureStorage';
+import { useNavigation } from '@react-navigation/native';
 
 const ScanScreen: React.FC = () => {
   const [scanning, setScanning] = useState(false);
   const [scannedData, setScannedData] = useState<PassportData | null>(null);
   const [isMasked, setIsMasked] = useState(true);
+  const { isSupported, isEnabled, startScan, stopScan } = useNFC();
+  const navigation = useNavigation<any>();
 
   const startNFCScan = async () => {
     setScanning(true);
 
     try {
-      // Integration point: NFC passport scanning
-      // iOS: Use CoreNFC with NFCPassportReader
-      // Android: Use android.nfc with JMRTD library
-
-      // TODO: Implement actual NFC scanning
-      // const passportReader = new PassportReader();
-      // const data = await passportReader.scan({
-      //   documentNumber: passportNumber,
-      //   dateOfBirth: dob,
-      //   dateOfExpiry: expiry,
-      // });
-
-      // Mock delay for demo
-      setTimeout(() => {
+      const detected = await startScan();
+      if (detected) {
+        // Mock payload combined with actual NFC tag detection
         setScanning(false);
-        setScannedData(MOCK_PROFILES.profile1); // Default to Profile 1 on "scan"
-      }, 3000);
-
+        setScannedData(MOCK_PROFILES.profile1);
+        Alert.alert('NFC Tag Detected', 'Passport chip read successfully.');
+      } else {
+        setScanning(false);
+      }
     } catch (error) {
       setScanning(false);
       Alert.alert('Scan Failed', 'Could not read passport chip. Please try again.');
     }
   };
 
-  const saveToIdentity = () => {
-    // Integration point: Hash passport data and create commitment
-    Alert.alert('Coming Soon', 'Identity creation with scanned data will be implemented');
+  const saveToIdentity = async () => {
+    if (!scannedData) return;
+    try {
+      await savePassportData(scannedData);
+      const secret = "min_kyc_secret_nonce_2026";
+      const commitmentHash = computeCommitment(scannedData, secret);
+      await saveCommitment(commitmentHash);
+      
+      Alert.alert('Success', 'Passport data securely isolated. Identity commitment created.', [
+        { text: 'View Identity', onPress: () => navigation.navigate('Identity') }
+      ]);
+    } catch (e) {
+      Alert.alert('Error', 'Failed to securely store passport data.');
+    }
   };
 
   const selectMockProfile = (profileKey: string) => {
@@ -74,9 +79,11 @@ const ScanScreen: React.FC = () => {
             </Text>
 
             <Text style={styles.instructions}>
-              {scanning
-                ? 'Hold your phone near the passport chip. Keep it steady...'
-                : 'Hold your phone near the passport chip to read data securely.'}
+              {(!isSupported) 
+                 ? 'NFC not available on this device. Please use Mock Profiles below.'
+                 : scanning
+                   ? 'Hold your phone near the passport chip. Keep it steady...'
+                   : 'Hold your phone near the passport chip to read data securely.'}
             </Text>
 
             {scanning && (

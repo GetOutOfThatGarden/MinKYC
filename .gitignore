@@ -34,5 +34,11 @@ Thumbs.db
 .secrets/
 *.credentials
 credentials.*
+
+# Mobile/Android Exclusions
 mobile/App/cmdline.zip
 mobile/App/android/app/build/
+mobile/App/android/.gradle/
+mobile/App/android/local.properties
+mobile/App/android_logs.txt
+mobile/App/node_modules/
