@@ -70,14 +70,7 @@ const VerifyScreen: React.FC = () => {
     Alert.alert('Explorer', 'Would open: https://explorer.solana.com/tx/...');
   };
 
-  if (!connected) {
-    return (
-      <View style={[styles.container, styles.centered]}>
-        <Text style={styles.warningIcon}>⚠️</Text>
-        <Text style={styles.warningText}>Connect your wallet first</Text>
-      </View>
-    );
-  }
+  // Wallet is automatically connected via local Keypair
 
   return (
     <ScrollView style={styles.container}>

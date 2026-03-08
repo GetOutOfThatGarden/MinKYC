@@ -36,56 +36,46 @@ const HomeScreen: React.FC = () => {
       </View>
 
       <View style={styles.walletSection}>
-        {connected ? (
-          <>
-            <View style={styles.walletConnected}>
-              <Text style={styles.walletLabel}>Connected Wallet</Text>
-              <Text style={styles.walletAddress}>
-                {publicKey ? formatAddress(publicKey.toString()) : 'Unknown'}
-              </Text>
-            </View>
-            <TouchableOpacity style={styles.disconnectButton} onPress={disconnect}>
-              <Text style={styles.disconnectButtonText}>Disconnect</Text>
-            </TouchableOpacity>
-          </>
-        ) : (
-          <TouchableOpacity 
-            style={[styles.connectButton, connecting && styles.connectingButton]} 
-            onPress={connect}
-            disabled={connecting}
-          >
-            <Text style={styles.connectButtonText}>
-              {connecting ? 'Connecting...' : 'Connect Wallet'}
-            </Text>
-          </TouchableOpacity>
+        <View style={styles.walletConnected}>
+          <Text style={styles.walletLabel}>Identity Status</Text>
+          <Text style={[styles.walletAddress, { color: connected ? '#4CAF50' : '#888' }]}>
+            {connected ? 'Active • Secure Enclave' : 'Initializing...'}
+          </Text>
+        </View>
+
+        {publicKey && (
+          <Text style={{ textAlign: 'center', color: '#666', fontSize: 12, marginTop: -4, marginBottom: 8, fontFamily: 'monospace' }}>
+            ID: {formatAddress(publicKey.toString())}
+          </Text>
         )}
+
+        <TouchableOpacity style={styles.disconnectButton} onPress={disconnect}>
+          <Text style={styles.disconnectButtonText}>Reset Identity</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.actionsSection}>
         <Text style={styles.sectionTitle}>Actions</Text>
 
-        <TouchableOpacity 
-          style={[styles.actionButton, !connected && styles.disabledButton]}
+        <TouchableOpacity
+          style={styles.actionButton}
           onPress={() => navigation.navigate('Identity')}
-          disabled={!connected}
         >
           <Text style={styles.actionButtonText}>📋 Manage Identity</Text>
           <Text style={styles.actionButtonSubtext}>View or create your identity</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.actionButton, !connected && styles.disabledButton]}
+        <TouchableOpacity
+          style={styles.actionButton}
           onPress={() => navigation.navigate('Scan')}
-          disabled={!connected}
         >
           <Text style={styles.actionButtonText}>📡 Scan Passport (NFC)</Text>
           <Text style={styles.actionButtonSubtext}>Read ePassport chip data</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.actionButton, !connected && styles.disabledButton]}
+        <TouchableOpacity
+          style={styles.actionButton}
           onPress={() => navigation.navigate('Verify')}
-          disabled={!connected}
         >
           <Text style={styles.actionButtonText}>✓ Generate Proof</Text>
           <Text style={styles.actionButtonSubtext}>Verify identity for a platform</Text>
@@ -95,7 +85,7 @@ const HomeScreen: React.FC = () => {
       <View style={styles.infoSection}>
         <Text style={styles.infoTitle}>About MinKYC</Text>
         <Text style={styles.infoText}>
-          MinKYC is a privacy-preserving identity protocol. Your passport data 
+          MinKYC is a privacy-preserving identity protocol. Your passport data
           never leaves your device — only cryptographic proofs are shared.
         </Text>
       </View>

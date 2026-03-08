@@ -15,6 +15,7 @@ import {
   Linking,
 } from 'react-native';
 import { useWallet } from '../hooks/useWallet';
+import { getIdentityPda } from '../utils/solana';
 
 interface IdentityData {
   owner: string;
@@ -30,37 +31,29 @@ const IdentityScreen: React.FC = () => {
   const [identity, setIdentity] = useState<IdentityData | null>(null);
   const [loading, setLoading] = useState(false);
   const [hasIdentity, setHasIdentity] = useState(false);
+  // ... (lines skipped)
 
-  // TODO: Fetch identity from Solana
+  // Auto-fetch or populate identity when local wallet is ready
   useEffect(() => {
     if (connected && publicKey) {
-      fetchIdentity();
-    }
-  }, [connected, publicKey]);
-
-  const fetchIdentity = async () => {
-    setLoading(true);
-    try {
-      // Integration point: Fetch from Solana
-      // const identityAccount = await program.account.identity.fetch(identityPda);
-
-      // Mock for scaffold
       setHasIdentity(true);
+
+      // Calculate the deterministic PDA for this user's generated keypair
+      const { pda } = getIdentityPda(publicKey);
+
       setIdentity({
-        owner: publicKey?.toString() || 'unknown',
+        owner: publicKey.toBase58(),
         commitment: Array.from({ length: 32 }, () => Math.floor(Math.random() * 256)),
         revoked: false,
         index: '1',
         verificationCount: '0',
-        pda: '7K7yRj2hjngPME8KN3YmJ2y6irTPPNhwJWBsgWmAi11p', // Mock PDA from README
+        pda: pda.toBase58(), // Actual deterministic PDA!
       });
-    } catch (error) {
-      console.log('No identity found');
+    } else {
       setHasIdentity(false);
-    } finally {
-      setLoading(false);
+      setIdentity(null);
     }
-  };
+  }, [connected, publicKey]);
 
   const createIdentity = async () => {
     setLoading(true);

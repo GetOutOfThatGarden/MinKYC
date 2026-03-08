@@ -1,18 +1,24 @@
 /**
- * Wallet Hook - Solana Mobile Integration
+ * Wallet Hook - Local Hidden Keypair Integration
  * 
- * Provides wallet connection functionality for Phantom/Solflare Mobile
+ * Provides a seamless, invisible local wallet for gasless transactions.
+ * No external wallet app required.
  */
 
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { PublicKey, Transaction } from '@solana/web3.js';
-import { transact, Web3MobileWallet } from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
+import { PublicKey, Transaction, Keypair, VersionedTransaction } from '@solana/web3.js';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
-// Polyfill buffer for React Native
+// 1. MUST import get-random-values FIRST for crypto polyfill
+import 'react-native-get-random-values';
+
+// 2. Polyfill buffer for React Native
 import { Buffer } from 'buffer';
 if (typeof global.Buffer === 'undefined') {
   global.Buffer = Buffer;
 }
+
+const LOCAL_WALLET_KEY = 'minkyc_local_wallet_secret';
 
 interface WalletContextType {
   publicKey: PublicKey | null;
@@ -20,113 +26,107 @@ interface WalletContextType {
   connecting: boolean;
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
-  signTransaction: (tx: Transaction) => Promise<Transaction>;
-  signAllTransactions: (txs: Transaction[]) => Promise<Transaction[]>;
+  signTransaction: (tx: Transaction | VersionedTransaction) => Promise<Transaction | VersionedTransaction>;
+  signAllTransactions: (txs: (Transaction | VersionedTransaction)[]) => Promise<(Transaction | VersionedTransaction)[]>;
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
 export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [publicKey, setPublicKey] = useState<PublicKey | null>(null);
-  const [connected, setConnected] = useState(false);
+  const [keypair, setKeypair] = useState<Keypair | null>(null);
   const [connecting, setConnecting] = useState(false);
 
-  const [authorizationResult, setAuthorizationResult] = useState<any>(null);
+  // Initialize the hidden local wallet
+  useEffect(() => {
+    const initLocalWallet = async () => {
+      setConnecting(true);
+      try {
+        // 1. Check if we already have a secret key saved
+        const storedSecretStr = await EncryptedStorage.getItem(LOCAL_WALLET_KEY);
 
-  const connect = useCallback(async () => {
-    setConnecting(true);
-    try {
-      await transact(async (wallet: Web3MobileWallet) => {
-        const authResult = await wallet.authorize({
-          cluster: 'devnet',
-          identity: {
-            name: 'MinKYC',
-            uri: 'https://minkyc.com',
-            icon: 'favicon.ico',
-          },
-        });
+        let localKeypair: Keypair;
 
-        setAuthorizationResult(authResult);
+        if (storedSecretStr) {
+          // Restore existing wallet
+          const secretKeyArray = JSON.parse(storedSecretStr);
+          const secretKeyUint8 = new Uint8Array(secretKeyArray);
+          localKeypair = Keypair.fromSecretKey(secretKeyUint8);
+          console.log('Restored existing hidden wallet:', localKeypair.publicKey.toBase58());
+        } else {
+          // 2. Generate brand new seamless wallet
+          localKeypair = Keypair.generate();
+          const secretKeyArray = Array.from(localKeypair.secretKey);
 
-        if (authResult.accounts && authResult.accounts.length > 0) {
-          const addressBuffer = Buffer.from(authResult.accounts[0].address, 'base64');
-          setPublicKey(new PublicKey(authResult.accounts[0].address));
-          setConnected(true);
+          await EncryptedStorage.setItem(
+            LOCAL_WALLET_KEY,
+            JSON.stringify(secretKeyArray)
+          );
+          console.log('Generated NEW hidden wallet:', localKeypair.publicKey.toBase58());
         }
-      });
-    } catch (error) {
-      console.error('Connection failed:', error);
-    } finally {
-      setConnecting(false);
+
+        setKeypair(localKeypair);
+      } catch (error) {
+        console.error('Failed to initialize local wallet securely:', error);
+      } finally {
+        setConnecting(false);
+      }
+    };
+
+    initLocalWallet();
+  }, []);
+
+  // "connect" now just simulates the UI state, as we auto-connect on mount
+  const connect = useCallback(async () => {
+    // If we have a keypair, we are already "connected" natively
+    if (!keypair) {
+      console.error('Local wallet not yet initialized');
+    }
+  }, [keypair]);
+
+  const disconnect = useCallback(async () => {
+    // In a frictionless local wallet, "disconnecting" usually means wiping the identity
+    // For demo purposes, we will just wipe the secure storage and reload
+    try {
+      await EncryptedStorage.removeItem(LOCAL_WALLET_KEY);
+      setKeypair(null);
+      console.log('Hidden local wallet wiped.');
+    } catch (e) {
+      console.error('Failed to wipe wallet', e);
     }
   }, []);
 
-  const disconnect = useCallback(async () => {
-    if (authorizationResult) {
-      try {
-        await transact(async (wallet: Web3MobileWallet) => {
-          await wallet.deauthorize({ auth_token: authorizationResult.auth_token });
-        });
-      } catch (err) {
-        console.error('Failed to deauthorize fallback', err);
-      }
+  const signTransaction = useCallback(async (tx: Transaction | VersionedTransaction): Promise<Transaction | VersionedTransaction> => {
+    if (!keypair) throw new Error('Not connected');
+
+    if ('version' in tx) {
+      // It's a VersionedTransaction
+      tx.sign([keypair]);
+      return tx;
+    } else {
+      // It's a standard Transaction
+      tx.partialSign(keypair);
+      return tx;
     }
-    setPublicKey(null);
-    setConnected(false);
-    setAuthorizationResult(null);
-  }, [authorizationResult]);
+  }, [keypair]);
 
-  const signTransaction = useCallback(async (tx: Transaction): Promise<Transaction> => {
-    if (!authorizationResult) throw new Error('Not connected');
+  const signAllTransactions = useCallback(async (txs: (Transaction | VersionedTransaction)[]): Promise<(Transaction | VersionedTransaction)[]> => {
+    if (!keypair) throw new Error('Not connected');
 
-    let signedTx: Transaction = tx;
-    await transact(async (wallet: Web3MobileWallet) => {
-      await wallet.reauthorize({
-        auth_token: authorizationResult.auth_token,
-        identity: {
-          name: 'MinKYC',
-          uri: 'https://minkyc.com',
-          icon: 'favicon.ico',
-        },
-      });
-
-      const [signed] = await wallet.signTransactions({
-        transactions: [tx],
-      });
-
-      signedTx = signed as Transaction;
+    return txs.map(tx => {
+      if ('version' in tx) {
+        tx.sign([keypair]);
+      } else {
+        tx.partialSign(keypair);
+      }
+      return tx;
     });
-
-    return signedTx;
-  }, [authorizationResult]);
-
-  const signAllTransactions = useCallback(async (txs: Transaction[]): Promise<Transaction[]> => {
-    if (!authorizationResult) throw new Error('Not connected');
-
-    let signedTxs: Transaction[] = [];
-    await transact(async (wallet: Web3MobileWallet) => {
-      await wallet.reauthorize({
-        auth_token: authorizationResult.auth_token,
-        identity: {
-          name: 'MinKYC',
-          uri: 'https://minkyc.com',
-          icon: 'favicon.ico',
-        },
-      });
-
-      const signed = await wallet.signTransactions({ transactions: txs });
-
-      signedTxs = signed as Transaction[];
-    });
-
-    return signedTxs;
-  }, [authorizationResult]);
+  }, [keypair]);
 
   return (
     <WalletContext.Provider
       value={{
-        publicKey,
-        connected,
+        publicKey: keypair ? keypair.publicKey : null,
+        connected: !!keypair,
         connecting,
         connect,
         disconnect,
