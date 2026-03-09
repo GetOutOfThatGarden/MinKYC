@@ -20,12 +20,17 @@ import HomeScreen from './src/screens/HomeScreen';
 import IdentityScreen from './src/screens/IdentityScreen';
 import ScanScreen from './src/screens/ScanScreen';
 import VerifyScreen from './src/screens/VerifyScreen';
+import VerificationHistoryScreen from './src/screens/VerificationHistoryScreen';
+import VerificationRecordScreen from './src/screens/VerificationRecordScreen';
+import { VerificationHistoryItem } from './src/types/verification';
 
 export type RootStackParamList = {
   Home: undefined;
   Identity: undefined;
   Scan: undefined;
   Verify: { request?: any };
+  History: undefined;
+  HistoryDetail: { item: VerificationHistoryItem };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -62,6 +67,16 @@ function App(): React.JSX.Element {
               name="Verify" 
               component={VerifyScreen} 
               options={{ title: 'Verify Identity' }}
+            />
+            <Stack.Screen 
+              name="History" 
+              component={VerificationHistoryScreen} 
+              options={{ title: 'Verification History' }}
+            />
+            <Stack.Screen 
+              name="HistoryDetail" 
+              component={VerificationRecordScreen} 
+              options={{ title: 'Verification Record' }}
             />
           </Stack.Navigator>
         </NavigationContainer>

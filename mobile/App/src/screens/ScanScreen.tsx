@@ -17,13 +17,48 @@ import { MOCK_PROFILES, PassportData } from '../constants/mockProfiles';
 import { useNFC } from '../hooks/useNFC';
 import { savePassportData, computeCommitment, saveCommitment } from '../utils/secureStorage';
 import { useNavigation } from '@react-navigation/native';
+import { Camera, useCameraDevice, useCodeScanner } from 'react-native-vision-camera';
+import { VerificationRequestModal } from '../components/VerificationRequestModal';
+import { VerificationExecutor } from '../components/VerificationExecutor';
+import { parseVerificationRequest } from '../utils/qrParser';
+import { sendReceipt } from '../utils/receiptSender';
+import { saveHistoryItem } from '../utils/historyStorage';
+import { VerificationRequest, VerificationReceipt } from '../types/verification';
 
 const ScanScreen: React.FC = () => {
   const [scanning, setScanning] = useState(false);
+  const [scanningQR, setScanningQR] = useState(false);
   const [scannedData, setScannedData] = useState<PassportData | null>(null);
+  const [scannedRequest, setScannedRequest] = useState<VerificationRequest | null>(null);
+  const [executingRequest, setExecutingRequest] = useState<VerificationRequest | null>(null);
   const [isMasked, setIsMasked] = useState(true);
   const { isSupported, isEnabled, startScan, stopScan } = useNFC();
   const navigation = useNavigation<any>();
+  const device = useCameraDevice('back');
+
+  const enableQRScanner = async () => {
+    const permission = await Camera.requestCameraPermission();
+    if (permission === 'granted') {
+      setScanningQR(true);
+    } else {
+      Alert.alert('Permission Denied', 'Camera access is required to scan QR codes.');
+    }
+  };
+
+  const codeScanner = useCodeScanner({
+    codeTypes: ['qr'],
+    onCodeScanned: (codes) => {
+      if (scanningQR && codes.length > 0 && codes[0].value) {
+        try {
+          const req = parseVerificationRequest(codes[0].value);
+          setScanningQR(false); 
+          setScannedRequest(req);
+        } catch (e: any) {
+          console.log('Skipping non-MinKYC QR: ', e.message);
+        }
+      }
+    }
+  });
 
   const startNFCScan = async () => {
     setScanning(true);
@@ -66,10 +101,11 @@ const ScanScreen: React.FC = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {!scannedData ? (
-        <>
-          <View style={styles.scanArea}>
+    <View style={{ flex: 1 }}>
+      <ScrollView style={styles.container}>
+        {!scannedData ? (
+          <>
+            <View style={styles.scanArea}>
             <View style={[styles.nfcIcon, scanning && styles.scanningActive]}>
               <Text style={styles.nfcIconText}>📡</Text>
             </View>
@@ -100,6 +136,16 @@ const ScanScreen: React.FC = () => {
           >
             <Text style={styles.scanButtonText}>
               {scanning ? 'Scanning...' : 'Start NFC Scan'}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.scanButton, { backgroundColor: '#3498db' }]}
+            onPress={enableQRScanner}
+            disabled={scanning}
+          >
+            <Text style={styles.scanButtonText}>
+              Scan Verification QR Request
             </Text>
           </TouchableOpacity>
 
@@ -197,7 +243,80 @@ const ScanScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
       )}
-    </ScrollView>
+      </ScrollView>
+
+      {scanningQR && device != null && (
+        <View style={StyleSheet.absoluteFill}>
+          <Camera
+            style={StyleSheet.absoluteFill}
+            device={device}
+            isActive={scanningQR}
+            codeScanner={codeScanner}
+          />
+          <TouchableOpacity 
+            style={styles.cancelQRButton} 
+            onPress={() => setScanningQR(false)}
+          >
+            <Text style={styles.cancelQRText}>Cancel</Text>
+          </TouchableOpacity>
+          <View style={styles.qrOverlay}>
+            <View style={styles.qrTargetBox} />
+            <Text style={styles.qrInstructionText}>Align QR code within the frame</Text>
+          </View>
+        </View>
+      )}
+
+      {scanningQR && device == null && (
+        <View style={StyleSheet.absoluteFill}>
+          <Text style={{ marginTop: 100, textAlign: 'center' }}>No camera device found</Text>
+          <TouchableOpacity 
+            style={styles.cancelQRButton} 
+            onPress={() => setScanningQR(false)}
+          >
+            <Text style={styles.cancelQRText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+      {executingRequest && (
+        <View style={[StyleSheet.absoluteFill, { backgroundColor: '#fff', zIndex: 100, justifyContent: 'center' }]}>
+          <VerificationExecutor
+            request={executingRequest}
+            onReceipt={async (receipt: VerificationReceipt) => {
+              setExecutingRequest(null);
+              // Save to local history
+              if (executingRequest) {
+                await saveHistoryItem({ receipt, condition: executingRequest.condition });
+              }
+              const success = await sendReceipt(receipt);
+              if (success) {
+                Alert.alert('Verification Successful', 'ZK Proof generated and receipt delivered to platform!');
+              } else {
+                Alert.alert('Verification Successful', 'ZK Proof generated, but failed to deliver receipt to mock platform.');
+              }
+            }}
+            onError={(error: string) => {
+              setExecutingRequest(null);
+              Alert.alert('Verification Failed', error);
+            }}
+          />
+        </View>
+      )}
+
+      <VerificationRequestModal
+        visible={scannedRequest !== null}
+        request={scannedRequest}
+        onApprove={() => {
+          if (scannedRequest) {
+            setExecutingRequest(scannedRequest);
+          }
+          setScannedRequest(null);
+        }}
+        onReject={() => {
+          setScannedRequest(null);
+        }}
+      />
+    </View>
   );
 };
 
@@ -404,6 +523,45 @@ const styles = StyleSheet.create({
   scanAgainText: {
     color: '#9945FF',
     fontSize: 14,
+  },
+  cancelQRButton: {
+    position: 'absolute',
+    top: 60,
+    right: 20,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    padding: 12,
+    borderRadius: 8,
+    zIndex: 10,
+  },
+  cancelQRText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  qrOverlay: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  qrTargetBox: {
+    width: 250,
+    height: 250,
+    borderWidth: 2,
+    borderColor: '#14F195',
+    backgroundColor: 'transparent',
+  },
+  qrInstructionText: {
+    color: '#fff',
+    fontSize: 16,
+    marginTop: 20,
+    textAlign: 'center',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    padding: 8,
+    borderRadius: 8,
   },
 });
 

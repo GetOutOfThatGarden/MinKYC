@@ -80,6 +80,14 @@ const HomeScreen: React.FC = () => {
           <Text style={styles.actionButtonText}>✓ Generate Proof</Text>
           <Text style={styles.actionButtonSubtext}>Verify identity for a platform</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={() => navigation.navigate('History')}
+        >
+          <Text style={styles.actionButtonText}>📜 Verification History</Text>
+          <Text style={styles.actionButtonSubtext}>View past verifications & receipts</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.infoSection}>
