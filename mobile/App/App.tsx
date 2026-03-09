@@ -17,20 +17,25 @@ import { WalletProvider } from './src/hooks/useWallet';
 
 // Screens
 import HomeScreen from './src/screens/HomeScreen';
+import OnboardingScreen from './src/screens/OnboardingScreen';
 import IdentityScreen from './src/screens/IdentityScreen';
 import ScanScreen from './src/screens/ScanScreen';
 import VerifyScreen from './src/screens/VerifyScreen';
 import VerificationHistoryScreen from './src/screens/VerificationHistoryScreen';
 import VerificationRecordScreen from './src/screens/VerificationRecordScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
 import { VerificationHistoryItem } from './src/types/verification';
 
 export type RootStackParamList = {
   Home: undefined;
+  Onboarding: undefined;
   Identity: undefined;
   Scan: undefined;
+  ScanQR: undefined;
   Verify: { request?: any };
   History: undefined;
   HistoryDetail: { item: VerificationHistoryItem };
+  Settings: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -54,6 +59,11 @@ function App(): React.JSX.Element {
               options={{ title: 'MinKYC' }}
             />
             <Stack.Screen 
+              name="Onboarding" 
+              component={OnboardingScreen} 
+              options={{ title: 'Get Started', headerShown: false }}
+            />
+            <Stack.Screen 
               name="Identity" 
               component={IdentityScreen} 
               options={{ title: 'My Identity' }}
@@ -64,6 +74,11 @@ function App(): React.JSX.Element {
               options={{ title: 'Scan Passport' }}
             />
             <Stack.Screen 
+              name="ScanQR" 
+              component={ScanScreen} 
+              options={{ title: 'Scan KYC Request' }}
+            />
+            <Stack.Screen 
               name="Verify" 
               component={VerifyScreen} 
               options={{ title: 'Verify Identity' }}
@@ -72,6 +87,11 @@ function App(): React.JSX.Element {
               name="History" 
               component={VerificationHistoryScreen} 
               options={{ title: 'Verification History' }}
+            />
+            <Stack.Screen 
+              name="Settings" 
+              component={SettingsScreen} 
+              options={{ title: 'Settings' }}
             />
             <Stack.Screen 
               name="HistoryDetail" 

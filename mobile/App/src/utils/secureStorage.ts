@@ -9,6 +9,7 @@ import { PassportData } from '../constants/mockProfiles';
 
 const PASSPORT_KEY = 'minkyc_passport_data';
 const COMMITMENT_KEY = 'minkyc_commitment';
+const LOCAL_WALLET_KEY = 'minkyc_local_wallet_secret';
 
 /**
  * Save passport data securely (encrypted at rest)
@@ -39,11 +40,13 @@ export async function hasPassportData(): Promise<boolean> {
 }
 
 /**
- * Clear stored passport data
+ * Clear all stored data (passport, commitment, and wallet key)
+ * Used when the user resets their identity from Settings.
  */
-export async function clearPassportData(): Promise<void> {
+export async function clearAllData(): Promise<void> {
   try { await EncryptedStorage.removeItem(PASSPORT_KEY); } catch {}
   try { await EncryptedStorage.removeItem(COMMITMENT_KEY); } catch {}
+  try { await EncryptedStorage.removeItem(LOCAL_WALLET_KEY); } catch {}
 }
 
 /**

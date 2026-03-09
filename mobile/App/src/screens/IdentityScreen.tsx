@@ -1,6 +1,6 @@
 /**
  * Identity Screen
- * Manage user's on-chain identity
+ * Displays the user's passport data (with blur toggle) and on-chain commitment.
  */
 
 import React, { useState } from 'react';
@@ -11,96 +11,78 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
-  Alert,
   Linking,
 } from 'react-native';
 import { useWallet } from '../hooks/useWallet';
 import { getIdentityPda } from '../utils/solana';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { getCommitment, hasPassportData } from '../utils/secureStorage';
+import { getCommitment, hasPassportData, getPassportData } from '../utils/secureStorage';
+import { PassportData } from '../constants/mockProfiles';
 
-interface IdentityData {
-  owner: string;
-  commitment: number[];
-  revoked: boolean;
-  index: string;
-  verificationCount: string;
-  pda: string;
-}
+const FIELD_LABELS: { key: keyof PassportData; label: string }[] = [
+  { key: 'surname', label: 'Surname' },
+  { key: 'givenNames', label: 'Given Names' },
+  { key: 'nationality', label: 'Nationality' },
+  { key: 'dateOfBirth', label: 'Date of Birth' },
+  { key: 'sex', label: 'Sex' },
+  { key: 'passportNumber', label: 'Passport Number' },
+  { key: 'expiryDate', label: 'Expiry Date' },
+  { key: 'issuingCountry', label: 'Issuing Country' },
+  { key: 'documentType', label: 'Document Type' },
+];
 
 const IdentityScreen: React.FC = () => {
   const { publicKey, connected } = useWallet();
-  const [identity, setIdentity] = useState<IdentityData | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [hasIdentity, setHasIdentity] = useState(false);
+  const [passportData, setPassportData] = useState<PassportData | null>(null);
+  const [commitmentHex, setCommitmentHex] = useState<string | null>(null);
+  const [pda, setPda] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isMasked, setIsMasked] = useState(true);
   const navigation = useNavigation<any>();
 
-  // Auto-fetch or populate identity when local wallet is ready
   useFocusEffect(
     React.useCallback(() => {
       let mounted = true;
-      async function loadIdentity() {
-        if (connected && publicKey) {
-          const hasData = await hasPassportData();
-          if (!hasData) {
-            if (mounted) {
-              setHasIdentity(false);
-              setIdentity(null);
-            }
-            return;
-          }
-
-          setHasIdentity(true);
-          const { pda } = getIdentityPda(publicKey);
-
-          const storedCommitmentHex = await getCommitment();
-          let commitmentArray = Array.from({ length: 32 }, () => 0);
-
-          if (storedCommitmentHex) {
-            const bytes = [];
-            for (let i = 0; i < storedCommitmentHex.length; i += 2) {
-              bytes.push(parseInt(storedCommitmentHex.substr(i, 2), 16));
-            }
-            if (bytes.length === 32) {
-              commitmentArray = bytes;
-            }
-          }
-
+      async function load() {
+        const exists = await hasPassportData();
+        if (!exists) {
           if (mounted) {
-            setIdentity({
-              owner: publicKey.toBase58(),
-              commitment: commitmentArray,
-              revoked: false,
-              index: '1',
-              verificationCount: '0',
-              pda: pda.toBase58(),
-            });
+            setPassportData(null);
+            setLoading(false);
           }
-        } else {
-          if (mounted) {
-            setHasIdentity(false);
-            setIdentity(null);
+          return;
+        }
+        const data = await getPassportData();
+        const commitment = await getCommitment();
+        if (mounted) {
+          setPassportData(data);
+          setCommitmentHex(commitment);
+          if (connected && publicKey) {
+            const { pda: identityPda } = getIdentityPda(publicKey);
+            setPda(identityPda.toBase58());
           }
+          setLoading(false);
         }
       }
-      loadIdentity();
+      load();
       return () => { mounted = false; };
     }, [connected, publicKey])
   );
 
-  const goToScan = () => {
-    navigation.navigate('Scan');
-  };
-
-  const formatCommitment = (commitment: number[]): string => {
-    const hex = Buffer.from(commitment).toString('hex');
+  const formatCommitment = (hex: string): string => {
     return `${hex.slice(0, 8)}...${hex.slice(-8)}`;
   };
 
   const openExplorer = () => {
-    if (identity?.pda) {
-      Linking.openURL(`https://explorer.solana.com/address/${identity.pda}?cluster=devnet`);
+    if (pda) {
+      Linking.openURL(`https://explorer.solana.com/address/${pda}?cluster=devnet`);
     }
+  };
+
+  const maskValue = (value: string): string => {
+    if (!isMasked) return value;
+    if (value.length <= 2) return '••';
+    return '••••••';
   };
 
   if (loading) {
@@ -112,9 +94,9 @@ const IdentityScreen: React.FC = () => {
     );
   }
 
-  return (
-    <ScrollView style={styles.container}>
-      {!hasIdentity ? (
+  if (!passportData) {
+    return (
+      <ScrollView style={styles.container}>
         <View style={styles.emptyState}>
           <Text style={styles.emptyIcon}>📋</Text>
           <Text style={styles.emptyTitle}>No Identity Found</Text>
@@ -123,52 +105,65 @@ const IdentityScreen: React.FC = () => {
             will be stored as a cryptographic commitment — no personal data
             is revealed.
           </Text>
-          <TouchableOpacity style={styles.createButton} onPress={goToScan}>
-            <Text style={styles.createButtonText}>Scan Passport to Create</Text>
+          <TouchableOpacity style={styles.createButton} onPress={() => navigation.navigate('Onboarding')}>
+            <Text style={styles.createButtonText}>Get Started</Text>
           </TouchableOpacity>
         </View>
-      ) : (
-        <View style={styles.identityCard}>
-          <Text style={styles.cardTitle}>Identity Details</Text>
+      </ScrollView>
+    );
+  }
 
-          {identity && (
-            <>
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Index</Text>
-                <Text style={styles.detailValue}>{identity.index}</Text>
-              </View>
+  return (
+    <ScrollView style={styles.container}>
+      {/* Blur Toggle */}
+      <TouchableOpacity
+        style={styles.toggleButton}
+        onPress={() => setIsMasked(!isMasked)}
+      >
+        <Text style={styles.toggleText}>
+          {isMasked ? '👁 Show Sensitive Data' : '🙈 Hide Sensitive Data'}
+        </Text>
+      </TouchableOpacity>
 
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Status</Text>
-                <View style={styles.statusBadge}>
-                  <Text style={styles.statusText}>
-                    {identity.revoked ? 'Revoked' : 'Active'}
-                  </Text>
-                </View>
-              </View>
+      {/* Passport Data Card */}
+      <View style={styles.dataCard}>
+        <Text style={styles.cardTitle}>Passport Data</Text>
 
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Verifications</Text>
-                <Text style={styles.detailValue}>{identity.verificationCount}</Text>
-              </View>
+        {FIELD_LABELS.map(({ key, label }) => (
+          <View key={key} style={styles.fieldRow}>
+            <Text style={styles.fieldLabel}>{label}</Text>
+            <Text style={styles.fieldValue}>{maskValue(passportData[key])}</Text>
+          </View>
+        ))}
+      </View>
 
-              <View style={styles.commitmentSection}>
-                <Text style={styles.detailLabel}>Commitment</Text>
-                <Text style={styles.commitmentValue}>
-                  {formatCommitment(identity.commitment)}
-                </Text>
-                <Text style={styles.commitmentHint}>
-                  Cryptographic hash of your identity data
-                </Text>
-              </View>
+      {/* Commitment Card */}
+      <View style={styles.commitmentCard}>
+        <Text style={styles.cardTitle}>On-Chain Identity</Text>
 
-              <TouchableOpacity style={styles.explorerButton} onPress={openExplorer}>
-                <Text style={styles.explorerButtonText}>🔗 View on Solana Explorer</Text>
-              </TouchableOpacity>
-            </>
-          )}
+        {commitmentHex && (
+          <View style={styles.commitmentSection}>
+            <Text style={styles.fieldLabel}>Commitment Hash</Text>
+            <Text style={styles.commitmentValue}>
+              {formatCommitment(commitmentHex)}
+            </Text>
+            <Text style={styles.commitmentHint}>
+              Cryptographic hash of your identity data — this is the only thing stored on-chain.
+            </Text>
+          </View>
+        )}
+
+        <View style={styles.fieldRow}>
+          <Text style={styles.fieldLabel}>Status</Text>
+          <View style={styles.statusBadge}>
+            <Text style={styles.statusText}>Active</Text>
+          </View>
         </View>
-      )}
+
+        <TouchableOpacity style={styles.explorerButton} onPress={openExplorer}>
+          <Text style={styles.explorerButtonText}>🔗 View on Solana Explorer</Text>
+        </TouchableOpacity>
+      </View>
 
       <View style={styles.infoBox}>
         <Text style={styles.infoTitle}>🔒 How It Works</Text>
@@ -229,7 +224,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-  identityCard: {
+  toggleButton: {
+    backgroundColor: '#e8f4f8',
+    margin: 16,
+    marginBottom: 0,
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#b3e5fc',
+  },
+  toggleText: {
+    color: '#0288d1',
+    fontWeight: '600',
+    fontSize: 14,
+  },
+  dataCard: {
     backgroundColor: '#fff',
     margin: 16,
     padding: 20,
@@ -246,37 +256,38 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     color: '#333',
   },
-  detailRow: {
+  fieldRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
   },
-  detailLabel: {
-    fontSize: 14,
-    color: '#666',
+  fieldLabel: {
+    fontSize: 13,
+    color: '#888',
   },
-  detailValue: {
-    fontSize: 14,
+  fieldValue: {
+    fontSize: 13,
     fontWeight: '500',
     color: '#333',
     fontFamily: 'monospace',
   },
-  statusBadge: {
-    backgroundColor: '#4CAF50',
-    paddingHorizontal: 12,
-    paddingVertical: 4,
+  commitmentCard: {
+    backgroundColor: '#fff',
+    margin: 16,
+    marginTop: 0,
+    padding: 20,
     borderRadius: 12,
-  },
-  statusText: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: '600',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   commitmentSection: {
-    marginTop: 12,
+    marginBottom: 12,
   },
   commitmentValue: {
     fontSize: 14,
@@ -288,6 +299,17 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999',
     marginTop: 4,
+  },
+  statusBadge: {
+    backgroundColor: '#4CAF50',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  statusText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '600',
   },
   explorerButton: {
     marginTop: 20,
@@ -309,6 +331,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     padding: 16,
     borderRadius: 12,
+    marginBottom: 32,
   },
   infoTitle: {
     fontSize: 16,

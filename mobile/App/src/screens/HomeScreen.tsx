@@ -1,30 +1,65 @@
 /**
  * Home Screen
- * Main entry point for the MinKYC mobile app
+ * Main entry point for the MinKYC mobile app.
+ * Redirects to Onboarding if no identity data exists.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../App';
 import { useWallet } from '../hooks/useWallet';
+import { hasPassportData, getPassportData } from '../utils/secureStorage';
+import { PassportData } from '../constants/mockProfiles';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const { connected, publicKey, connect, disconnect, connecting } = useWallet();
+  const { connected, publicKey } = useWallet();
+  const [loading, setLoading] = useState(true);
+  const [userName, setUserName] = useState<string | null>(null);
+
+  // On every focus: check if identity exists, redirect to onboarding if not
+  useFocusEffect(
+    React.useCallback(() => {
+      let mounted = true;
+      async function check() {
+        const exists = await hasPassportData();
+        if (!exists) {
+          navigation.reset({ index: 0, routes: [{ name: 'Onboarding' }] });
+          return;
+        }
+        const data = await getPassportData();
+        if (mounted && data) {
+          setUserName(`${data.givenNames} ${data.surname}`);
+        }
+        if (mounted) setLoading(false);
+      }
+      check();
+      return () => { mounted = false; };
+    }, [navigation])
+  );
 
   const formatAddress = (address: string): string => {
     return `${address.slice(0, 4)}...${address.slice(-4)}`;
   };
+
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.centered]}>
+        <ActivityIndicator size="large" color="#9945FF" />
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -35,23 +70,20 @@ const HomeScreen: React.FC = () => {
         </Text>
       </View>
 
-      <View style={styles.walletSection}>
-        <View style={styles.walletConnected}>
-          <Text style={styles.walletLabel}>Identity Status</Text>
-          <Text style={[styles.walletAddress, { color: connected ? '#4CAF50' : '#888' }]}>
-            {connected ? 'Active • Secure Enclave' : 'Initializing...'}
-          </Text>
-        </View>
+      <View style={styles.identitySection}>
+        <Text style={styles.identityLabel}>Identity Status</Text>
 
-        {publicKey && (
-          <Text style={{ textAlign: 'center', color: '#666', fontSize: 12, marginTop: -4, marginBottom: 8, fontFamily: 'monospace' }}>
-            ID: {formatAddress(publicKey.toString())}
+        {userName && (
+          <Text style={styles.identityName}>
+            ✅ {userName}
           </Text>
         )}
 
-        <TouchableOpacity style={styles.disconnectButton} onPress={disconnect}>
-          <Text style={styles.disconnectButtonText}>Reset Identity</Text>
-        </TouchableOpacity>
+        {publicKey && (
+          <Text style={styles.accountId}>
+            Account ID: {formatAddress(publicKey.toString())}
+          </Text>
+        )}
       </View>
 
       <View style={styles.actionsSection}>
@@ -61,24 +93,16 @@ const HomeScreen: React.FC = () => {
           style={styles.actionButton}
           onPress={() => navigation.navigate('Identity')}
         >
-          <Text style={styles.actionButtonText}>📋 Manage Identity</Text>
-          <Text style={styles.actionButtonSubtext}>View or create your identity</Text>
+          <Text style={styles.actionButtonText}>📋 My Identity</Text>
+          <Text style={styles.actionButtonSubtext}>View your passport data & commitment</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.actionButton}
           onPress={() => navigation.navigate('Scan')}
         >
-          <Text style={styles.actionButtonText}>📡 Scan Passport (NFC)</Text>
-          <Text style={styles.actionButtonSubtext}>Read ePassport chip data</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.actionButton}
-          onPress={() => navigation.navigate('Verify')}
-        >
-          <Text style={styles.actionButtonText}>✓ Generate Proof</Text>
-          <Text style={styles.actionButtonSubtext}>Verify identity for a platform</Text>
+          <Text style={styles.actionButtonText}>📷 Scan Platform KYC Request</Text>
+          <Text style={styles.actionButtonSubtext}>Scan a QR code to verify your identity</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -87,6 +111,14 @@ const HomeScreen: React.FC = () => {
         >
           <Text style={styles.actionButtonText}>📜 Verification History</Text>
           <Text style={styles.actionButtonSubtext}>View past verifications & receipts</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={() => navigation.navigate('Settings' as any)}
+        >
+          <Text style={styles.actionButtonText}>⚙️ Settings</Text>
+          <Text style={styles.actionButtonSubtext}>Reset identity, app preferences</Text>
         </TouchableOpacity>
       </View>
 
@@ -106,6 +138,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
+  centered: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   header: {
     backgroundColor: '#9945FF',
     padding: 24,
@@ -121,7 +157,7 @@ const styles = StyleSheet.create({
     color: '#e0e0e0',
     marginTop: 8,
   },
-  walletSection: {
+  identitySection: {
     padding: 16,
     backgroundColor: '#fff',
     margin: 16,
@@ -131,48 +167,25 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-  },
-  walletConnected: {
     alignItems: 'center',
-    marginBottom: 12,
   },
-  walletLabel: {
+  identityLabel: {
     fontSize: 12,
     color: '#666',
     textTransform: 'uppercase',
     letterSpacing: 1,
+    marginBottom: 8,
   },
-  walletAddress: {
-    fontSize: 18,
+  identityName: {
+    fontSize: 20,
     fontWeight: '600',
-    color: '#9945FF',
-    marginTop: 4,
+    color: '#333',
+    marginBottom: 6,
+  },
+  accountId: {
+    fontSize: 12,
+    color: '#888',
     fontFamily: 'monospace',
-  },
-  connectButton: {
-    backgroundColor: '#9945FF',
-    padding: 16,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  connectingButton: {
-    opacity: 0.7,
-  },
-  connectButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  disconnectButton: {
-    borderWidth: 1,
-    borderColor: '#ff4444',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  disconnectButtonText: {
-    color: '#ff4444',
-    fontSize: 14,
   },
   actionsSection: {
     padding: 16,
@@ -193,9 +206,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 2,
-  },
-  disabledButton: {
-    opacity: 0.5,
   },
   actionButtonText: {
     fontSize: 16,
