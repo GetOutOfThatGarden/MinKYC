@@ -101,7 +101,7 @@ const HomeScreen: React.FC = () => {
           style={styles.actionButton}
           onPress={() => navigation.navigate('Scan')}
         >
-          <Text style={styles.actionButtonText}>📷 Scan Platform KYC Request</Text>
+          <Text style={styles.actionButtonText}>📷 Scan QR</Text>
           <Text style={styles.actionButtonSubtext}>Scan a QR code to verify your identity</Text>
         </TouchableOpacity>
 

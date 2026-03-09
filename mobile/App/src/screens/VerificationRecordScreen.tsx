@@ -22,6 +22,18 @@ const VerificationRecordScreen: React.FC = () => {
 
         <Text style={styles.label}>Condition Met</Text>
         <Text style={styles.value}>{item.condition}</Text>
+
+        <Text style={styles.label}>Satisfied</Text>
+        <Text style={[styles.value, { color: item.satisfied ? '#14F195' : '#ff4d4f' }]}>
+          {item.satisfied ? 'YES' : 'NO'}
+        </Text>
+
+        {item.approvingUserName && (
+          <>
+            <Text style={styles.label}>Approved by</Text>
+            <Text style={styles.value}>{item.approvingUserName}</Text>
+          </>
+        )}
         
         <View style={styles.divider} />
         

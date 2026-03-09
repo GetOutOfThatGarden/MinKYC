@@ -8,13 +8,16 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
+import { Platform } from 'react-native';
 import NfcManager, { NfcTech } from 'react-native-nfc-manager';
+import NfcPassportReader, { NfcResult } from 'react-native-nfc-passport-reader';
 
 interface UseNFCResult {
   isSupported: boolean;
   isEnabled: boolean;
   isScanning: boolean;
   startScan: () => Promise<boolean>;
+  readPassport: (passportNumber: string, dateOfBirth: string, expiryDate: string) => Promise<NfcResult | null>;
   stopScan: () => Promise<void>;
   error: string | null;
 }
@@ -79,7 +82,7 @@ export function useNFC(): UseNFCResult {
       return true;
     } catch (err: any) {
       if (err.message !== 'cancelled') {
-        console.error('[useNFC] Scan error:', err);
+        console.error('[useNFC] Scan error:', JSON.stringify(err, Object.getOwnPropertyNames(err)));
         setError(err.message || 'NFC scan failed');
       }
       return false;
@@ -92,10 +95,59 @@ export function useNFC(): UseNFCResult {
   }, [isSupported, isEnabled]);
 
   /**
+   * Perform actual passport reading using BAC authentication.
+   * Requires passport details as input.
+   */
+  const readPassport = useCallback(async (
+    passportNumber: string,
+    dateOfBirth: string,
+    expiryDate: string
+  ): Promise<NfcResult | null> => {
+    setIsScanning(true);
+    setError(null);
+
+    try {
+      // CRITICAL: Stop NfcManager before using specialized reader to avoid conflicts
+      try {
+        await NfcManager.unregisterTagEvent();
+        await NfcManager.cancelTechnologyRequest();
+      } catch (e) {
+        console.log('[useNFC] Info: NfcManager already stopped or not running');
+      }
+
+      console.log('[useNFC] Starting passport read with BAC key...');
+      
+      const scanResult = await NfcPassportReader.startReading({
+        bacKey: {
+          documentNo: passportNumber,
+          birthDate: dateOfBirth,
+          expiryDate: expiryDate,
+        },
+        includeImages: true,
+      });
+
+      console.log('[useNFC] Passport read successfully:', scanResult.firstName, scanResult.lastName);
+      return scanResult;
+    } catch (err: any) {
+      console.error('[useNFC] Passport read exception:', err);
+      if (err instanceof Error) {
+        console.error('[useNFC] Stack:', err.stack);
+      }
+      setError(err.message || 'Passport reading failed');
+      return null;
+    } finally {
+      setIsScanning(false);
+    }
+  }, []);
+
+  /**
    * Cancel any active NFC scan
    */
   const stopScan = useCallback(async () => {
     try {
+      if (Platform.OS === 'android') {
+        NfcPassportReader.stopReading();
+      }
       await NfcManager.cancelTechnologyRequest();
     } catch {}
     setIsScanning(false);
@@ -106,6 +158,7 @@ export function useNFC(): UseNFCResult {
     isEnabled,
     isScanning,
     startScan,
+    readPassport,
     stopScan,
     error,
   };

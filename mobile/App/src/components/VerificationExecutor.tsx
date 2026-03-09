@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { ZKProver } from './ZKProver';
-import { VerificationRequest, VerificationReceipt } from '../types/verification';
 import { getPassportData, getCommitment } from '../utils/secureStorage';
 import { generateReceipt } from '../utils/receiptGenerator';
+import { checkCondition } from '../utils/age';
+import { VerificationRequest, VerificationReceipt } from '../types/verification';
 
 interface Props {
   request: VerificationRequest;
-  onReceipt: (receipt: VerificationReceipt) => void;
+  onReceipt: (receipt: VerificationReceipt, satisfied: boolean, approvingUserName?: string) => void;
   onError: (error: string) => void;
 }
 
@@ -53,10 +54,18 @@ export const VerificationExecutor: React.FC<Props> = ({ request, onReceipt, onEr
     };
   }, [request, onError]);
 
-  const handleProof = (proof: Uint8Array, publicInputs: string[]) => {
-    // Generate receipt using our utility
-    const receipt = generateReceipt(request, proof, publicInputs);
-    onReceipt(receipt);
+  const handleProof = async (proof: Uint8Array, publicInputs: string[]) => {
+    try {
+      const passport = await getPassportData();
+      const satisfied = passport ? checkCondition(passport.dateOfBirth, request.condition) : false;
+      
+      // Generate receipt using our utility
+      const receipt = generateReceipt(request, proof, publicInputs);
+      const name = passport ? `${passport.givenNames} ${passport.surname}` : 'Unknown User';
+      onReceipt(receipt, satisfied, name);
+    } catch (err: any) {
+      onError(err.message);
+    }
   };
 
   if (errorLocal) {

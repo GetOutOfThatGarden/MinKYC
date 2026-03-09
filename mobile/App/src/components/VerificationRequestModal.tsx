@@ -30,7 +30,7 @@ export const VerificationRequestModal: React.FC<VerificationRequestModalProps> =
             </View>
             <View style={styles.detailRow}>
               <Text style={styles.label}>Request:</Text>
-              <Text style={styles.value}>Confirm that {request.userId} is {request.condition}</Text>
+              <Text style={styles.value}>Confirm that user is {request.condition}</Text>
             </View>
           </View>
 

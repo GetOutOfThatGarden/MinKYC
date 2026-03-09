@@ -14,7 +14,6 @@ import {
   ScrollView,
 } from 'react-native';
 import { MOCK_PROFILES, PassportData } from '../constants/mockProfiles';
-import { useNFC } from '../hooks/useNFC';
 import { savePassportData, computeCommitment, saveCommitment } from '../utils/secureStorage';
 import { useNavigation } from '@react-navigation/native';
 import { Camera, useCameraDevice, useCodeScanner } from 'react-native-vision-camera';
@@ -32,7 +31,6 @@ const ScanScreen: React.FC = () => {
   const [scannedRequest, setScannedRequest] = useState<VerificationRequest | null>(null);
   const [executingRequest, setExecutingRequest] = useState<VerificationRequest | null>(null);
   const [isMasked, setIsMasked] = useState(true);
-  const { isSupported, isEnabled, startScan, stopScan } = useNFC();
   const navigation = useNavigation<any>();
   const device = useCameraDevice('back');
 
@@ -59,25 +57,6 @@ const ScanScreen: React.FC = () => {
       }
     }
   });
-
-  const startNFCScan = async () => {
-    setScanning(true);
-
-    try {
-      const detected = await startScan();
-      if (detected) {
-        // Mock payload combined with actual NFC tag detection
-        setScanning(false);
-        setScannedData(MOCK_PROFILES.profile1);
-        Alert.alert('NFC Tag Detected', 'Passport chip read successfully.');
-      } else {
-        setScanning(false);
-      }
-    } catch (error) {
-      setScanning(false);
-      Alert.alert('Scan Failed', 'Could not read passport chip. Please try again.');
-    }
-  };
 
   const saveToIdentity = async () => {
     if (!scannedData) return;
@@ -122,98 +101,20 @@ const ScanScreen: React.FC = () => {
       <ScrollView style={styles.container}>
         {!scannedData ? (
           <>
-            <View style={styles.scanArea}>
-            <View style={[styles.nfcIcon, scanning && styles.scanningActive]}>
-              <Text style={styles.nfcIconText}>📡</Text>
-            </View>
-
-            <Text style={styles.title}>
-              {scanning ? 'Scanning...' : 'Scan ePassport'}
-            </Text>
-
-            <Text style={styles.instructions}>
-              {(!isSupported) 
-                 ? 'NFC not available on this device. Please use Mock Profiles below.'
-                 : scanning
-                   ? 'Hold your phone near the passport chip. Keep it steady...'
-                   : 'Hold your phone near the passport chip to read data securely.'}
-            </Text>
-
-            {scanning && (
-              <View style={styles.progressBar}>
-                <View style={styles.progressFill} />
-              </View>
-            )}
-          </View>
-
           <TouchableOpacity
-            style={[styles.scanButton, scanning && styles.scanningButton]}
-            onPress={startNFCScan}
-            disabled={scanning}
-          >
-            <Text style={styles.scanButtonText}>
-              {scanning ? 'Scanning...' : 'Start NFC Scan'}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.scanButton, { backgroundColor: '#3498db' }]}
+            style={[styles.scanButton, { backgroundColor: '#3498db', marginTop: 100 }]}
             onPress={enableQRScanner}
-            disabled={scanning}
           >
             <Text style={styles.scanButtonText}>
-              Scan Verification QR Request
+              Scan QR
             </Text>
           </TouchableOpacity>
-
-          <View style={styles.infoSection}>
-            <Text style={styles.infoTitle}>📖 How to Scan</Text>
-            <View style={styles.step}>
-              <Text style={styles.stepNumber}>1</Text>
-              <Text style={styles.stepText}>Open your passport to the photo page</Text>
-            </View>
-            <View style={styles.step}>
-              <Text style={styles.stepNumber}>2</Text>
-              <Text style={styles.stepText}>Locate the chip symbol (usually on the cover)</Text>
-            </View>
-            <View style={styles.step}>
-              <Text style={styles.stepNumber}>3</Text>
-              <Text style={styles.stepText}>Hold phone near the chip area</Text>
-            </View>
-          </View>
-
-          <View style={styles.mockProfilesSection}>
-            <Text style={styles.infoTitle}>🧪 Testing: Select Mock Profile</Text>
-            {Object.keys(MOCK_PROFILES).map((key, index) => {
-              const profile = MOCK_PROFILES[key];
-              return (
-                <TouchableOpacity
-                  key={key}
-                  style={styles.mockProfileButton}
-                  onPress={() => selectMockProfile(key)}
-                >
-                  <Text style={styles.mockProfileText}>
-                    Profile {index + 1}: {profile.nationality} {profile.sex === 'M' ? 'Male' : 'Female'}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-            
-            <TouchableOpacity
-              style={[styles.mockProfileButton, { marginTop: 12, backgroundColor: '#eee', borderRadius: 8, padding: 12 }]}
-              onPress={injectTestQR}
-            >
-              <Text style={[styles.mockProfileText, { color: '#666', textAlign: 'center' }]}>
-                🧪 Developer: Inject Test QR Request
-              </Text>
-            </TouchableOpacity>
-          </View>
 
           <View style={styles.securityNote}>
             <Text style={styles.securityTitle}>🔒 Security Note</Text>
             <Text style={styles.securityText}>
-              Passport data is read locally and never transmitted.
-              Only a cryptographic hash is stored on-chain.
+              Verification is performed locally. Only a zero-knowledge proof
+              is generated to prove you satisfy the requirements.
             </Text>
           </View>
         </>
@@ -308,17 +209,27 @@ const ScanScreen: React.FC = () => {
         <View style={[StyleSheet.absoluteFill, { backgroundColor: '#fff', zIndex: 100, justifyContent: 'center' }]}>
           <VerificationExecutor
             request={executingRequest}
-            onReceipt={async (receipt: VerificationReceipt) => {
+            onReceipt={async (receipt: VerificationReceipt, satisfied: boolean, approvingUserName?: string) => {
               setExecutingRequest(null);
               // Save to local history
               if (executingRequest) {
-                await saveHistoryItem({ receipt, condition: executingRequest.condition });
+                await saveHistoryItem({ 
+                  receipt, 
+                  condition: executingRequest.condition,
+                  satisfied,
+                  approvingUserName
+                });
               }
               const success = await sendReceipt(receipt);
-              if (success) {
-                Alert.alert('Verification Successful', 'ZK Proof generated and receipt delivered to platform!');
+              
+              if (satisfied) {
+                if (success) {
+                  Alert.alert('Verification Successful', 'Requirement satisfied. ZK Proof generated and receipt delivered!');
+                } else {
+                  Alert.alert('Verification Successful', 'Requirement satisfied. ZK Proof generated, but failed to deliver receipt.');
+                }
               } else {
-                Alert.alert('Verification Successful', 'ZK Proof generated, but failed to deliver receipt to mock platform.');
+                Alert.alert('Verification Failed', 'Requirement NOT satisfied (Age check failed). ZK Proof generated but reflects failure.');
               }
             }}
             onError={(error: string) => {

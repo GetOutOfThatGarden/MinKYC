@@ -16,8 +16,11 @@ import {
 import { useWallet } from '../hooks/useWallet';
 import { getIdentityPda } from '../utils/solana';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { getCommitment, hasPassportData, getPassportData } from '../utils/secureStorage';
-import { PassportData } from '../constants/mockProfiles';
+import { getCommitment, hasPassportData, getPassportData, savePassportData, computeCommitment, saveCommitment } from '../utils/secureStorage';
+import { PassportData, MOCK_PROFILES } from '../constants/mockProfiles';
+import { useNFC } from '../hooks/useNFC';
+import { Alert } from 'react-native';
+import PassportDataModal from '../components/PassportDataModal';
 
 const FIELD_LABELS: { key: keyof PassportData; label: string }[] = [
   { key: 'surname', label: 'Surname' },
@@ -38,7 +41,61 @@ const IdentityScreen: React.FC = () => {
   const [pda, setPda] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [isMasked, setIsMasked] = useState(true);
+  const [scanning, setScanning] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const { isSupported, isEnabled, readPassport } = useNFC();
   const navigation = useNavigation<any>();
+
+  const handlePassportRead = async (data: PassportData) => {
+    try {
+      await savePassportData(data);
+      const secret = 'min_kyc_secret_nonce_2026';
+      const commitment = computeCommitment(data, secret);
+      await saveCommitment(commitment);
+      
+      setPassportData(data);
+      setCommitmentHex(commitment);
+      
+      Alert.alert('Success', 'Passport read successfully and identity updated.');
+    } catch (err) {
+      Alert.alert('Error', 'Failed to save passport data.');
+    }
+  };
+
+  const handleActualPassportScan = async (passportNumber: string, dateOfBirth: string, expiryDate: string) => {
+    setIsModalVisible(false);
+    setScanning(true);
+    try {
+      const result = await readPassport(passportNumber, dateOfBirth, expiryDate);
+      if (result) {
+        // Map NfcResult to PassportData
+        const passportData: PassportData = {
+          surname: result.lastName,
+          givenNames: result.firstName,
+          nationality: result.nationality,
+          dateOfBirth: result.birthDate,
+          sex: result.gender === 'M' || result.gender === 'Male' ? 'M' : 'F',
+          passportNumber: result.documentNo,
+          expiryDate: result.expiryDate,
+          issuingCountry: result.nationality,
+          documentType: 'P',
+        };
+        await handlePassportRead(passportData);
+      }
+    } catch (err: any) {
+      Alert.alert('Scan Failed', err.message || 'Could not read passport. Please try again.');
+    } finally {
+      setScanning(false);
+    }
+  };
+
+  const startNFCScan = async () => {
+    if (!isSupported || !isEnabled) {
+      Alert.alert('NFC Unavailable', 'Please enable NFC in your device settings.');
+      return;
+    }
+    setIsModalVisible(true);
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -127,7 +184,18 @@ const IdentityScreen: React.FC = () => {
 
       {/* Passport Data Card */}
       <View style={styles.dataCard}>
-        <Text style={styles.cardTitle}>Passport Data</Text>
+        <View style={styles.cardHeader}>
+          <Text style={styles.cardTitle}>Passport Data</Text>
+          <TouchableOpacity 
+            style={[styles.miniReadButton, scanning && styles.disabledButton]} 
+            onPress={startNFCScan}
+            disabled={scanning}
+          >
+            <Text style={styles.miniReadButtonText}>
+              {scanning ? '...' : '🔄 Read Passport'}
+            </Text>
+          </TouchableOpacity>
+        </View>
 
         {FIELD_LABELS.map(({ key, label }) => (
           <View key={key} style={styles.fieldRow}>
@@ -174,6 +242,33 @@ const IdentityScreen: React.FC = () => {
           4. Zero-knowledge proofs verify requirements
         </Text>
       </View>
+
+      <View style={styles.demoSection}>
+        <Text style={styles.demoTitle}>🧪 Demo: Select Mock Profile</Text>
+        <View style={styles.mockProfilesList}>
+          {Object.keys(MOCK_PROFILES).map((key, index) => {
+            const profile = MOCK_PROFILES[key];
+            return (
+              <TouchableOpacity
+                key={key}
+                style={styles.mockProfileButton}
+                onPress={() => handlePassportRead(profile)}
+              >
+                <Text style={styles.mockProfileText}>
+                  {profile.sex === 'M' ? '👨' : '👩'} {profile.givenNames} ({profile.nationality})
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </View>
+
+      <PassportDataModal
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        onSubmit={handleActualPassportScan}
+        isLoading={scanning}
+      />
     </ScrollView>
   );
 };
@@ -250,11 +345,30 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
   cardTitle: {
     fontSize: 18,
     fontWeight: '600',
-    marginBottom: 16,
     color: '#333',
+  },
+  miniReadButton: {
+    backgroundColor: '#14F195',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 6,
+  },
+  miniReadButtonText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  disabledButton: {
+    opacity: 0.5,
   },
   fieldRow: {
     flexDirection: 'row',
@@ -343,6 +457,36 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#555',
     lineHeight: 22,
+  },
+  demoSection: {
+    margin: 16,
+    padding: 16,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#eee',
+    marginBottom: 40,
+  },
+  demoTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#9945FF',
+    marginBottom: 12,
+  },
+  mockProfilesList: {
+    gap: 8,
+  },
+  mockProfileButton: {
+    padding: 12,
+    backgroundColor: '#f8f4ff',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#e0d0ff',
+  },
+  mockProfileText: {
+    fontSize: 14,
+    color: '#333',
+    fontWeight: '500',
   },
 });
 

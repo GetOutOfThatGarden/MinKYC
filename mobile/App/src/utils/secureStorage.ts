@@ -6,6 +6,7 @@
 
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { PassportData } from '../constants/mockProfiles';
+import { clearHistory } from './historyStorage';
 
 const PASSPORT_KEY = 'minkyc_passport_data';
 const COMMITMENT_KEY = 'minkyc_commitment';
@@ -47,6 +48,7 @@ export async function clearAllData(): Promise<void> {
   try { await EncryptedStorage.removeItem(PASSPORT_KEY); } catch {}
   try { await EncryptedStorage.removeItem(COMMITMENT_KEY); } catch {}
   try { await EncryptedStorage.removeItem(LOCAL_WALLET_KEY); } catch {}
+  try { await clearHistory(); } catch {}
 }
 
 /**

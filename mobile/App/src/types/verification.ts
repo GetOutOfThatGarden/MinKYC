@@ -27,4 +27,6 @@ export interface VerificationReceipt {
 export interface VerificationHistoryItem {
   receipt: VerificationReceipt;
   condition: string;
+  satisfied: boolean;
+  approvingUserName?: string;
 }

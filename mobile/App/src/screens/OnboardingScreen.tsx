@@ -17,6 +17,7 @@ import { MOCK_PROFILES, PassportData } from '../constants/mockProfiles';
 import { useNFC } from '../hooks/useNFC';
 import { savePassportData, computeCommitment, saveCommitment } from '../utils/secureStorage';
 import { useNavigation } from '@react-navigation/native';
+import PassportDataModal from '../components/PassportDataModal';
 
 const FIELD_LABELS: Record<keyof PassportData, string> = {
   documentType: 'Document Type',
@@ -33,7 +34,8 @@ const FIELD_LABELS: Record<keyof PassportData, string> = {
 const OnboardingScreen: React.FC = () => {
   const [scanning, setScanning] = useState(false);
   const [expandedProfile, setExpandedProfile] = useState<string | null>(null);
-  const { isSupported, startScan } = useNFC();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const { isSupported, readPassport } = useNFC();
   const navigation = useNavigation<any>();
 
   const handleSelectProfile = async (data: PassportData) => {
@@ -53,21 +55,35 @@ const OnboardingScreen: React.FC = () => {
     }
   };
 
-  const startNFCScan = async () => {
+  const handleActualPassportScan = async (passportNumber: string, dateOfBirth: string, expiryDate: string) => {
+    setIsModalVisible(false);
     setScanning(true);
     try {
-      const detected = await startScan();
-      if (detected) {
-        setScanning(false);
-        // NFC detected — use profile1 as mock payload (real PACE reading is future work)
-        await handleSelectProfile(MOCK_PROFILES.profile1);
-      } else {
-        setScanning(false);
+      const result = await readPassport(passportNumber, dateOfBirth, expiryDate);
+      if (result) {
+        // Map NfcResult to PassportData
+        const passportData: PassportData = {
+          surname: result.lastName,
+          givenNames: result.firstName,
+          nationality: result.nationality,
+          dateOfBirth: result.birthDate,
+          sex: result.gender === 'M' || result.gender === 'Male' ? 'M' : 'F',
+          passportNumber: result.documentNo,
+          expiryDate: result.expiryDate,
+          issuingCountry: result.nationality, // Simplified
+          documentType: 'P',
+        };
+        await handleSelectProfile(passportData);
       }
-    } catch {
+    } catch (err: any) {
+      Alert.alert('Scan Failed', err.message || 'Could not read passport chip. Please try again.');
+    } finally {
       setScanning(false);
-      Alert.alert('Scan Failed', 'Could not read passport chip. Please try again.');
     }
+  };
+
+  const startNFCScan = () => {
+    setIsModalVisible(true);
   };
 
   const toggleExpand = (key: string) => {
@@ -162,6 +178,13 @@ const OnboardingScreen: React.FC = () => {
           Only a cryptographic hash is ever shared.
         </Text>
       </View>
+
+      <PassportDataModal
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        onSubmit={handleActualPassportScan}
+        isLoading={scanning}
+      />
     </ScrollView>
   );
 };
