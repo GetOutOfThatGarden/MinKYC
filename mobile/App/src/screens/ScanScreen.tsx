@@ -100,6 +100,23 @@ const ScanScreen: React.FC = () => {
     setIsMasked(true);
   };
 
+  const injectTestQR = () => {
+    const mockQR = JSON.stringify({
+      minkyc: true,
+      type: 'verify_request',
+      platformId: 'MockPlatform_EMU',
+      requestId: `req_${Date.now()}`,
+      condition: 'Age >= 18',
+      userId: 'user_anon_2026'
+    });
+    try {
+      const req = parseVerificationRequest(mockQR);
+      setScannedRequest(req);
+    } catch (e: any) {
+      Alert.alert('Testing Error', e.message);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={styles.container}>
@@ -181,6 +198,15 @@ const ScanScreen: React.FC = () => {
                 </TouchableOpacity>
               );
             })}
+            
+            <TouchableOpacity
+              style={[styles.mockProfileButton, { marginTop: 12, backgroundColor: '#eee', borderRadius: 8, padding: 12 }]}
+              onPress={injectTestQR}
+            >
+              <Text style={[styles.mockProfileText, { color: '#666', textAlign: 'center' }]}>
+                🧪 Developer: Inject Test QR Request
+              </Text>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.securityNote}>
