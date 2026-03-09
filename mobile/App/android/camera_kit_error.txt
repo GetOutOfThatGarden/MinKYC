@@ -1,0 +1,828 @@
+Initialized native services in: /Users/user2/.gradle/native
+Initialized jansi services in: /Users/user2/.gradle/native
+Received JVM installation metadata from '/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home': {JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home, JAVA_VERSION=17, JAVA_VENDOR=Oracle Corporation, RUNTIME_NAME=Java(TM) SE Runtime Environment, RUNTIME_VERSION=17+35-LTS-2724, VM_NAME=Java HotSpot(TM) 64-Bit Server VM, VM_VERSION=17+35-LTS-2724, VM_VENDOR=Oracle Corporation, OS_ARCH=x86_64}
+Found daemon DaemonInfo{pid=22193, address=[a8662760-df65-45b0-9898-982dee709d9e port:55960, addresses:[/127.0.0.1]], state=Idle, lastBusy=1773059481042, context=DefaultDaemonContext[uid=df6ab85e-442a-4cbe-a5e4-6c7b8f25104d,javaHome=/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home,daemonRegistryDir=/Users/user2/.gradle/daemon,pid=22193,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,daemonOpts=-XX:MaxMetaspaceSize=512m,--add-opens=java.base/java.util=ALL-UNNAMED,--add-opens=java.base/java.lang=ALL-UNNAMED,--add-opens=java.base/java.lang.invoke=ALL-UNNAMED,--add-opens=java.prefs/java.util.prefs=ALL-UNNAMED,--add-opens=java.base/java.nio.charset=ALL-UNNAMED,--add-opens=java.base/java.net=ALL-UNNAMED,--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED,-Xmx2048m,-Dfile.encoding=utf8,-Duser.country=CA,-Duser.language=en,-Duser.variant]} however its context does not match the desired criteria.
+At least one daemon option is different.
+Wanted: DefaultDaemonContext[uid=null,javaHome=/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home,daemonRegistryDir=/Users/user2/.gradle/daemon,pid=24796,idleTimeout=null,priority=NORMAL,applyInstrumentationAgent=true,daemonOpts=-XX:MaxMetaspaceSize=512m,--add-opens=java.base/java.util=ALL-UNNAMED,--add-opens=java.base/java.lang=ALL-UNNAMED,--add-opens=java.base/java.lang.invoke=ALL-UNNAMED,--add-opens=java.prefs/java.util.prefs=ALL-UNNAMED,--add-opens=java.base/java.nio.charset=ALL-UNNAMED,--add-opens=java.base/java.net=ALL-UNNAMED,--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED,-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=CA,-Duser.language=en,-Duser.variant]
+Actual: DefaultDaemonContext[uid=df6ab85e-442a-4cbe-a5e4-6c7b8f25104d,javaHome=/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home,daemonRegistryDir=/Users/user2/.gradle/daemon,pid=22193,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,daemonOpts=-XX:MaxMetaspaceSize=512m,--add-opens=java.base/java.util=ALL-UNNAMED,--add-opens=java.base/java.lang=ALL-UNNAMED,--add-opens=java.base/java.lang.invoke=ALL-UNNAMED,--add-opens=java.prefs/java.util.prefs=ALL-UNNAMED,--add-opens=java.base/java.nio.charset=ALL-UNNAMED,--add-opens=java.base/java.net=ALL-UNNAMED,--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED,-Xmx2048m,-Dfile.encoding=utf8,-Duser.country=CA,-Duser.language=en,-Duser.variant]
+
+  Looking for a different daemon...
+The client will now receive all logging from the daemon (pid: 20044). The daemon log file: /Users/user2/.gradle/daemon/8.2.1/daemon-20044.out.log
+Starting 2nd build in daemon [uptime: 27 mins 5.534 secs, performance: 97%, GC rate: 0.00/s, heap usage: 0% of 2 GiB, non-heap usage: 19% of 512 MiB]
+Using 8 worker leases.
+Now considering [/Users/user2/Developer/MinKYC/mobile/App/android, /Users/user2/Developer/MinKYC/mobile/App/node_modules/@react-native/gradle-plugin] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/android/.gradle/8.2.1/checksums/md5-checksums.bin
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/android/.gradle/8.2.1/checksums/sha1-checksums.bin
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/android/.gradle/8.2.1/checksums/sha256-checksums.bin
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/android/.gradle/8.2.1/checksums/sha512-checksums.bin
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/android/.gradle/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/android/.gradle/8.2.1/fileHashes/resourceHashesCache.bin
+Starting Build
+:ReactNative:Automatically adding native module 'react-native-camera-kit'
+:ReactNative:Automatically adding native module 'react-native-encrypted-storage'
+:ReactNative:Automatically adding native module 'react-native-get-random-values'
+:ReactNative:Automatically adding native module 'react-native-nfc-manager'
+:ReactNative:Automatically adding native module 'react-native-nfc-passport-reader'
+:ReactNative:Automatically adding native module 'react-native-safe-area-context'
+:ReactNative:Automatically adding native module 'react-native-screens'
+:ReactNative:Automatically adding native module 'react-native-webview'
+Settings evaluated using settings file '/Users/user2/Developer/MinKYC/mobile/App/android/settings.gradle'.
+Now considering [/Users/user2/Developer/MinKYC/mobile/App/node_modules/@react-native/gradle-plugin, /Users/user2/Developer/MinKYC/mobile/App/android] as hierarchies to watch
+The configuration classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Projects loaded. Root project using build file '/Users/user2/Developer/MinKYC/mobile/App/android/build.gradle'.
+Included projects: [root project 'minkyc', project ':app', project ':react-native-camera-kit', project ':react-native-encrypted-storage', project ':react-native-get-random-values', project ':react-native-nfc-manager', project ':react-native-nfc-passport-reader', project ':react-native-safe-area-context', project ':react-native-screens', project ':react-native-webview']
+
+> Configure project :gradle-plugin
+Evaluating project ':gradle-plugin' using build file '/Users/user2/Developer/MinKYC/mobile/App/node_modules/@react-native/gradle-plugin/build.gradle.kts'.
+The configuration detachedConfiguration1 is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration detachedConfiguration1 is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration detachedConfiguration1 is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration detachedConfiguration1 is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/node_modules/@react-native/gradle-plugin/.gradle/buildOutputCleanup/outputFiles.bin
+The configuration :gradle-plugin:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :gradle-plugin:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :gradle-plugin:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :gradle-plugin:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Invalidating in-memory cache of /Users/user2/.gradle/caches/journal-1/file-access.bin
+Using Kotlin Gradle Plugin gradle71 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/kotlin-dsl/executionHistory.bin
+Caching disabled for Kotlin DSL accessors for project ':gradle-plugin' because:
+  Build cache is disabled
+Skipping Kotlin DSL accessors for project ':gradle-plugin' as it is up-to-date.
+Registering project ':gradle-plugin' in composite build. Will substitute for module 'com.facebook.react:react-native-gradle-plugin'.
+Invalidating in-memory cache of /Users/user2/.gradle/caches/journal-1/file-access.bin
+
+> Configure project :
+Evaluating root project 'minkyc' using build file '/Users/user2/Developer/MinKYC/mobile/App/android/build.gradle'.
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+The configuration :classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/android/.gradle/buildOutputCleanup/outputFiles.bin
+Found project 'project :gradle-plugin' as substitute for module 'com.facebook.react:react-native-gradle-plugin'.
+The configuration :gradle-plugin:mainSourceElements is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+
+Resolve mutations for :gradle-plugin:compileKotlin (Thread[Execution worker,5,main]) started.
+:gradle-plugin:compileKotlin (Thread[Execution worker,5,main]) started.
+
+> Configure project :
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/node_modules/@react-native/gradle-plugin/.gradle/8.2.1/executionHistory/executionHistory.bin
+
+> Task :gradle-plugin:compileKotlin UP-TO-DATE
+Caching disabled for task ':gradle-plugin:compileKotlin' because:
+  Build cache is disabled
+Skipping task ':gradle-plugin:compileKotlin' as it is up-to-date.
+Resolve mutations for :gradle-plugin:compileJava (Thread[Execution worker,5,main]) started.
+:gradle-plugin:compileJava (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:compileJava NO-SOURCE
+Skipping task ':gradle-plugin:compileJava' as it has no source files and no previous output files.
+Resolve mutations for :gradle-plugin:pluginDescriptors (Thread[Execution worker,5,main]) started.
+:gradle-plugin:pluginDescriptors (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:pluginDescriptors UP-TO-DATE
+Caching disabled for task ':gradle-plugin:pluginDescriptors' because:
+  Build cache is disabled
+Skipping task ':gradle-plugin:pluginDescriptors' as it is up-to-date.
+Resolve mutations for :gradle-plugin:processResources (Thread[Execution worker,5,main]) started.
+:gradle-plugin:processResources (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:processResources UP-TO-DATE
+Caching disabled for task ':gradle-plugin:processResources' because:
+  Build cache is disabled
+Skipping task ':gradle-plugin:processResources' as it is up-to-date.
+Resolve mutations for :gradle-plugin:classes (Thread[Execution worker,5,main]) started.
+:gradle-plugin:classes (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:classes UP-TO-DATE
+Skipping task ':gradle-plugin:classes' as it has no actions.
+Resolve mutations for :gradle-plugin:jar (Thread[Execution worker,5,main]) started.
+:gradle-plugin:jar (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:jar UP-TO-DATE
+Caching disabled for task ':gradle-plugin:jar' because:
+  Build cache is disabled
+Skipping task ':gradle-plugin:jar' as it is up-to-date.
+Resolve mutations for :gradle-plugin:inspectClassesForKotlinIC (Thread[Execution worker,5,main]) started.
+:gradle-plugin:inspectClassesForKotlinIC (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:inspectClassesForKotlinIC UP-TO-DATE
+Caching disabled for task ':gradle-plugin:inspectClassesForKotlinIC' because:
+  Build cache is disabled
+Skipping task ':gradle-plugin:inspectClassesForKotlinIC' as it is up-to-date.
+
+> Configure project :
+The configuration :classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+
+> Configure project :app
+Evaluating project ':app' using build file '/Users/user2/Developer/MinKYC/mobile/App/android/app/build.gradle'.
+Using default execution profile
+Using Kotlin Gradle Plugin gradle76 variant
+:ReactNative:Automatically adding native module 'react-native-camera-kit'
+:ReactNative:Automatically adding native module 'react-native-encrypted-storage'
+:ReactNative:Automatically adding native module 'react-native-get-random-values'
+:ReactNative:Automatically adding native module 'react-native-nfc-manager'
+:ReactNative:Automatically adding native module 'react-native-nfc-passport-reader'
+:ReactNative:Automatically adding native module 'react-native-safe-area-context'
+:ReactNative:Automatically adding native module 'react-native-screens'
+:ReactNative:Automatically adding native module 'react-native-webview'
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Invalidating in-memory cache of /Users/user2/.gradle/caches/journal-1/file-access.bin
+
+> Configure project :react-native-camera-kit
+Evaluating project ':react-native-camera-kit' using build file '/Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native-camera-kit/android/build.gradle'.
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Using default execution profile
+Using Kotlin Gradle Plugin gradle76 variant
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+
+> Configure project :react-native-encrypted-storage
+Evaluating project ':react-native-encrypted-storage' using build file '/Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native-encrypted-storage/android/build.gradle'.
+The configuration :react-native-encrypted-storage:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-encrypted-storage:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-encrypted-storage:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-encrypted-storage:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-encrypted-storage:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-encrypted-storage:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Using default execution profile
+:react-native-encrypted-storage:reactNativeAndroidRoot /Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native/android
+
+> Configure project :react-native-get-random-values
+Evaluating project ':react-native-get-random-values' using build file '/Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native-get-random-values/android/build.gradle'.
+Using default execution profile
+
+> Configure project :react-native-nfc-manager
+Evaluating project ':react-native-nfc-manager' using build file '/Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native-nfc-manager/android/build.gradle'.
+The configuration :react-native-nfc-manager:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-manager:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-manager:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-manager:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-manager:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-manager:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Using default execution profile
+
+> Configure project :react-native-nfc-passport-reader
+Evaluating project ':react-native-nfc-passport-reader' using build file '/Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native-nfc-passport-reader/android/build.gradle'.
+The configuration :react-native-nfc-passport-reader:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-passport-reader:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-passport-reader:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-passport-reader:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-passport-reader:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-passport-reader:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Using default execution profile
+Using Kotlin Gradle Plugin gradle76 variant
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+
+> Configure project :react-native-safe-area-context
+Evaluating project ':react-native-safe-area-context' using build file '/Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native-safe-area-context/android/build.gradle'.
+The configuration :react-native-safe-area-context:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-safe-area-context:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-safe-area-context:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-safe-area-context:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-safe-area-context:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-safe-area-context:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Invalidating in-memory cache of /Users/user2/.gradle/caches/journal-1/file-access.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Using default execution profile
+Using Kotlin Gradle Plugin gradle76 variant
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+
+> Configure project :react-native-screens
+Evaluating project ':react-native-screens' using build file '/Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native-screens/android/build.gradle'.
+The configuration :react-native-screens:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-screens:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-screens:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-screens:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-screens:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-screens:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Using default execution profile
+Using Kotlin Gradle Plugin gradle76 variant
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+
+> Configure project :react-native-webview
+Evaluating project ':react-native-webview' using build file '/Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native-webview/android/build.gradle'.
+The configuration :react-native-webview:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-webview:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-webview:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-webview:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-webview:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-webview:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Invalidating in-memory cache of /Users/user2/.gradle/caches/journal-1/file-access.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Using default execution profile
+Using Kotlin Gradle Plugin gradle76 variant
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+Could not execute [report metric USE_CLASSPATH_SNAPSHOT]
+All projects evaluated.
+The configuration :classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Found project 'project :gradle-plugin' as substitute for module 'com.facebook.react:react-native-gradle-plugin'.
+The configuration :classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :app:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :app:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :app:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :app:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :app:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :app:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :app:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :app:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :app:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :app:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :app:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :app:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-camera-kit:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-camera-kit:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-camera-kit:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-camera-kit:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-camera-kit:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-camera-kit:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-camera-kit:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-camera-kit:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-camera-kit:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-camera-kit:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-camera-kit:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-camera-kit:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-encrypted-storage:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-encrypted-storage:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-encrypted-storage:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-encrypted-storage:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-encrypted-storage:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-encrypted-storage:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-encrypted-storage:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-encrypted-storage:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-encrypted-storage:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-encrypted-storage:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-get-random-values:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-get-random-values:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-get-random-values:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-get-random-values:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-get-random-values:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-get-random-values:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-get-random-values:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-get-random-values:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-get-random-values:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-get-random-values:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-get-random-values:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-get-random-values:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-manager:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-manager:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-manager:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-manager:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-manager:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-manager:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-manager:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-manager:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-manager:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-manager:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-passport-reader:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-passport-reader:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-passport-reader:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-passport-reader:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-passport-reader:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-passport-reader:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-passport-reader:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-passport-reader:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-nfc-passport-reader:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-nfc-passport-reader:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-safe-area-context:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-safe-area-context:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-safe-area-context:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-safe-area-context:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-safe-area-context:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-safe-area-context:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-safe-area-context:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-safe-area-context:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-safe-area-context:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-safe-area-context:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-screens:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-screens:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-screens:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-screens:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-screens:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-screens:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-screens:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-screens:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-screens:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-screens:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-webview:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-webview:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-webview:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-webview:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-webview:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-webview:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-webview:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-webview:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+The configuration :react-native-webview:classpath is both resolvable and consumable. This is considered a legacy configuration and it will eventually only be possible to be one of these.
+The configuration :react-native-webview:classpath is both consumable and declarable. This combination is incorrect, only one of these flags should be set.
+Task path ':react-native-camera-kit:compileDebugKotlin' matched project ':react-native-camera-kit'
+Task name matched 'compileDebugKotlin'
+Selected primary task 'compileDebugKotlin' from project :react-native-camera-kit
+Tasks to be executed: [task ':react-native-camera-kit:preBuild', task ':react-native-camera-kit:preDebugBuild', task ':react-native-camera-kit:generateDebugBuildConfig', task ':react-native-camera-kit:generateDebugResValues', task ':react-native-camera-kit:generateDebugResources', task ':react-native-camera-kit:packageDebugResources', task ':react-native-camera-kit:parseDebugLocalResources', task ':react-native-camera-kit:processDebugManifest', task ':react-native-camera-kit:generateDebugRFile', task ':react-native-camera-kit:compileDebugKotlin']
+Tasks that were excluded: []
+Resolve mutations for :react-native-camera-kit:preBuild (Thread[Execution worker Thread 7,5,main]) started.
+:react-native-camera-kit:preBuild (Thread[Execution worker Thread 7,5,main]) started.
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/android/.gradle/8.2.1/executionHistory/executionHistory.bin
+
+> Task :react-native-camera-kit:preBuild UP-TO-DATE
+Skipping task ':react-native-camera-kit:preBuild' as it has no actions.
+Resolve mutations for :react-native-camera-kit:preDebugBuild (Thread[Execution worker Thread 7,5,main]) started.
+:react-native-camera-kit:preDebugBuild (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :react-native-camera-kit:preDebugBuild UP-TO-DATE
+Skipping task ':react-native-camera-kit:preDebugBuild' as it has no actions.
+Resolve mutations for :react-native-camera-kit:generateDebugBuildConfig (Thread[Execution worker Thread 7,5,main]) started.
+:react-native-camera-kit:generateDebugBuildConfig (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :react-native-camera-kit:generateDebugBuildConfig UP-TO-DATE
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/android/.gradle/buildOutputCleanup/outputFiles.bin
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/android/.gradle/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/Developer/MinKYC/mobile/App/android/.gradle/8.2.1/fileHashes/resourceHashesCache.bin
+Caching disabled for task ':react-native-camera-kit:generateDebugBuildConfig' because:
+  Build cache is disabled
+Skipping task ':react-native-camera-kit:generateDebugBuildConfig' as it is up-to-date.
+Resolve mutations for :react-native-camera-kit:generateDebugResValues (Thread[Execution worker Thread 7,5,main]) started.
+:react-native-camera-kit:generateDebugResValues (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :react-native-camera-kit:generateDebugResValues UP-TO-DATE
+Caching disabled for task ':react-native-camera-kit:generateDebugResValues' because:
+  Build cache is disabled
+Skipping task ':react-native-camera-kit:generateDebugResValues' as it is up-to-date.
+Resolve mutations for :react-native-camera-kit:generateDebugResources (Thread[Execution worker Thread 7,5,main]) started.
+:react-native-camera-kit:generateDebugResources (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :react-native-camera-kit:generateDebugResources UP-TO-DATE
+Skipping task ':react-native-camera-kit:generateDebugResources' as it has no actions.
+Resolve mutations for :react-native-camera-kit:packageDebugResources (Thread[Execution worker Thread 7,5,main]) started.
+:react-native-camera-kit:packageDebugResources (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :react-native-camera-kit:packageDebugResources UP-TO-DATE
+Caching disabled for task ':react-native-camera-kit:packageDebugResources' because:
+  Build cache is disabled
+Skipping task ':react-native-camera-kit:packageDebugResources' as it is up-to-date.
+Resolve mutations for :react-native-camera-kit:parseDebugLocalResources (Thread[Execution worker Thread 7,5,main]) started.
+:react-native-camera-kit:parseDebugLocalResources (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :react-native-camera-kit:parseDebugLocalResources UP-TO-DATE
+Transforming android.jar with PlatformAttrTransform
+Transforming android.jar with PlatformAttrTransform
+Caching disabled for task ':react-native-camera-kit:parseDebugLocalResources' because:
+  Build cache is disabled
+Skipping task ':react-native-camera-kit:parseDebugLocalResources' as it is up-to-date.
+Resolve mutations for :react-native-camera-kit:processDebugManifest (Thread[Execution worker Thread 7,5,main]) started.
+:react-native-camera-kit:processDebugManifest (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :react-native-camera-kit:processDebugManifest UP-TO-DATE
+Caching disabled for task ':react-native-camera-kit:processDebugManifest' because:
+  Build cache is disabled
+Skipping task ':react-native-camera-kit:processDebugManifest' as it is up-to-date.
+Resolve mutations for :react-native-camera-kit:generateDebugRFile (Thread[Execution worker Thread 7,5,main]) started.
+:react-native-camera-kit:generateDebugRFile (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :react-native-camera-kit:generateDebugRFile
+Transforming barcode-scanning-17.3.0.aar (com.google.mlkit:barcode-scanning:17.3.0) with JetifyTransform
+Transforming vision-common-17.3.0.aar (com.google.mlkit:vision-common:17.3.0) with JetifyTransform
+Transforming vision-common-17.3.0.aar (com.google.mlkit:vision-common:17.3.0) with JetifyTransform
+Transforming vision-common-17.3.0.aar (com.google.mlkit:vision-common:17.3.0) with JetifyTransform
+Transforming react-android-0.72.6-debug.aar (com.facebook.react:react-android:0.72.6) with JetifyTransform
+Transforming barcode-scanning-common-17.0.0.aar (com.google.mlkit:barcode-scanning-common:17.0.0) with JetifyTransform
+Transforming play-services-mlkit-barcode-scanning-18.3.1.aar (com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1) with JetifyTransform
+Transforming barcode-scanning-common-17.0.0.aar (com.google.mlkit:barcode-scanning-common:17.0.0) with JetifyTransform
+Transforming vision-common-17.3.0.aar (com.google.mlkit:vision-common:17.3.0) with ExtractAarTransform
+Transforming react-android-0.72.6-debug.aar (com.facebook.react:react-android:0.72.6) with ExtractAarTransform
+Transforming vision-common-17.3.0.aar (com.google.mlkit:vision-common:17.3.0) with ExtractAarTransform
+Transforming vision-common-17.3.0.aar (com.google.mlkit:vision-common:17.3.0) with ExtractAarTransform
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Transforming play-services-mlkit-barcode-scanning-18.3.1.aar (com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1) with ExtractAarTransform
+Transforming vision-common-17.3.0.aar (com.google.mlkit:vision-common:17.3.0) with LibrarySymbolTableTransform
+Transforming barcode-scanning-common-17.0.0.aar (com.google.mlkit:barcode-scanning-common:17.0.0) with ExtractAarTransform
+Transforming vision-common-17.3.0.aar (com.google.mlkit:vision-common:17.3.0) with LibrarySymbolTableTransform
+Transforming barcode-scanning-common-17.0.0.aar (com.google.mlkit:barcode-scanning-common:17.0.0) with ExtractAarTransform
+Transforming barcode-scanning-common-17.0.0.aar (com.google.mlkit:barcode-scanning-common:17.0.0) with LibrarySymbolTableTransform
+Transforming react-android-0.72.6-debug.aar (com.facebook.react:react-android:0.72.6) with LibrarySymbolTableTransform
+Transforming vision-common-17.3.0.aar (com.google.mlkit:vision-common:17.3.0) with LibrarySymbolTableTransform
+Transforming barcode-scanning-common-17.0.0.aar (com.google.mlkit:barcode-scanning-common:17.0.0) with LibrarySymbolTableTransform
+Transforming appcompat-resources-1.6.1.aar (androidx.appcompat:appcompat-resources:1.6.1) with JetifyTransform
+Transforming play-services-mlkit-barcode-scanning-18.3.1.aar (com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1) with LibrarySymbolTableTransform
+Transforming appcompat-1.6.1.aar (androidx.appcompat:appcompat:1.6.1) with JetifyTransform
+Transforming common-18.11.0.aar (com.google.mlkit:common:18.11.0) with JetifyTransform
+Transforming common-18.11.0.aar (com.google.mlkit:common:18.11.0) with JetifyTransform
+Transforming common-18.11.0.aar (com.google.mlkit:common:18.11.0) with ExtractAarTransform
+Transforming common-18.11.0.aar (com.google.mlkit:common:18.11.0) with JetifyTransform
+Transforming common-18.11.0.aar (com.google.mlkit:common:18.11.0) with LibrarySymbolTableTransform
+Transforming appcompat-1.6.1.aar (androidx.appcompat:appcompat:1.6.1) with JetifyTransform
+Transforming camera-video-1.4.2.aar (androidx.camera:camera-video:1.4.2) with JetifyTransform
+Transforming appcompat-1.6.1.aar (androidx.appcompat:appcompat:1.6.1) with ExtractAarTransform
+Transforming appcompat-1.6.1.aar (androidx.appcompat:appcompat:1.6.1) with LibrarySymbolTableTransform
+Transforming appcompat-resources-1.6.1.aar (androidx.appcompat:appcompat-resources:1.6.1) with ExtractAarTransform
+Transforming camera-lifecycle-1.4.2.aar (androidx.camera:camera-lifecycle:1.4.2) with JetifyTransform
+Transforming common-18.11.0.aar (com.google.mlkit:common:18.11.0) with ExtractAarTransform
+Transforming appcompat-1.6.1.aar (androidx.appcompat:appcompat:1.6.1) with ExtractAarTransform
+Transforming camera-view-1.4.2.aar (androidx.camera:camera-view:1.4.2) with JetifyTransform
+Transforming appcompat-resources-1.6.1.aar (androidx.appcompat:appcompat-resources:1.6.1) with LibrarySymbolTableTransform
+Transforming appcompat-1.6.1.aar (androidx.appcompat:appcompat:1.6.1) with LibrarySymbolTableTransform
+Transforming camera-camera2-1.4.2.aar (androidx.camera:camera-camera2:1.4.2) with JetifyTransform
+Transforming common-18.11.0.aar (com.google.mlkit:common:18.11.0) with ExtractAarTransform
+Transforming common-18.11.0.aar (com.google.mlkit:common:18.11.0) with LibrarySymbolTableTransform
+Transforming common-18.11.0.aar (com.google.mlkit:common:18.11.0) with LibrarySymbolTableTransform
+Transforming play-services-base-18.5.0.aar (com.google.android.gms:play-services-base:18.5.0) with JetifyTransform
+Transforming play-services-base-18.5.0.aar (com.google.android.gms:play-services-base:18.5.0) with ExtractAarTransform
+Transforming play-services-base-18.5.0.aar (com.google.android.gms:play-services-base:18.5.0) with LibrarySymbolTableTransform
+Transforming vision-interfaces-16.3.0.aar (com.google.mlkit:vision-interfaces:16.3.0) with JetifyTransform
+Transforming vision-interfaces-16.3.0.aar (com.google.mlkit:vision-interfaces:16.3.0) with ExtractAarTransform
+Transforming vision-interfaces-16.3.0.aar (com.google.mlkit:vision-interfaces:16.3.0) with LibrarySymbolTableTransform
+Transforming swiperefreshlayout-1.0.0.aar (androidx.swiperefreshlayout:swiperefreshlayout:1.0.0) with JetifyTransform
+Transforming swiperefreshlayout-1.0.0.aar (androidx.swiperefreshlayout:swiperefreshlayout:1.0.0) with ExtractAarTransform
+Transforming swiperefreshlayout-1.0.0.aar (androidx.swiperefreshlayout:swiperefreshlayout:1.0.0) with LibrarySymbolTableTransform
+Transforming camera-core-1.4.2.aar (androidx.camera:camera-core:1.4.2) with JetifyTransform
+Transforming play-services-tasks-18.2.0.aar (com.google.android.gms:play-services-tasks:18.2.0) with JetifyTransform
+Transforming play-services-tasks-18.2.0.aar (com.google.android.gms:play-services-tasks:18.2.0) with ExtractAarTransform
+Transforming play-services-tasks-18.2.0.aar (com.google.android.gms:play-services-tasks:18.2.0) with LibrarySymbolTableTransform
+Transforming play-services-basement-18.4.0.aar (com.google.android.gms:play-services-basement:18.4.0) with JetifyTransform
+Transforming play-services-basement-18.4.0.aar (com.google.android.gms:play-services-basement:18.4.0) with JetifyTransform
+Transforming play-services-basement-18.4.0.aar (com.google.android.gms:play-services-basement:18.4.0) with ExtractAarTransform
+Transforming play-services-basement-18.4.0.aar (com.google.android.gms:play-services-basement:18.4.0) with ExtractAarTransform
+Transforming play-services-basement-18.4.0.aar (com.google.android.gms:play-services-basement:18.4.0) with LibrarySymbolTableTransform
+Transforming play-services-basement-18.4.0.aar (com.google.android.gms:play-services-basement:18.4.0) with LibrarySymbolTableTransform
+Transforming vectordrawable-animated-1.1.0.aar (androidx.vectordrawable:vectordrawable-animated:1.1.0) with JetifyTransform
+Transforming vectordrawable-1.1.0.aar (androidx.vectordrawable:vectordrawable:1.1.0) with JetifyTransform
+Transforming vectordrawable-1.1.0.aar (androidx.vectordrawable:vectordrawable:1.1.0) with ExtractAarTransform
+Transforming vectordrawable-1.1.0.aar (androidx.vectordrawable:vectordrawable:1.1.0) with LibrarySymbolTableTransform
+Transforming vectordrawable-1.1.0.aar (androidx.vectordrawable:vectordrawable:1.1.0) with JetifyTransform
+Transforming vectordrawable-animated-1.1.0.aar (androidx.vectordrawable:vectordrawable-animated:1.1.0) with ExtractAarTransform
+Transforming vectordrawable-animated-1.1.0.aar (androidx.vectordrawable:vectordrawable-animated:1.1.0) with LibrarySymbolTableTransform
+Transforming vectordrawable-1.1.0.aar (androidx.vectordrawable:vectordrawable:1.1.0) with ExtractAarTransform
+Transforming fragment-1.3.6.aar (androidx.fragment:fragment:1.3.6) with JetifyTransform
+Transforming vectordrawable-1.1.0.aar (androidx.vectordrawable:vectordrawable:1.1.0) with LibrarySymbolTableTransform
+Transforming fragment-1.3.6.aar (androidx.fragment:fragment:1.3.6) with ExtractAarTransform
+Transforming fragment-1.3.6.aar (androidx.fragment:fragment:1.3.6) with LibrarySymbolTableTransform
+Transforming fragment-1.3.6.aar (androidx.fragment:fragment:1.3.6) with JetifyTransform
+Transforming fragment-1.3.6.aar (androidx.fragment:fragment:1.3.6) with JetifyTransform
+Transforming fragment-1.3.6.aar (androidx.fragment:fragment:1.3.6) with ExtractAarTransform
+Transforming fragment-1.3.6.aar (androidx.fragment:fragment:1.3.6) with ExtractAarTransform
+Transforming fragment-1.3.6.aar (androidx.fragment:fragment:1.3.6) with LibrarySymbolTableTransform
+Transforming activity-1.6.0.aar (androidx.activity:activity:1.6.0) with JetifyTransform
+Transforming activity-1.6.0.aar (androidx.activity:activity:1.6.0) with ExtractAarTransform
+Transforming activity-1.6.0.aar (androidx.activity:activity:1.6.0) with LibrarySymbolTableTransform
+Transforming fragment-1.3.6.aar (androidx.fragment:fragment:1.3.6) with LibrarySymbolTableTransform
+Transforming drawerlayout-1.0.0.aar (androidx.drawerlayout:drawerlayout:1.0.0) with JetifyTransform
+Transforming drawerlayout-1.0.0.aar (androidx.drawerlayout:drawerlayout:1.0.0) with ExtractAarTransform
+Transforming drawerlayout-1.0.0.aar (androidx.drawerlayout:drawerlayout:1.0.0) with LibrarySymbolTableTransform
+Transforming viewpager-1.0.0.aar (androidx.viewpager:viewpager:1.0.0) with JetifyTransform
+Transforming viewpager-1.0.0.aar (androidx.viewpager:viewpager:1.0.0) with ExtractAarTransform
+Transforming viewpager-1.0.0.aar (androidx.viewpager:viewpager:1.0.0) with LibrarySymbolTableTransform
+Transforming customview-1.0.0.aar (androidx.customview:customview:1.0.0) with JetifyTransform
+Transforming customview-1.0.0.aar (androidx.customview:customview:1.0.0) with JetifyTransform
+Transforming customview-1.0.0.aar (androidx.customview:customview:1.0.0) with ExtractAarTransform
+Transforming customview-1.0.0.aar (androidx.customview:customview:1.0.0) with LibrarySymbolTableTransform
+Transforming customview-1.0.0.aar (androidx.customview:customview:1.0.0) with ExtractAarTransform
+Transforming customview-1.0.0.aar (androidx.customview:customview:1.0.0) with LibrarySymbolTableTransform
+Transforming loader-1.0.0.aar (androidx.loader:loader:1.0.0) with JetifyTransform
+Transforming loader-1.0.0.aar (androidx.loader:loader:1.0.0) with ExtractAarTransform
+Transforming loader-1.0.0.aar (androidx.loader:loader:1.0.0) with LibrarySymbolTableTransform
+Transforming lifecycle-viewmodel-savedstate-2.5.1.aar (androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1) with JetifyTransform
+Transforming core-ktx-1.9.0.aar (androidx.core:core-ktx:1.9.0) with JetifyTransform
+Transforming core-ktx-1.9.0.aar (androidx.core:core-ktx:1.9.0) with ExtractAarTransform
+Transforming core-ktx-1.9.0.aar (androidx.core:core-ktx:1.9.0) with LibrarySymbolTableTransform
+Transforming core-1.9.0.aar (androidx.core:core:1.9.0) with JetifyTransform
+Transforming core-1.9.0.aar (androidx.core:core:1.9.0) with ExtractAarTransform
+Transforming core-1.9.0.aar (androidx.core:core:1.9.0) with LibrarySymbolTableTransform
+Transforming core-1.9.0.aar (androidx.core:core:1.9.0) with JetifyTransform
+Transforming core-1.9.0.aar (androidx.core:core:1.9.0) with ExtractAarTransform
+Transforming core-1.9.0.aar (androidx.core:core:1.9.0) with LibrarySymbolTableTransform
+Transforming lifecycle-runtime-2.5.1.aar (androidx.lifecycle:lifecycle-runtime:2.5.1) with JetifyTransform
+Invalidating in-memory cache of /Users/user2/.gradle/caches/journal-1/file-access.bin
+Transforming lifecycle-livedata-2.1.0.aar (androidx.lifecycle:lifecycle-livedata:2.1.0) with JetifyTransform
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Transforming lifecycle-livedata-2.1.0.aar (androidx.lifecycle:lifecycle-livedata:2.1.0) with JetifyTransform
+Invalidating in-memory cache of /Users/user2/.gradle/caches/journal-1/file-access.bin
+Transforming lifecycle-livedata-core-2.5.1.aar (androidx.lifecycle:lifecycle-livedata-core:2.5.1) with JetifyTransform
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/journal-1/file-access.bin
+Transforming lifecycle-livedata-core-2.5.1.aar (androidx.lifecycle:lifecycle-livedata-core:2.5.1) with JetifyTransform
+Invalidating in-memory cache of /Users/user2/.gradle/caches/journal-1/file-access.bin
+Transforming cursoradapter-1.0.0.aar (androidx.cursoradapter:cursoradapter:1.0.0) with JetifyTransform
+Transforming cursoradapter-1.0.0.aar (androidx.cursoradapter:cursoradapter:1.0.0) with ExtractAarTransform
+Transforming cursoradapter-1.0.0.aar (androidx.cursoradapter:cursoradapter:1.0.0) with LibrarySymbolTableTransform
+Transforming savedstate-1.2.0.aar (androidx.savedstate:savedstate:1.2.0) with JetifyTransform
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/journal-1/file-access.bin
+Transforming interpolator-1.0.0.aar (androidx.interpolator:interpolator:1.0.0) with JetifyTransform
+Transforming interpolator-1.0.0.aar (androidx.interpolator:interpolator:1.0.0) with ExtractAarTransform
+Transforming interpolator-1.0.0.aar (androidx.interpolator:interpolator:1.0.0) with LibrarySymbolTableTransform
+Transforming versionedparcelable-1.1.1.aar (androidx.versionedparcelable:versionedparcelable:1.1.1) with JetifyTransform
+Transforming versionedparcelable-1.1.1.aar (androidx.versionedparcelable:versionedparcelable:1.1.1) with ExtractAarTransform
+Transforming versionedparcelable-1.1.1.aar (androidx.versionedparcelable:versionedparcelable:1.1.1) with LibrarySymbolTableTransform
+Transforming core-runtime-2.1.0.aar (androidx.arch.core:core-runtime:2.1.0) with JetifyTransform
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/journal-1/file-access.bin
+Transforming transport-backend-cct-2.3.3.aar (com.google.android.datatransport:transport-backend-cct:2.3.3) with JetifyTransform
+Transforming transport-backend-cct-2.3.3.aar (com.google.android.datatransport:transport-backend-cct:2.3.3) with ExtractAarTransform
+Transforming transport-backend-cct-2.3.3.aar (com.google.android.datatransport:transport-backend-cct:2.3.3) with LibrarySymbolTableTransform
+Transforming transport-runtime-2.2.6.aar (com.google.android.datatransport:transport-runtime:2.2.6) with JetifyTransform
+Transforming transport-runtime-2.2.6.aar (com.google.android.datatransport:transport-runtime:2.2.6) with ExtractAarTransform
+Transforming transport-runtime-2.2.6.aar (com.google.android.datatransport:transport-runtime:2.2.6) with LibrarySymbolTableTransform
+Transforming transport-api-2.2.1.aar (com.google.android.datatransport:transport-api:2.2.1) with JetifyTransform
+Transforming transport-api-2.2.1.aar (com.google.android.datatransport:transport-api:2.2.1) with ExtractAarTransform
+Transforming transport-api-2.2.1.aar (com.google.android.datatransport:transport-api:2.2.1) with LibrarySymbolTableTransform
+Transforming firebase-components-16.1.0.aar (com.google.firebase:firebase-components:16.1.0) with JetifyTransform
+Transforming firebase-components-16.1.0.aar (com.google.firebase:firebase-components:16.1.0) with ExtractAarTransform
+Transforming firebase-components-16.1.0.aar (com.google.firebase:firebase-components:16.1.0) with LibrarySymbolTableTransform
+Transforming firebase-encoders-json-17.1.0.aar (com.google.firebase:firebase-encoders-json:17.1.0) with JetifyTransform
+Transforming firebase-encoders-json-17.1.0.aar (com.google.firebase:firebase-encoders-json:17.1.0) with ExtractAarTransform
+Transforming firebase-encoders-json-17.1.0.aar (com.google.firebase:firebase-encoders-json:17.1.0) with LibrarySymbolTableTransform
+Transforming exifinterface-1.3.2.aar (androidx.exifinterface:exifinterface:1.3.2) with JetifyTransform
+Transforming exifinterface-1.3.2.aar (androidx.exifinterface:exifinterface:1.3.2) with ExtractAarTransform
+Transforming exifinterface-1.3.2.aar (androidx.exifinterface:exifinterface:1.3.2) with LibrarySymbolTableTransform
+Transforming lifecycle-viewmodel-2.5.1.aar (androidx.lifecycle:lifecycle-viewmodel:2.5.1) with JetifyTransform
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/executionHistory/executionHistory.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/fileHashes.bin
+Invalidating in-memory cache of /Users/user2/.gradle/caches/8.2.1/fileHashes/resourceHashesCache.bin
+Caching disabled for JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-runtime/2.1.0/2df0e03029caae7863ccb4825addaadc8ab6780c/core-runtime-2.1.0.aar because:
+  Build cache is disabled
+Caching disabled for JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-runtime/2.5.1/26e3d5564fe875473320ad0c15cab765099be8c2/lifecycle-runtime-2.5.1.aar because:
+  Build cache is disabled
+Caching disabled for JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.savedstate/savedstate/1.2.0/bcaeef765339b976946cc9e891536713af651ebc/savedstate-1.2.0.aar because:
+  Build cache is disabled
+Caching disabled for JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-livedata/2.1.0/454b4bcf4ce0b860b4b4d6a16cba132bb7bbae8f/lifecycle-livedata-2.1.0.aar because:
+  Build cache is disabled
+Caching disabled for JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-viewmodel/2.5.1/81fe3e2d11ed12be941b71dbea223aa3e64c6903/lifecycle-viewmodel-2.5.1.aar because:
+  Build cache is disabled
+Caching disabled for JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-livedata-core/2.5.1/a55defc29b52baf41304c058c91dba38b5c7651c/lifecycle-livedata-core-2.5.1.aar because:
+  Build cache is disabled
+Skipping JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-runtime/2.5.1/26e3d5564fe875473320ad0c15cab765099be8c2/lifecycle-runtime-2.5.1.aar as it is up-to-date.
+Skipping JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-runtime/2.1.0/2df0e03029caae7863ccb4825addaadc8ab6780c/core-runtime-2.1.0.aar as it is up-to-date.
+Skipping JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-livedata-core/2.5.1/a55defc29b52baf41304c058c91dba38b5c7651c/lifecycle-livedata-core-2.5.1.aar as it is up-to-date.
+Skipping JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-livedata/2.1.0/454b4bcf4ce0b860b4b4d6a16cba132bb7bbae8f/lifecycle-livedata-2.1.0.aar as it is up-to-date.
+Skipping JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-viewmodel/2.5.1/81fe3e2d11ed12be941b71dbea223aa3e64c6903/lifecycle-viewmodel-2.5.1.aar as it is up-to-date.
+Skipping JetifyTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.savedstate/savedstate/1.2.0/bcaeef765339b976946cc9e891536713af651ebc/savedstate-1.2.0.aar as it is up-to-date.
+Transforming savedstate-1.2.0.aar (androidx.savedstate:savedstate:1.2.0) with ExtractAarTransform
+Transforming lifecycle-livedata-core-2.5.1.aar (androidx.lifecycle:lifecycle-livedata-core:2.5.1) with ExtractAarTransform
+Transforming lifecycle-livedata-2.1.0.aar (androidx.lifecycle:lifecycle-livedata:2.1.0) with ExtractAarTransform
+Transforming core-runtime-2.1.0.aar (androidx.arch.core:core-runtime:2.1.0) with ExtractAarTransform
+Transforming lifecycle-livedata-core-2.5.1.aar (androidx.lifecycle:lifecycle-livedata-core:2.5.1) with ExtractAarTransform
+Transforming lifecycle-livedata-2.1.0.aar (androidx.lifecycle:lifecycle-livedata:2.1.0) with ExtractAarTransform
+Transforming lifecycle-runtime-2.5.1.aar (androidx.lifecycle:lifecycle-runtime:2.5.1) with ExtractAarTransform
+Transforming lifecycle-viewmodel-2.5.1.aar (androidx.lifecycle:lifecycle-viewmodel:2.5.1) with ExtractAarTransform
+Caching disabled for ExtractAarTransform: /Users/user2/.gradle/caches/transforms-3/752e8aeb6a2e0ea9166fd58e50a9c30b/transformed/jetified-savedstate-1.2.0.aar because:
+  Build cache is disabled
+Caching disabled for ExtractAarTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-livedata-core/2.5.1/a55defc29b52baf41304c058c91dba38b5c7651c/lifecycle-livedata-core-2.5.1.aar because:
+  Build cache is disabled
+Caching disabled for ExtractAarTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-viewmodel/2.5.1/81fe3e2d11ed12be941b71dbea223aa3e64c6903/lifecycle-viewmodel-2.5.1.aar because:
+  Build cache is disabled
+Caching disabled for ExtractAarTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-runtime/2.1.0/2df0e03029caae7863ccb4825addaadc8ab6780c/core-runtime-2.1.0.aar because:
+  Build cache is disabled
+Skipping ExtractAarTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-runtime/2.1.0/2df0e03029caae7863ccb4825addaadc8ab6780c/core-runtime-2.1.0.aar as it is up-to-date.
+Caching disabled for ExtractAarTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-livedata/2.1.0/454b4bcf4ce0b860b4b4d6a16cba132bb7bbae8f/lifecycle-livedata-2.1.0.aar because:
+  Build cache is disabled
+Skipping ExtractAarTransform: /Users/user2/.gradle/caches/transforms-3/752e8aeb6a2e0ea9166fd58e50a9c30b/transformed/jetified-savedstate-1.2.0.aar as it is up-to-date.
+Skipping ExtractAarTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-livedata/2.1.0/454b4bcf4ce0b860b4b4d6a16cba132bb7bbae8f/lifecycle-livedata-2.1.0.aar as it is up-to-date.
+Skipping ExtractAarTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-viewmodel/2.5.1/81fe3e2d11ed12be941b71dbea223aa3e64c6903/lifecycle-viewmodel-2.5.1.aar as it is up-to-date.
+Skipping ExtractAarTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-livedata-core/2.5.1/a55defc29b52baf41304c058c91dba38b5c7651c/lifecycle-livedata-core-2.5.1.aar as it is up-to-date.
+Transforming core-runtime-2.1.0.aar (androidx.arch.core:core-runtime:2.1.0) with LibrarySymbolTableTransform
+Transforming lifecycle-viewmodel-2.5.1.aar (androidx.lifecycle:lifecycle-viewmodel:2.5.1) with LibrarySymbolTableTransform
+Transforming lifecycle-livedata-core-2.5.1.aar (androidx.lifecycle:lifecycle-livedata-core:2.5.1) with LibrarySymbolTableTransform
+Transforming lifecycle-livedata-core-2.5.1.aar (androidx.lifecycle:lifecycle-livedata-core:2.5.1) with LibrarySymbolTableTransform
+Transforming savedstate-1.2.0.aar (androidx.savedstate:savedstate:1.2.0) with LibrarySymbolTableTransform
+Caching disabled for ExtractAarTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-runtime/2.5.1/26e3d5564fe875473320ad0c15cab765099be8c2/lifecycle-runtime-2.5.1.aar because:
+  Build cache is disabled
+Transforming lifecycle-livedata-2.1.0.aar (androidx.lifecycle:lifecycle-livedata:2.1.0) with LibrarySymbolTableTransform
+Transforming lifecycle-livedata-2.1.0.aar (androidx.lifecycle:lifecycle-livedata:2.1.0) with LibrarySymbolTableTransform
+Skipping ExtractAarTransform: /Users/user2/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-runtime/2.5.1/26e3d5564fe875473320ad0c15cab765099be8c2/lifecycle-runtime-2.5.1.aar as it is up-to-date.
+Transforming lifecycle-runtime-2.5.1.aar (androidx.lifecycle:lifecycle-runtime:2.5.1) with LibrarySymbolTableTransform
+Caching disabled for LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/7accb37f6eb9a975b1fc5166134e03b8/transformed/core-runtime-2.1.0 because:
+  Build cache is disabled
+Skipping LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/7accb37f6eb9a975b1fc5166134e03b8/transformed/core-runtime-2.1.0 as it is up-to-date.
+Caching disabled for LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/d2404e8f0c2312141333f072fa6c3631/transformed/lifecycle-livedata-2.1.0 because:
+  Build cache is disabled
+Caching disabled for LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/90bc7a1166a78d6ebe80eca5493cefb0/transformed/lifecycle-viewmodel-2.5.1 because:
+  Build cache is disabled
+Skipping LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/d2404e8f0c2312141333f072fa6c3631/transformed/lifecycle-livedata-2.1.0 as it is up-to-date.
+Skipping LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/90bc7a1166a78d6ebe80eca5493cefb0/transformed/lifecycle-viewmodel-2.5.1 as it is up-to-date.
+Caching disabled for LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/deb811647c2623242928fae788b55301/transformed/lifecycle-livedata-core-2.5.1 because:
+  Build cache is disabled
+Skipping LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/deb811647c2623242928fae788b55301/transformed/lifecycle-livedata-core-2.5.1 as it is up-to-date.
+Transforming annotation-experimental-1.4.1.aar (androidx.annotation:annotation-experimental:1.4.1) with JetifyTransform
+Transforming fbjni-0.3.0.aar (com.facebook.fbjni:fbjni:0.3.0) with JetifyTransform
+Transforming imagepipeline-okhttp3-2.5.0.aar (com.facebook.fresco:imagepipeline-okhttp3:2.5.0) with JetifyTransform
+Transforming tracing-1.2.0.aar (androidx.tracing:tracing:1.2.0) with JetifyTransform
+Caching disabled for LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/72c4fbe7d117462415e88dca8e49e82b/transformed/jetified-savedstate-1.2.0 because:
+  Build cache is disabled
+Skipping LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/72c4fbe7d117462415e88dca8e49e82b/transformed/jetified-savedstate-1.2.0 as it is up-to-date.
+Caching disabled for LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/c7ca1bebe447ac63e42d75ce7f3ee83a/transformed/lifecycle-runtime-2.5.1 because:
+  Build cache is disabled
+Skipping LibrarySymbolTableTransform: /Users/user2/.gradle/caches/transforms-3/c7ca1bebe447ac63e42d75ce7f3ee83a/transformed/lifecycle-runtime-2.5.1 as it is up-to-date.
+Transforming soloader-0.10.5.aar (com.facebook.soloader:soloader:0.10.5) with JetifyTransform
+Transforming soloader-0.10.5.aar (com.facebook.soloader:soloader:0.10.5) with ExtractAarTransform
+Transforming tracing-1.2.0.aar (androidx.tracing:tracing:1.2.0) with ExtractAarTransform
+Transforming tracing-1.2.0.aar (androidx.tracing:tracing:1.2.0) with LibrarySymbolTableTransform
+Transforming annotation-experimental-1.4.1.aar (androidx.annotation:annotation-experimental:1.4.1) with ExtractAarTransform
+Transforming autofill-1.1.0.aar (androidx.autofill:autofill:1.1.0) with JetifyTransform
+Transforming autofill-1.1.0.aar (androidx.autofill:autofill:1.1.0) with ExtractAarTransform
+Transforming imagepipeline-okhttp3-2.5.0.aar (com.facebook.fresco:imagepipeline-okhttp3:2.5.0) with ExtractAarTransform
+Transforming autofill-1.1.0.aar (androidx.autofill:autofill:1.1.0) with LibrarySymbolTableTransform
+Transforming annotation-experimental-1.4.1.aar (androidx.annotation:annotation-experimental:1.4.1) with LibrarySymbolTableTransform
+Transforming lifecycle-viewmodel-2.5.1.aar (androidx.lifecycle:lifecycle-viewmodel:2.5.1) with JetifyTransform
+Transforming fbjni-0.3.0.aar (com.facebook.fbjni:fbjni:0.3.0) with ExtractAarTransform
+Transforming fbjni-0.3.0.aar (com.facebook.fbjni:fbjni:0.3.0) with LibrarySymbolTableTransform
+Transforming lifecycle-viewmodel-2.5.1.aar (androidx.lifecycle:lifecycle-viewmodel:2.5.1) with ExtractAarTransform
+Transforming lifecycle-viewmodel-2.5.1.aar (androidx.lifecycle:lifecycle-viewmodel:2.5.1) with LibrarySymbolTableTransform
+Transforming imagepipeline-okhttp3-2.5.0.aar (com.facebook.fresco:imagepipeline-okhttp3:2.5.0) with LibrarySymbolTableTransform
+Transforming soloader-0.10.5.aar (com.facebook.soloader:soloader:0.10.5) with LibrarySymbolTableTransform
+Transforming imagepipeline-native-2.5.0.aar (com.facebook.fresco:imagepipeline-native:2.5.0) with JetifyTransform
+Transforming fresco-2.5.0.aar (com.facebook.fresco:fresco:2.5.0) with JetifyTransform
+Transforming ui-common-2.5.0.aar (com.facebook.fresco:ui-common:2.5.0) with JetifyTransform
+Transforming drawee-2.5.0.aar (com.facebook.fresco:drawee:2.5.0) with JetifyTransform
+Transforming imagepipeline-base-2.5.0.aar (com.facebook.fresco:imagepipeline-base:2.5.0) with JetifyTransform
+Transforming imagepipeline-2.5.0.aar (com.facebook.fresco:imagepipeline:2.5.0) with JetifyTransform
+Transforming fbcore-2.5.0.aar (com.facebook.fresco:fbcore:2.5.0) with JetifyTransform
+Transforming memory-type-ashmem-2.5.0.aar (com.facebook.fresco:memory-type-ashmem:2.5.0) with JetifyTransform
+Transforming imagepipeline-base-2.5.0.aar (com.facebook.fresco:imagepipeline-base:2.5.0) with ExtractAarTransform
+Transforming imagepipeline-base-2.5.0.aar (com.facebook.fresco:imagepipeline-base:2.5.0) with LibrarySymbolTableTransform
+Transforming fresco-2.5.0.aar (com.facebook.fresco:fresco:2.5.0) with ExtractAarTransform
+Transforming drawee-2.5.0.aar (com.facebook.fresco:drawee:2.5.0) with ExtractAarTransform
+Transforming drawee-2.5.0.aar (com.facebook.fresco:drawee:2.5.0) with LibrarySymbolTableTransform
+Transforming imagepipeline-native-2.5.0.aar (com.facebook.fresco:imagepipeline-native:2.5.0) with ExtractAarTransform
+Transforming ui-common-2.5.0.aar (com.facebook.fresco:ui-common:2.5.0) with ExtractAarTransform
+Transforming ui-common-2.5.0.aar (com.facebook.fresco:ui-common:2.5.0) with LibrarySymbolTableTransform
+Transforming fresco-2.5.0.aar (com.facebook.fresco:fresco:2.5.0) with LibrarySymbolTableTransform
+Transforming nativeimagefilters-2.5.0.aar (com.facebook.fresco:nativeimagefilters:2.5.0) with JetifyTransform
+Transforming imagepipeline-native-2.5.0.aar (com.facebook.fresco:imagepipeline-native:2.5.0) with LibrarySymbolTableTransform
+Transforming nativeimagetranscoder-2.5.0.aar (com.facebook.fresco:nativeimagetranscoder:2.5.0) with JetifyTransform
+Transforming nativeimagetranscoder-2.5.0.aar (com.facebook.fresco:nativeimagetranscoder:2.5.0) with ExtractAarTransform
+Transforming nativeimagetranscoder-2.5.0.aar (com.facebook.fresco:nativeimagetranscoder:2.5.0) with LibrarySymbolTableTransform
+Transforming image-1.0.0-beta1.aar (com.google.android.odml:image:1.0.0-beta1) with JetifyTransform
+Transforming fbcore-2.5.0.aar (com.facebook.fresco:fbcore:2.5.0) with ExtractAarTransform
+Transforming fbcore-2.5.0.aar (com.facebook.fresco:fbcore:2.5.0) with LibrarySymbolTableTransform
+Transforming image-1.0.0-beta1.aar (com.google.android.odml:image:1.0.0-beta1) with ExtractAarTransform
+Transforming nativeimagefilters-2.5.0.aar (com.facebook.fresco:nativeimagefilters:2.5.0) with ExtractAarTransform
+Transforming nativeimagefilters-2.5.0.aar (com.facebook.fresco:nativeimagefilters:2.5.0) with LibrarySymbolTableTransform
+Transforming imagepipeline-2.5.0.aar (com.facebook.fresco:imagepipeline:2.5.0) with ExtractAarTransform
+Transforming imagepipeline-2.5.0.aar (com.facebook.fresco:imagepipeline:2.5.0) with LibrarySymbolTableTransform
+Transforming image-1.0.0-beta1.aar (com.google.android.odml:image:1.0.0-beta1) with LibrarySymbolTableTransform
+Transforming memory-type-java-2.5.0.aar (com.facebook.fresco:memory-type-java:2.5.0) with JetifyTransform
+Transforming memory-type-java-2.5.0.aar (com.facebook.fresco:memory-type-java:2.5.0) with ExtractAarTransform
+Transforming memory-type-java-2.5.0.aar (com.facebook.fresco:memory-type-java:2.5.0) with LibrarySymbolTableTransform
+Transforming memory-type-native-2.5.0.aar (com.facebook.fresco:memory-type-native:2.5.0) with JetifyTransform
+Transforming memory-type-native-2.5.0.aar (com.facebook.fresco:memory-type-native:2.5.0) with ExtractAarTransform
+Transforming memory-type-native-2.5.0.aar (com.facebook.fresco:memory-type-native:2.5.0) with LibrarySymbolTableTransform
+Transforming memory-type-ashmem-2.5.0.aar (com.facebook.fresco:memory-type-ashmem:2.5.0) with ExtractAarTransform
+Transforming memory-type-ashmem-2.5.0.aar (com.facebook.fresco:memory-type-ashmem:2.5.0) with LibrarySymbolTableTransform
+Transforming image-1.0.0-beta1.aar (com.google.android.odml:image:1.0.0-beta1) with JetifyTransform
+Transforming image-1.0.0-beta1.aar (com.google.android.odml:image:1.0.0-beta1) with ExtractAarTransform
+Transforming image-1.0.0-beta1.aar (com.google.android.odml:image:1.0.0-beta1) with LibrarySymbolTableTransform
+
+> Task :react-native-camera-kit:generateDebugRFile FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':react-native-camera-kit:generateDebugRFile'.
+> Multiple build operations failed.
+      Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+  Owner PID: 23774
+  Our PID: 20044
+  Owner Operation: 
+  Our operation: 
+  Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+      Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+  Owner PID: 23774
+  Our PID: 20044
+  Owner Operation: 
+  Our operation: 
+  Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+      Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+  Owner PID: 23774
+  Our PID: 20044
+  Owner Operation: 
+  Our operation: 
+  Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+      Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+  Owner PID: 23774
+  Our PID: 20044
+  Owner Operation: 
+  Our operation: 
+  Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+      Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+  Owner PID: 23774
+  Our PID: 20044
+  Owner Operation: 
+  Our operation: 
+  Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+      Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+  Owner PID: 23774
+  Our PID: 20044
+  Owner Operation: 
+  Our operation: 
+  Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+      Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+  Owner PID: 23774
+  Our PID: 20044
+  Owner Operation: 
+  Our operation: 
+  Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+   > Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+     Owner PID: 23774
+     Our PID: 20044
+     Owner Operation: 
+     Our operation: 
+     Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+   > Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+     Owner PID: 23774
+     Our PID: 20044
+     Owner Operation: 
+     Our operation: 
+     Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+   > Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+     Owner PID: 23774
+     Our PID: 20044
+     Owner Operation: 
+     Our operation: 
+     Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+   > Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+     Owner PID: 23774
+     Our PID: 20044
+     Owner Operation: 
+     Our operation: 
+     Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+   > Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+     Owner PID: 23774
+     Our PID: 20044
+     Owner Operation: 
+     Our operation: 
+     Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+   > Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+     Owner PID: 23774
+     Our PID: 20044
+     Owner Operation: 
+     Our operation: 
+     Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+   > Timeout waiting to lock Artifact transforms cache (/Users/user2/.gradle/caches/transforms-3). It is currently in use by another Gradle instance.
+     Owner PID: 23774
+     Our PID: 20044
+     Owner Operation: 
+     Our operation: 
+     Lock file: /Users/user2/.gradle/caches/transforms-3/transforms-3.lock
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 12m 31s
+11 actionable tasks: 1 executed, 10 up-to-date
+Watched directory hierarchies: [/Users/user2/Developer/MinKYC/mobile/App/node_modules/@react-native/gradle-plugin]

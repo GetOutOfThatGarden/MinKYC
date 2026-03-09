@@ -1,0 +1,49 @@
+Starting a Gradle Daemon, 1 busy and 1 incompatible and 2 stopped Daemons could not be reused, use --status for details
+> Task :gradle-plugin:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:pluginDescriptors UP-TO-DATE
+> Task :gradle-plugin:processResources UP-TO-DATE
+> Task :gradle-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:jar UP-TO-DATE
+> Task :gradle-plugin:inspectClassesForKotlinIC UP-TO-DATE
+
+> Configure project :react-native-vision-camera
+[VisionCamera] Thank you for using VisionCamera ❤️
+[VisionCamera] If you enjoy using VisionCamera, please consider sponsoring this project: https://github.com/sponsors/mrousavy
+[VisionCamera] node_modules found at /Users/user2/Developer/MinKYC/mobile/App/node_modules
+[VisionCamera] VisionCamera_enableFrameProcessors is set to true!
+[VisionCamera] react-native-worklets-core not found, Frame Processors are disabled!
+[VisionCamera] VisionCamera_enableCodeScanner is set to false!
+
+> Task :react-native-vision-camera:prepareHeaders UP-TO-DATE
+> Task :react-native-vision-camera:preBuild UP-TO-DATE
+> Task :react-native-vision-camera:preDebugBuild UP-TO-DATE
+> Task :react-native-vision-camera:generateDebugBuildConfig UP-TO-DATE
+> Task :react-native-vision-camera:generateDebugResValues UP-TO-DATE
+> Task :react-native-vision-camera:generateDebugResources UP-TO-DATE
+> Task :react-native-vision-camera:packageDebugResources UP-TO-DATE
+> Task :react-native-vision-camera:parseDebugLocalResources UP-TO-DATE
+> Task :react-native-vision-camera:processDebugManifest UP-TO-DATE
+> Task :react-native-vision-camera:generateDebugRFile UP-TO-DATE
+> Task :react-native-vision-camera:compileDebugKotlin
+e: file:///Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native-vision-camera/android/src/main/java/com/mrousavy/camera/frameprocessors/VisionCameraProxy.kt:10:46 Unresolved reference: FrameworkAPI
+e: file:///Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native-vision-camera/android/src/main/java/com/mrousavy/camera/frameprocessors/VisionCameraProxy.kt:17:8 Unresolved reference: FrameworkAPI
+e: file:///Users/user2/Developer/MinKYC/mobile/App/node_modules/react-native-vision-camera/android/src/main/java/com/mrousavy/camera/frameprocessors/VisionCameraProxy.kt:17:8 An annotation argument must be a compile-time constant
+
+> Task :react-native-vision-camera:compileDebugKotlin FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':react-native-vision-camera:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 3m 34s
+13 actionable tasks: 1 executed, 12 up-to-date

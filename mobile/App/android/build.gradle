@@ -2,11 +2,12 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "33.0.0"
-        minSdkVersion = 21
+        buildToolsVersion = "34.0.0"
+        minSdkVersion = 24
         compileSdkVersion = 34
         targetSdkVersion = 34
-        kotlinVersion = "1.8.10"
+        kotlinVersion = "1.8.22"
+        coroutineVersion = "1.7.3"
 
         // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
         ndkVersion = "23.1.7779620"
@@ -16,7 +17,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        classpath("com.android.tools.build:gradle:8.0.2")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
@@ -30,33 +31,90 @@ allprojects {
     configurations.all {
         resolutionStrategy {
             force("androidx.webkit:webkit:1.11.0")
-            // Fix D8 dexing crash by forcing a stable version of error_prone_annotations
             force("com.google.errorprone:error_prone_annotations:2.26.0")
-            // Force stable lifecycle versions to prevent D8 crashes in newer 2.8.x releases
-            force("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
-            force("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-            force("androidx.lifecycle:lifecycle-livedata:2.5.1")
-            force("androidx.lifecycle:lifecycle-livedata-core:2.5.1")
-            force("androidx.lifecycle:lifecycle-runtime:2.5.1")
-            // Force stable CameraX to avoid D8 crashes with 1.5.0-alpha versions
-            force("androidx.camera:camera-core:1.3.4")
-            force("androidx.camera:camera-camera2:1.3.4")
-            force("androidx.camera:camera-lifecycle:1.3.4")
-            force("androidx.camera:camera-video:1.3.4")
-            force("androidx.camera:camera-view:1.3.4")
-            force("androidx.camera:camera-extensions:1.3.4")
+
+            // Pin ALL Kotlin stdlib variants to a single version
+            force("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+            force("org.jetbrains.kotlin:kotlin-stdlib-common:$kotlinVersion")
+            force("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion")
+            force("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+
+            // Pin ALL coroutines variants
+            force("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
+            force("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:$coroutineVersion")
+            force("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion")
+            force("org.jetbrains.kotlinx:kotlinx-coroutines-bom:$coroutineVersion")
+        }
+    }
+}
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            // AGP 8 requirement: every module needs a namespace.
+            if (project.android.namespace == null) {
+                try {
+                    def manifestFile = project.file("src/main/AndroidManifest.xml")
+                    if (manifestFile.exists()) {
+                        def manifestText = manifestFile.text
+                        def matcher = manifestText =~ /package="([^"]+)"/
+                        if (matcher.find()) {
+                            project.android.namespace = matcher.group(1)
+                        }
+                    }
+                } catch (ignored) {
+                }
+                if (project.android.namespace == null) {
+                    project.android.namespace = "com." + project.name.replace("-", ".")
+                }
+            }
+
+            project.android {
+                buildFeatures {
+                    buildConfig true
+                }
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_17
+                    targetCompatibility JavaVersion.VERSION_17
+                }
+                
+                // Ensure Kotlin tasks use the same JVM target
+                if (project.tasks.findByName('compileDebugKotlin')) {
+                    project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+                        kotlinOptions {
+                            jvmTarget = "17"
+                        }
+                    }
+                }
+            }
+
+            // Inject missing coroutines dependency for specific modules failing in AGP 8
+            if (project.name == 'react-native-nfc-passport-reader') {
+                project.dependencies.add("implementation", "org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext.coroutineVersion}")
+                project.dependencies.add("implementation", "org.jetbrains.kotlinx:kotlinx-coroutines-android:${rootProject.ext.coroutineVersion}")
+            }
+        }
+    }
+}
+
+// Global task-level overrides to ensure consistency between Java and Kotlin targets
+allprojects {
+    configurations.all {
+        resolutionStrategy.force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        sourceCompatibility = JavaVersion.VERSION_17.toString()
+        targetCompatibility = JavaVersion.VERSION_17.toString()
+        
+        if (JavaVersion.current().isJava11Compatible()) {
+            options.release = 17
         }
     }
 
-    subprojects {
-        afterEvaluate { project ->
-            if (project.hasProperty('android')) {
-                // Ensure all modules have access to coroutines used by NFC library
-                project.dependencies {
-                    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
-                    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
-                }
-            }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "17"
         }
     }
 }

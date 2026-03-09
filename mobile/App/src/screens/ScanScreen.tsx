@@ -45,7 +45,7 @@ const ScanScreen: React.FC = () => {
     }
   };
 
-  const codeScanner = useCodeScanner({
+   const codeScanner = useCodeScanner({
     codeTypes: ['qr'],
     onCodeScanned: (codes) => {
       if (scanningQR && codes.length > 0 && codes[0].value) {
@@ -271,7 +271,7 @@ const ScanScreen: React.FC = () => {
       )}
       </ScrollView>
 
-      {scanningQR && device != null && (
+       {scanningQR && device != null && (
         <View style={StyleSheet.absoluteFill}>
           <Camera
             style={StyleSheet.absoluteFill}
