@@ -39,6 +39,16 @@ const ScanScreen: React.FC = () => {
     }
   };
 
+  const injectMockRequest = () => {
+    const mockReq: VerificationRequest = {
+      platformId: "MOCK_PLATFORM_ID",
+      requestId: "REQ_" + Math.random().toString(36).substr(2, 9),
+      condition: "age >= 18",
+      userId: "TEST_USER_123"
+    };
+    setScannedRequest(mockReq);
+  };
+
   const codeScanner = useCodeScanner({
     codeTypes: ['qr'],
     onCodeScanned: (codes) => {
@@ -74,6 +84,15 @@ const ScanScreen: React.FC = () => {
           >
             <AppText weight="bold" color={theme.colors.surface}>
               Start Scanner
+            </AppText>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.mockButton}
+            onPress={injectMockRequest}
+          >
+            <AppText variant="caption" color={theme.colors.primary} weight="semibold">
+              Bypass / Inject Mock Request (Test Only)
             </AppText>
           </TouchableOpacity>
         </View>
@@ -224,6 +243,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     ...theme.shadows.button,
+  },
+  mockButton: {
+    marginTop: theme.spacing.lg,
+    padding: theme.spacing.sm,
+    borderWidth: 1,
+    borderColor: theme.colors.primary,
+    borderStyle: 'dashed',
+    borderRadius: theme.borderRadii.md,
+    width: '100%',
+    alignItems: 'center',
   },
   securityNote: {
     backgroundColor: theme.colors.successLight,

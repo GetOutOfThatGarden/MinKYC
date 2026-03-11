@@ -32,13 +32,9 @@ export function calculateAge(birthDateStr: string): number {
 export function checkCondition(birthDateStr: string, condition: string): boolean {
   const age = calculateAge(birthDateStr);
   
-  const normalizedCondition = condition.toLowerCase();
-  
-  if (normalizedCondition.includes('age >= 18')) {
+  if (condition.toLowerCase().includes('age >= 18')) {
     return age >= 18;
   }
   
-  // Basic implementation for MVP
-  // In production, use a proper parser for conditions
   return false;
 }

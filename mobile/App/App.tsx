@@ -71,12 +71,12 @@ function App(): React.JSX.Element {
             <Stack.Screen 
               name="Scan" 
               component={ScanScreen} 
-              options={{ title: 'Read Passport' }}
+              options={{ title: 'Verify Identity' }}
             />
             <Stack.Screen 
               name="ScanQR" 
               component={ScanScreen} 
-              options={{ title: 'Scan QR' }}
+              options={{ title: 'Scan QR Code' }}
             />
             <Stack.Screen 
               name="Verify" 

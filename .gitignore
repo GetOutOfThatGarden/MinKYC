@@ -37,8 +37,20 @@ credentials.*
 
 # Mobile/Android Exclusions
 mobile/App/cmdline.zip
+mobile/App/android/build/
 mobile/App/android/app/build/
 mobile/App/android/.gradle/
 mobile/App/android/local.properties
 mobile/App/android_logs.txt
+mobile/App/android/*.txt
 mobile/App/node_modules/
+mobile/App/*.log
+
+# Mobile/iOS Exclusions
+mobile/App/ios/build/
+mobile/App/ios/DerivedData/
+mobile/App/ios/*.xcworkspace/xcuserdata/
+mobile/App/ios/*.xcodeproj/project.xcworkspace/
+mobile/App/ios/*.xcodeproj/xcuserdata/
+mobile/App/ios/Pods/
+mobile/App/ios/Podfile.lock
