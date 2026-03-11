@@ -28,8 +28,7 @@ jest.mock('../ZKProver', () => {
 
 describe('VerificationExecutor', () => {
   const mockRequest: VerificationRequest = {
-    minkyc: true,
-    type: 'verify_request',
+    userId: 'user-123',
     platformId: 'test-platform',
     requestId: 'req-123',
     condition: 'age_over_18',

@@ -1,0 +1,669 @@
+../../cli/src/commands/init.ts(129,21): error TS2345: Argument of type '{ identityCounter: anchor.web3.PublicKey; identity: anchor.web3.PublicKey; owner: anchor.web3.PublicKey; systemProgram: anchor.web3.PublicKey; }' is not assignable to parameter of type 'ResolvedAccounts<{ name: "identityCounter"; writable: true; pda: { seeds: [{ kind: "const"; value: [105, 100, 101, 110, 116, 105, 116, 121, 95, 99, 111, 117, 110, 116, 101, 114]; }, { kind: "account"; path: "owner"; }]; }; } | { ...; } | { ...; } | { ...; }>'.
+  Object literal may only specify known properties, and 'identityCounter' does not exist in type 'ResolvedAccounts<{ name: "identityCounter"; writable: true; pda: { seeds: [{ kind: "const"; value: [105, 100, 101, 110, 116, 105, 116, 121, 95, 99, 111, 117, 110, 116, 101, 114]; }, { kind: "account"; path: "owner"; }]; }; } | { ...; } | { ...; } | { ...; }>'.
+../../cli/src/commands/status.ts(99,70): error TS2339: Property 'verificationCount' does not exist on type '{ owner: PublicKey; commitment: number[]; revoked: boolean; index: BN; }'.
+../../cli/src/utils/mockData.ts(58,38): error TS2345: Argument of type 'readonly ["IRL"]' is not assignable to parameter of type 'unknown[]'.
+  The type 'readonly ["IRL"]' is 'readonly' and cannot be assigned to the mutable type 'unknown[]'.
+../../cli/src/utils/mockData.ts(72,9): error TS2322: Type 'unknown' is not assignable to type 'string'.
+../../cli/src/utils/mockData.ts(76,9): error TS2322: Type 'unknown' is not assignable to type 'string'.
+App.tsx(16,32): error TS6142: Module './src/hooks/useWallet' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/hooks/useWallet.tsx', but '--jsx' is not set.
+App.tsx(19,24): error TS6142: Module './src/screens/HomeScreen' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/screens/HomeScreen.tsx', but '--jsx' is not set.
+App.tsx(20,30): error TS6142: Module './src/screens/OnboardingScreen' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/screens/OnboardingScreen.tsx', but '--jsx' is not set.
+App.tsx(21,28): error TS6142: Module './src/screens/IdentityScreen' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/screens/IdentityScreen.tsx', but '--jsx' is not set.
+App.tsx(22,24): error TS6142: Module './src/screens/ScanScreen' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/screens/ScanScreen.tsx', but '--jsx' is not set.
+App.tsx(23,26): error TS6142: Module './src/screens/VerifyScreen' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/screens/VerifyScreen.tsx', but '--jsx' is not set.
+App.tsx(24,39): error TS6142: Module './src/screens/VerificationHistoryScreen' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/screens/VerificationHistoryScreen.tsx', but '--jsx' is not set.
+App.tsx(25,38): error TS6142: Module './src/screens/VerificationRecordScreen' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/screens/VerificationRecordScreen.tsx', but '--jsx' is not set.
+App.tsx(26,28): error TS6142: Module './src/screens/SettingsScreen' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/screens/SettingsScreen.tsx', but '--jsx' is not set.
+App.tsx(45,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(46,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(47,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(48,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(56,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(61,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(66,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(71,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(76,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(81,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(86,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(91,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+App.tsx(96,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+node_modules/@testing-library/react-native/build/matchers/extend-expect.d.ts(1,1): error TS1383: Only named exports may use 'export type'.
+node_modules/@testing-library/react-native/build/matchers/to-have-style.d.ts(4,48): error TS2694: Namespace 'global.jest' has no exported member 'MatcherContext'.
+node_modules/@testing-library/react-native/build/render-hook.d.ts(29,119): error TS2304: Cannot find name 'NoInfer'.
+node_modules/@testing-library/react-native/build/render-hook.d.ts(30,124): error TS2304: Cannot find name 'NoInfer'.
+node_modules/@types/react/ts5.0/global.d.ts(155,11): error TS2300: Duplicate identifier 'FormData'.
+node_modules/react-native-nfc-manager/index.d.ts(90,30): error TS1246: An interface property cannot have an initializer.
+node_modules/react-native-nfc-manager/index.d.ts(91,31): error TS1246: An interface property cannot have an initializer.
+node_modules/react-native/types/index.d.ts(167,7): error TS2403: Subsequent variable declarations must have the same type.  Variable 'require' must be of type 'Require', but here has type 'NodeRequire'.
+node_modules/react-native/types/modules/globals.d.ts(99,15): error TS2300: Duplicate identifier 'FormData'.
+node_modules/react-native/types/modules/globals.d.ts(156,19): error TS2430: Interface 'RequestInit' incorrectly extends interface 'import("/Users/user2/Developer/MinKYC/node_modules/undici-types/fetch").RequestInit'.
+  Types of property 'body' are incompatible.
+    Type 'BodyInit_' is not assignable to type 'BodyInit'.
+      Type '_SourceUri' is not assignable to type 'BodyInit'.
+        Type '_SourceUri' is missing the following properties from type 'Float16Array': BYTES_PER_ELEMENT, buffer, byteLength, byteOffset, and 32 more.
+node_modules/react-native/types/modules/globals.d.ts(169,19): error TS2320: Interface 'Request' cannot simultaneously extend types 'Body' and 'Request'.
+  Named property 'arrayBuffer' of types 'Body' and 'Request' are not identical.
+node_modules/react-native/types/modules/globals.d.ts(169,19): error TS2320: Interface 'Request' cannot simultaneously extend types 'Body' and 'Request'.
+  Named property 'blob' of types 'Body' and 'Request' are not identical.
+node_modules/react-native/types/modules/globals.d.ts(169,19): error TS2320: Interface 'Request' cannot simultaneously extend types 'Body' and 'Request'.
+  Named property 'formData' of types 'Body' and 'Request' are not identical.
+node_modules/react-native/types/modules/globals.d.ts(169,19): error TS2320: Interface 'Request' cannot simultaneously extend types 'Body' and 'Request'.
+  Named property 'json' of types 'Body' and 'Request' are not identical.
+node_modules/react-native/types/modules/globals.d.ts(169,19): error TS2320: Interface 'Request' cannot simultaneously extend types 'Body' and 'Request'.
+  Named property 'text' of types 'Body' and 'Request' are not identical.
+node_modules/react-native/types/modules/globals.d.ts(186,19): error TS2430: Interface 'ResponseInit' incorrectly extends interface 'import("/Users/user2/Developer/MinKYC/node_modules/undici-types/fetch").ResponseInit'.
+  Types of property 'headers' are incompatible.
+    Type 'HeadersInit_' is not assignable to type 'HeadersInit'.
+      Type 'string[][]' is not assignable to type 'HeadersInit'.
+        Type 'string[][]' is not assignable to type '[string, string][]'.
+          Type 'string[]' is not assignable to type '[string, string]'.
+            Target requires 2 element(s) but source may have fewer.
+node_modules/react-native/types/modules/globals.d.ts(192,19): error TS2320: Interface 'Response' cannot simultaneously extend types 'Body' and 'Response'.
+  Named property 'arrayBuffer' of types 'Body' and 'Response' are not identical.
+node_modules/react-native/types/modules/globals.d.ts(192,19): error TS2320: Interface 'Response' cannot simultaneously extend types 'Body' and 'Response'.
+  Named property 'blob' of types 'Body' and 'Response' are not identical.
+node_modules/react-native/types/modules/globals.d.ts(192,19): error TS2320: Interface 'Response' cannot simultaneously extend types 'Body' and 'Response'.
+  Named property 'formData' of types 'Body' and 'Response' are not identical.
+node_modules/react-native/types/modules/globals.d.ts(192,19): error TS2320: Interface 'Response' cannot simultaneously extend types 'Body' and 'Response'.
+  Named property 'json' of types 'Body' and 'Response' are not identical.
+node_modules/react-native/types/modules/globals.d.ts(192,19): error TS2320: Interface 'Response' cannot simultaneously extend types 'Body' and 'Response'.
+  Named property 'text' of types 'Body' and 'Response' are not identical.
+node_modules/react-native/types/modules/globals.d.ts(365,15): error TS2300: Duplicate identifier 'URL'.
+node_modules/react-native/types/modules/globals.d.ts(390,15): error TS2300: Duplicate identifier 'URLSearchParams'.
+node_modules/react-native/types/modules/globals.d.ts(480,15): error TS2300: Duplicate identifier 'AbortSignal'.
+node_modules/react-native/types/modules/globals.d.ts(480,15): error TS2420: Class 'AbortSignal' incorrectly implements interface 'EventTarget'.
+  Property 'dispatchEvent' is missing in type 'AbortSignal' but required in type 'EventTarget'.
+node_modules/react-native/types/modules/globals.d.ts(515,15): error TS2300: Duplicate identifier 'AbortController'.
+src/components/__tests__/VerificationExecutor.test.tsx(3,38): error TS6142: Module '../VerificationExecutor' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/VerificationExecutor.tsx', but '--jsx' is not set.
+src/components/__tests__/VerificationExecutor.test.tsx(8,1): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationExecutor.test.tsx(9,20): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationExecutor.test.tsx(10,18): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationExecutor.test.tsx(13,1): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationExecutor.test.tsx(24,14): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/__tests__/VerificationExecutor.test.tsx(31,5): error TS2322: Type '{ minkyc: boolean; type: string; platformId: string; requestId: string; condition: string; }' is not assignable to type 'VerificationRequest'.
+  Object literal may only specify known properties, and 'minkyc' does not exist in type 'VerificationRequest'.
+src/components/__tests__/VerificationExecutor.test.tsx(39,5): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationExecutor.test.tsx(43,44): error TS2694: Namespace 'global.jest' has no exported member 'Mock'.
+src/components/__tests__/VerificationExecutor.test.tsx(45,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/__tests__/VerificationExecutor.test.tsx(45,62): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationExecutor.test.tsx(45,82): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationExecutor.test.tsx(47,5): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationExecutor.test.tsx(51,25): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationExecutor.test.tsx(52,44): error TS2694: Namespace 'global.jest' has no exported member 'Mock'.
+src/components/__tests__/VerificationExecutor.test.tsx(53,42): error TS2694: Namespace 'global.jest' has no exported member 'Mock'.
+src/components/__tests__/VerificationExecutor.test.tsx(56,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/__tests__/VerificationExecutor.test.tsx(56,62): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationExecutor.test.tsx(60,7): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationExecutor.test.tsx(65,27): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationExecutor.test.tsx(66,44): error TS2694: Namespace 'global.jest' has no exported member 'Mock'.
+src/components/__tests__/VerificationExecutor.test.tsx(67,42): error TS2694: Namespace 'global.jest' has no exported member 'Mock'.
+src/components/__tests__/VerificationExecutor.test.tsx(70,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/__tests__/VerificationExecutor.test.tsx(70,86): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationExecutor.test.tsx(75,7): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationExecutor.test.tsx(80,7): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationExecutor.test.tsx(81,9): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationRequestModal.test.tsx(3,42): error TS6142: Module '../VerificationRequestModal' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/VerificationRequestModal.tsx', but '--jsx' is not set.
+src/components/__tests__/VerificationRequestModal.test.tsx(16,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/__tests__/VerificationRequestModal.test.tsx(24,5): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationRequestModal.test.tsx(25,5): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationRequestModal.test.tsx(26,5): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationRequestModal.test.tsx(27,5): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationRequestModal.test.tsx(28,5): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationRequestModal.test.tsx(32,27): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationRequestModal.test.tsx(34,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/__tests__/VerificationRequestModal.test.tsx(43,5): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationRequestModal.test.tsx(47,26): error TS2708: Cannot use namespace 'jest' as a value.
+src/components/__tests__/VerificationRequestModal.test.tsx(49,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/__tests__/VerificationRequestModal.test.tsx(58,5): error TS2304: Cannot find name 'expect'.
+src/components/__tests__/VerificationRequestModal.test.tsx(63,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/__tests__/VerificationRequestModal.test.tsx(71,5): error TS2304: Cannot find name 'expect'.
+src/components/AppText.tsx(28,7): error TS2322: Type '"700"' is not assignable to type '"400"'.
+src/components/AppText.tsx(32,7): error TS2322: Type '"600"' is not assignable to type '"400"'.
+src/components/AppText.tsx(36,7): error TS2322: Type '"600"' is not assignable to type '"400"'.
+src/components/AppText.tsx(49,7): error TS2322: Type '"500"' is not assignable to type '"400"'.
+src/components/AppText.tsx(58,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(14,25): error TS6142: Module './AppText' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/AppText.tsx', but '--jsx' is not set.
+src/components/PassportDataModal.tsx(48,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(54,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(55,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(56,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(60,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(61,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(62,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(66,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(67,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(68,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(78,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(79,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(80,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(91,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(92,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(93,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(104,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(105,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(110,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(112,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/PassportDataModal.tsx(117,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationExecutor.tsx(3,26): error TS6142: Module './ZKProver' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/ZKProver.tsx', but '--jsx' is not set.
+src/components/VerificationExecutor.tsx(8,25): error TS6142: Module './AppText' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/AppText.tsx', but '--jsx' is not set.
+src/components/VerificationExecutor.tsx(75,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationExecutor.tsx(76,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationExecutor.tsx(83,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationExecutor.tsx(84,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationExecutor.tsx(85,10): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationExecutor.tsx(91,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationExecutor.tsx(92,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationExecutor.tsx(93,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationExecutor.tsx(94,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationExecutor.tsx(96,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(4,25): error TS6142: Module './AppText' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/AppText.tsx', but '--jsx' is not set.
+src/components/VerificationRequestModal.tsx(24,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(25,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(26,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(27,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(28,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(29,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(34,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(35,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(36,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(37,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(39,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(40,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(41,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(47,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(48,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(48,49): error TS2551: Property 'secondaryDark' does not exist on type '{ primary: string; primaryLight: string; secondary: string; secondaryLight: string; background: string; surface: string; error: string; errorLight: string; success: string; successLight: string; ... 7 more ...; iconDim: string; }'. Did you mean 'secondary'?
+src/components/VerificationRequestModal.tsx(49,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(50,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(50,62): error TS2551: Property 'secondaryDark' does not exist on type '{ primary: string; primaryLight: string; secondary: string; secondaryLight: string; background: string; surface: string; error: string; errorLight: string; success: string; successLight: string; ... 7 more ...; iconDim: string; }'. Did you mean 'secondary'?
+src/components/VerificationRequestModal.tsx(53,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(53,62): error TS2551: Property 'secondaryDark' does not exist on type '{ primary: string; primaryLight: string; secondary: string; secondaryLight: string; background: string; surface: string; error: string; errorLight: string; success: string; successLight: string; ... 7 more ...; iconDim: string; }'. Did you mean 'secondary'?
+src/components/VerificationRequestModal.tsx(59,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(60,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(61,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(64,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/VerificationRequestModal.tsx(65,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/ZKProver.tsx(169,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/components/ZKProver.tsx(170,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/hooks/useWallet.tsx(135,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(17,36): error TS2307: Cannot find module '../App' or its corresponding type declarations.
+src/screens/HomeScreen.tsx(18,27): error TS6142: Module '../hooks/useWallet' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/hooks/useWallet.tsx', but '--jsx' is not set.
+src/screens/HomeScreen.tsx(20,25): error TS6142: Module '../components/AppText' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/AppText.tsx', but '--jsx' is not set.
+src/screens/HomeScreen.tsx(59,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(60,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(66,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(67,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(68,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(69,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(74,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(75,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(78,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(79,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(80,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(85,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(91,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(92,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(94,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(98,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(99,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(101,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(102,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(103,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(107,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(111,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(112,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(114,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(115,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(116,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(120,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(124,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(125,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(127,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(128,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(129,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(133,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(137,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(138,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(140,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(141,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(142,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(147,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(148,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/HomeScreen.tsx(149,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(16,27): error TS6142: Module '../hooks/useWallet' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/hooks/useWallet.tsx', but '--jsx' is not set.
+src/screens/IdentityScreen.tsx(22,31): error TS6142: Module '../components/PassportDataModal' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/PassportDataModal.tsx', but '--jsx' is not set.
+src/screens/IdentityScreen.tsx(23,25): error TS6142: Module '../components/AppText' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/AppText.tsx', but '--jsx' is not set.
+src/screens/IdentityScreen.tsx(149,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(150,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(151,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(158,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(159,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(160,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(161,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(162,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(167,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(168,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(176,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(178,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(182,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(184,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(186,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(188,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(195,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(196,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(197,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(198,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(203,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(204,29): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(205,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(213,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(214,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(215,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(221,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(222,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(225,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(226,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(227,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(230,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(236,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(237,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(238,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(239,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(243,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(244,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(245,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(246,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(251,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(252,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(253,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(254,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(256,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(264,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(265,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(268,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(272,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(277,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(278,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(279,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/IdentityScreen.tsx(289,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(18,31): error TS6142: Module '../components/PassportDataModal' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/PassportDataModal.tsx', but '--jsx' is not set.
+src/screens/OnboardingScreen.tsx(19,25): error TS6142: Module '../components/AppText' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/AppText.tsx', but '--jsx' is not set.
+src/screens/OnboardingScreen.tsx(95,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(96,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(97,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(98,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(100,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(103,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(108,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(111,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(116,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(117,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(122,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(123,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(124,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(124,60): error TS2339: Property 'warningDark' does not exist on type '{ primary: string; primaryLight: string; secondary: string; secondaryLight: string; background: string; surface: string; error: string; errorLight: string; success: string; successLight: string; ... 7 more ...; iconDim: string; }'.
+src/screens/OnboardingScreen.tsx(131,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(132,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(133,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(134,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(136,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(145,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(146,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(150,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(151,21): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(154,21): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(159,21): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(161,21): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(166,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(168,23): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(169,25): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(170,25): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(174,21): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(178,23): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(187,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(188,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(189,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(190,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(192,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(199,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/OnboardingScreen.tsx(220,31): error TS2551: Property 'xxxl' does not exist on type '{ xs: number; sm: number; md: number; lg: number; xl: number; xxl: number; }'. Did you mean 'xxl'?
+src/screens/ScanScreen.tsx(16,42): error TS6142: Module '../components/VerificationRequestModal' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/VerificationRequestModal.tsx', but '--jsx' is not set.
+src/screens/ScanScreen.tsx(17,38): error TS6142: Module '../components/VerificationExecutor' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/VerificationExecutor.tsx', but '--jsx' is not set.
+src/screens/ScanScreen.tsx(22,25): error TS6142: Module '../components/AppText' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/AppText.tsx', but '--jsx' is not set.
+src/screens/ScanScreen.tsx(58,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(59,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(60,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(62,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(63,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(64,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(67,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(71,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(75,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(81,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(82,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(83,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(84,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(86,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(93,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(94,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(100,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(101,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(105,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(108,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(109,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(110,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(111,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(112,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(113,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(115,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(116,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(125,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(126,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(127,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(131,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(137,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(138,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/ScanScreen.tsx(171,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(15,27): error TS6142: Module '../hooks/useWallet' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/hooks/useWallet.tsx', but '--jsx' is not set.
+src/screens/SettingsScreen.tsx(17,25): error TS6142: Module '../components/AppText' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/AppText.tsx', but '--jsx' is not set.
+src/screens/SettingsScreen.tsx(49,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(50,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(51,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(53,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(54,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(55,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(56,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(60,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(66,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(67,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(69,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(70,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(71,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(72,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(74,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(77,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(78,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(79,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(80,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/SettingsScreen.tsx(82,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(12,36): error TS6142: Module '../../App' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/App.tsx', but '--jsx' is not set.
+src/screens/VerificationHistoryScreen.tsx(15,25): error TS6142: Module '../components/AppText' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/AppText.tsx', but '--jsx' is not set.
+src/screens/VerificationHistoryScreen.tsx(31,28): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/screens/VerificationHistoryScreen.tsx(31,50): error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/screens/VerificationHistoryScreen.tsx(55,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(59,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(60,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(61,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(63,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(64,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(65,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(66,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(69,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(70,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(71,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(74,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(75,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(77,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(78,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(79,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(82,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(83,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(84,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(87,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(88,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(89,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(94,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(101,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(103,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(104,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(107,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(108,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(109,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(112,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationHistoryScreen.tsx(118,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(4,36): error TS6142: Module '../../App' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/App.tsx', but '--jsx' is not set.
+src/screens/VerificationRecordScreen.tsx(5,25): error TS6142: Module '../components/AppText' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/AppText.tsx', but '--jsx' is not set.
+src/screens/VerificationRecordScreen.tsx(18,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(19,7): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(20,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(22,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(23,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(24,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(27,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(28,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(29,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(34,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(35,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(37,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(38,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(42,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(43,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(46,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(47,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(48,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(52,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(54,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(55,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(57,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(58,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(60,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(62,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(64,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(65,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(67,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerificationRecordScreen.tsx(68,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(8,27): error TS6142: Module '../hooks/useWallet' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/hooks/useWallet.tsx', but '--jsx' is not set.
+src/screens/VerifyScreen.tsx(9,26): error TS6142: Module '../components/ZKProver' was resolved to '/Users/user2/Developer/MinKYC/mobile/App/src/components/ZKProver.tsx', but '--jsx' is not set.
+src/screens/VerifyScreen.tsx(88,5): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(90,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(92,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(99,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(100,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(102,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(103,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(104,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(107,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(108,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(109,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(112,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(113,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(115,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(116,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(117,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(123,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(124,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(126,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(127,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(128,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(130,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(131,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(132,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(136,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(137,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(138,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(140,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(141,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(142,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(146,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(147,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(148,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(150,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(151,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(152,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(157,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(158,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(163,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(166,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(172,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(173,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(174,19): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(177,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(182,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(183,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(184,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(191,9): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(192,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(193,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(196,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(197,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(201,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(202,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(204,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(205,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(206,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(209,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(210,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(211,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(212,17): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(216,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(217,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(218,15): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(222,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(223,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(226,11): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/screens/VerifyScreen.tsx(230,13): error TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+src/utils/__tests__/age.test.ts(4,3): error TS2304: Cannot find name 'beforeAll'.
+src/utils/__tests__/age.test.ts(6,5): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/age.test.ts(7,5): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/age.test.ts(10,3): error TS2304: Cannot find name 'afterAll'.
+src/utils/__tests__/age.test.ts(11,5): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/age.test.ts(15,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/age.test.ts(16,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/age.test.ts(20,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/age.test.ts(24,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/age.test.ts(29,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/age.test.ts(34,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/historyStorage.test.ts(5,1): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/historyStorage.test.ts(6,12): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/historyStorage.test.ts(7,12): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/historyStorage.test.ts(8,15): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/historyStorage.test.ts(12,9): error TS2741: Property 'satisfied' is missing in type '{ receipt: { receiptId: string; requestId: string; platformId: string; timestamp: string; proof: { pi_a: string[]; pi_b: string[][]; pi_c: string[]; protocol: string; curve: string; }; publicSignals: string[]; }; condition: string; }' but required in type 'VerificationHistoryItem'.
+src/utils/__tests__/historyStorage.test.ts(31,5): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/historyStorage.test.ts(36,41): error TS2694: Namespace 'global.jest' has no exported member 'Mock'.
+src/utils/__tests__/historyStorage.test.ts(38,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/historyStorage.test.ts(48,41): error TS2694: Namespace 'global.jest' has no exported member 'Mock'.
+src/utils/__tests__/historyStorage.test.ts(51,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/historyStorage.test.ts(60,41): error TS2694: Namespace 'global.jest' has no exported member 'Mock'.
+src/utils/__tests__/historyStorage.test.ts(62,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/historyStorage.test.ts(66,41): error TS2694: Namespace 'global.jest' has no exported member 'Mock'.
+src/utils/__tests__/historyStorage.test.ts(68,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/historyStorage.test.ts(75,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/qrParser.test.ts(16,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/qrParser.test.ts(25,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/qrParser.test.ts(26,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/qrParser.test.ts(31,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/qrParser.test.ts(32,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/qrParser.test.ts(35,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/qrParser.test.ts(36,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/qrParser.test.ts(49,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/qrParser.test.ts(50,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/receipt.test.ts(5,16): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/receipt.test.ts(19,5): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/receipt.test.ts(26,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/receipt.test.ts(27,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/receipt.test.ts(28,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/receipt.test.ts(29,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/receipt.test.ts(30,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/receipt.test.ts(31,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/receipt.test.ts(37,29): error TS2694: Namespace 'global.jest' has no exported member 'Mock'.
+src/utils/__tests__/receipt.test.ts(42,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/receipt.test.ts(43,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/receipt.test.ts(51,29): error TS2694: Namespace 'global.jest' has no exported member 'Mock'.
+src/utils/__tests__/receipt.test.ts(55,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(14,1): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/secureStorage.test.ts(19,16): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/secureStorage.test.ts(22,16): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/secureStorage.test.ts(23,19): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/secureStorage.test.ts(26,14): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/secureStorage.test.ts(57,5): error TS2708: Cannot use namespace 'jest' as a value.
+src/utils/__tests__/secureStorage.test.ts(62,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(67,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(73,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(79,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(86,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(92,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(93,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(99,5): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(111,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(112,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(113,7): error TS2304: Cannot find name 'expect'.
+src/utils/__tests__/secureStorage.test.ts(117,13): error TS2304: Cannot find name 'expect'.
+test_import.ts(1,26): error TS2307: Cannot find module '@solana-mobile/mobile-wallet-adapter-protocol' or its corresponding type declarations.
+test_import.ts(2,42): error TS2307: Cannot find module '@solana-mobile/mobile-wallet-adapter-protocol-web3js' or its corresponding type declarations.
+../../node_modules/@types/node/child_process.d.ts(318,9): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/child_process.d.ts(318,17): error TS2339: Property 'dispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/dgram.d.ts(558,9): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/dgram.d.ts(558,17): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/events.d.ts(581,91): error TS2304: Cannot find name 'Disposable'.
+../../node_modules/@types/node/fs.d.ts(330,9): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/fs.d.ts(330,17): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/fs.d.ts(336,9): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/fs.d.ts(336,17): error TS2339: Property 'dispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/fs.d.ts(657,9): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/fs.d.ts(657,17): error TS2339: Property 'dispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/fs.d.ts(2155,41): error TS2304: Cannot find name 'Disposable'.
+../../node_modules/@types/node/fs.d.ts(2167,9): error TS1169: A computed property name in an interface must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/fs.d.ts(2167,17): error TS2339: Property 'dispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/fs/promises.d.ts(496,9): error TS1169: A computed property name in an interface must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/fs/promises.d.ts(496,17): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/fs/promises.d.ts(982,41): error TS2304: Cannot find name 'AsyncDisposable'.
+../../node_modules/@types/node/fs/promises.d.ts(994,9): error TS1169: A computed property name in an interface must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/fs/promises.d.ts(994,17): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/inspector.d.ts(49,66): error TS2304: Cannot find name 'Disposable'.
+../../node_modules/@types/node/net.d.ts(617,9): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/net.d.ts(617,17): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/perf_hooks.d.ts(540,9): error TS1169: A computed property name in an interface must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/perf_hooks.d.ts(540,17): error TS2339: Property 'dispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/quic.d.ts(427,35): error TS2304: Cannot find name 'AsyncDisposable'.
+../../node_modules/@types/node/quic.d.ts(494,9): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/quic.d.ts(494,17): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/quic.d.ts(583,34): error TS2304: Cannot find name 'AsyncDisposable'.
+../../node_modules/@types/node/quic.d.ts(688,9): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/quic.d.ts(688,17): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/readline.d.ts(62,46): error TS2304: Cannot find name 'Disposable'.
+../../node_modules/@types/node/readline.d.ts(223,9): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/readline.d.ts(223,17): error TS2339: Property 'dispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/sqlite.d.ts(241,35): error TS2304: Cannot find name 'Disposable'.
+../../node_modules/@types/node/sqlite.d.ts(514,9): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/sqlite.d.ts(514,17): error TS2339: Property 'dispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/stream.d.ts(672,13): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/stream.d.ts(672,21): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/stream.d.ts(1004,13): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/stream.d.ts(1004,21): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/stream.d.ts(1549,17): error TS5084: Tuple members must all have names or all not have names.
+../../node_modules/@types/node/stream/promises.d.ts(202,13): error TS5084: Tuple members must all have names or all not have names.
+../../node_modules/@types/node/test.d.ts(2186,13): error TS1169: A computed property name in an interface must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/test.d.ts(2186,21): error TS2339: Property 'dispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/timers.d.ts(34,53): error TS2304: Cannot find name 'Disposable'.
+../../node_modules/@types/node/timers.d.ts(64,17): error TS1169: A computed property name in an interface must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/timers.d.ts(64,25): error TS2339: Property 'dispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/timers.d.ts(86,51): error TS2304: Cannot find name 'Disposable'.
+../../node_modules/@types/node/timers.d.ts(144,17): error TS1169: A computed property name in an interface must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/timers.d.ts(144,25): error TS2339: Property 'dispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/ts5.6/index.d.ts(29,21): error TS2726: Cannot find lib definition for 'esnext.disposable'.
+../../node_modules/@types/node/v8.d.ts(417,9): error TS1169: A computed property name in an interface must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/v8.d.ts(417,17): error TS2339: Property 'dispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/v8.d.ts(433,9): error TS1169: A computed property name in an interface must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/v8.d.ts(433,17): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/v8.d.ts(449,9): error TS1169: A computed property name in an interface must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/v8.d.ts(449,17): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../node_modules/@types/node/web-globals/abortcontroller.d.ts(43,15): error TS2300: Duplicate identifier 'AbortController'.
+../../node_modules/@types/node/web-globals/abortcontroller.d.ts(44,9): error TS2300: Duplicate identifier 'AbortController'.
+../../node_modules/@types/node/web-globals/abortcontroller.d.ts(50,15): error TS2300: Duplicate identifier 'AbortSignal'.
+../../node_modules/@types/node/web-globals/abortcontroller.d.ts(51,9): error TS2300: Duplicate identifier 'AbortSignal'.
+../../node_modules/@types/node/web-globals/blob.d.ts(12,9): error TS2403: Subsequent variable declarations must have the same type.  Variable 'Blob' must be of type '{ new (blobParts?: (string | Blob)[], options?: BlobOptions): Blob; prototype: Blob; }', but here has type '{ new (blobParts?: BlobPart[], options?: BlobPropertyBag): Blob; prototype: Blob; }'.
+../../node_modules/@types/node/web-globals/fetch.d.ts(32,15): error TS2300: Duplicate identifier 'FormData'.
+../../node_modules/@types/node/web-globals/fetch.d.ts(33,9): error TS2300: Duplicate identifier 'FormData'.
+../../node_modules/@types/node/web-globals/fetch.d.ts(36,9): error TS2403: Subsequent variable declarations must have the same type.  Variable 'Headers' must be of type '{ new (init?: HeadersInit_): Headers; prototype: Headers; }', but here has type 'typeof Headers'.
+../../node_modules/@types/node/web-globals/fetch.d.ts(43,9): error TS2403: Subsequent variable declarations must have the same type.  Variable 'Request' must be of type '{ new (input: string | Request, init?: RequestInit): Request; prototype: Request; }', but here has type 'typeof Request'.
+../../node_modules/@types/node/web-globals/fetch.d.ts(48,9): error TS2403: Subsequent variable declarations must have the same type.  Variable 'Response' must be of type '{ new (body?: BodyInit_, init?: ResponseInit): Response; prototype: Response; error: () => Response; redirect: (url: string, status?: number) => Response; }', but here has type 'typeof Response'.
+../../node_modules/@types/node/web-globals/fetch.d.ts(53,9): error TS2403: Subsequent variable declarations must have the same type.  Variable 'WebSocket' must be of type '{ new (uri: string, protocols?: string | string[], options?: { [optionName: string]: any; headers: { [headerName: string]: string; }; }): WebSocket; prototype: WebSocket; readonly CLOSED: number; readonly CLOSING: number; readonly CONNECTING: number; readonly OPEN: number; }', but here has type '{ new (url: string | URL, protocols?: string | string[] | WebSocketInit): WebSocket; prototype: WebSocket; readonly CLOSED: number; readonly CLOSING: number; readonly CONNECTING: number; readonly OPEN: number; }'.
+../../node_modules/@types/node/web-globals/url.d.ts(6,15): error TS2300: Duplicate identifier 'URL'.
+../../node_modules/@types/node/web-globals/url.d.ts(7,9): error TS2300: Duplicate identifier 'URL'.
+../../node_modules/@types/node/web-globals/url.d.ts(21,15): error TS2300: Duplicate identifier 'URLSearchParams'.
+../../node_modules/@types/node/web-globals/url.d.ts(22,9): error TS2300: Duplicate identifier 'URLSearchParams'.
+../../node_modules/@types/node/worker_threads.d.ts(394,9): error TS1165: A computed property name in an ambient context must refer to an expression whose type is a literal type or a 'unique symbol' type.
+../../node_modules/@types/node/worker_threads.d.ts(394,17): error TS2339: Property 'asyncDispose' does not exist on type 'SymbolConstructor'.
+../../tests/minkyc.ts(13,22): error TS2345: Argument of type '[]' is not assignable to parameter of type 'ArgsTuple<[{ name: "commitment"; type: { array: ["u8", 32]; }; }], DecodedHelper<[{ name: "identity"; type: { kind: "struct"; fields: [{ name: "owner"; type: "pubkey"; }, { name: "commitment"; type: { array: ["u8", 32]; }; }, { ...; }, { ...; }]; }; }, { ...; }], EmptyDefined>>'.
+  Type '[]' is not assignable to type '[number[]]'.
+    Source has 0 element(s) but target requires 1.

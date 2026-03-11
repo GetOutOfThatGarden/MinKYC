@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { ZKProver } from './ZKProver';
 import { getPassportData, getCommitment } from '../utils/secureStorage';
 import { generateReceipt } from '../utils/receiptGenerator';
 import { checkCondition } from '../utils/age';
 import { VerificationRequest, VerificationReceipt } from '../types/verification';
+import { AppText } from './AppText';
+import { theme } from '../constants/theme';
 
 interface Props {
   request: VerificationRequest;
@@ -71,7 +73,7 @@ export const VerificationExecutor: React.FC<Props> = ({ request, onReceipt, onEr
   if (errorLocal) {
     return (
       <View style={styles.container}>
-        <Text style={styles.errorText}>{errorLocal}</Text>
+        <AppText color={theme.colors.error} align="center">{errorLocal}</AppText>
       </View>
     );
   }
@@ -79,17 +81,17 @@ export const VerificationExecutor: React.FC<Props> = ({ request, onReceipt, onEr
   if (!inputs) {
     return (
       <View style={styles.container}>
-         <ActivityIndicator size="large" color="#14F195" testID="loading-indicator" />
-         <Text style={styles.loadingText}>Loading Identity...</Text>
+         <ActivityIndicator size="large" color={theme.colors.primary} testID="loading-indicator" />
+         <AppText weight="semibold" style={styles.loadingText}>Loading Identity...</AppText>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color="#9945FF" />
-      <Text style={styles.loadingText}>Generating Zero-Knowledge Proof...</Text>
-      <Text style={styles.subText}>This happens locally on your device.</Text>
+      <ActivityIndicator size="large" color={theme.colors.primary} />
+      <AppText weight="semibold" style={styles.loadingText}>Generating Zero-Knowledge Proof...</AppText>
+      <AppText variant="subtext" style={styles.subText}>This happens locally on your device.</AppText>
       
       <ZKProver
         inputs={inputs}
@@ -102,25 +104,17 @@ export const VerificationExecutor: React.FC<Props> = ({ request, onReceipt, onEr
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: theme.spacing.xl,
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 150,
   },
   loadingText: {
-    marginTop: 16,
-    fontSize: 16,
-    color: '#333',
-    fontWeight: '600',
+    marginTop: theme.spacing.md,
+    color: theme.colors.textMain,
   },
   subText: {
-    marginTop: 8,
-    fontSize: 14,
-    color: '#666',
+    marginTop: theme.spacing.sm,
+    color: theme.colors.textDim,
   },
-  errorText: {
-    color: '#e74c3c',
-    fontSize: 14,
-    textAlign: 'center',
-  }
 });

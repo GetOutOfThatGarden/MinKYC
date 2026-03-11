@@ -10,6 +10,7 @@ jest.mock('react-native-encrypted-storage', () => ({
 
 describe('History Storage', () => {
   const mockItem: VerificationHistoryItem = {
+    satisfied: true,
     receipt: {
       receiptId: 'receipt-1',
       requestId: 'req-1',

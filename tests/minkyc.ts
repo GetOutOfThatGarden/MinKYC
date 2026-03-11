@@ -10,7 +10,7 @@ describe("minkyc", () => {
 
   it("Is initialized!", async () => {
     // Add your test here.
-    const tx = await program.methods.initialize().rpc();
+    const tx = await (program.methods as any).initialize(Array(32).fill(0)).rpc();
     console.log("Your transaction signature", tx);
   });
 });

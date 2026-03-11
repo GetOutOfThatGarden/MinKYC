@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import { VerificationRequest } from '../types/verification';
+import { AppText } from './AppText';
+import { theme } from '../constants/theme';
+import { ShieldCheck, Info } from 'lucide-react-native';
 
 interface VerificationRequestModalProps {
   request: VerificationRequest | null;
@@ -21,31 +24,45 @@ export const VerificationRequestModal: React.FC<VerificationRequestModalProps> =
     <Modal visible={visible} transparent={true} animationType="slide">
       <View style={styles.overlay}>
         <View style={styles.modalContainer}>
-          <Text style={styles.title}>Verification Request</Text>
+          <View style={styles.header}>
+            <ShieldCheck size={32} color={theme.colors.primary} style={styles.headerIcon} />
+            <AppText variant="h2" align="center" style={styles.title}>
+              Verification Request
+            </AppText>
+          </View>
           
           <View style={styles.detailsContainer}>
             <View style={styles.detailRow}>
-              <Text style={styles.label}>Platform:</Text>
-              <Text style={styles.value}>{request.platformId}</Text>
+              <AppText variant="caption" style={styles.label}>Platform</AppText>
+              <AppText variant="h3" style={styles.value}>{request.platformId}</AppText>
             </View>
             <View style={styles.detailRow}>
-              <Text style={styles.label}>Request:</Text>
-              <Text style={styles.value}>Confirm that user is {request.condition}</Text>
+              <AppText variant="caption" style={styles.label}>Requested Condition</AppText>
+              <AppText variant="body" weight="medium" style={styles.value}>
+                Confirm that user is {request.condition}
+              </AppText>
             </View>
           </View>
 
           <View style={styles.infoBox}>
-            <Text style={styles.infoText}>Data shared: Verification result only</Text>
-            <Text style={styles.infoText}>No personal documents will be shared.</Text>
+            <Info size={16} color={theme.colors.secondary} style={{ marginRight: 8, marginTop: 2 }} />
+            <View style={{ flex: 1 }}>
+              <AppText variant="subtext" color={theme.colors.secondary} weight="semibold">
+                Privacy Assured
+              </AppText>
+              <AppText variant="caption" color={theme.colors.secondary}>
+                No personal documents will be shared.
+              </AppText>
+            </View>
           </View>
 
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={[styles.button, styles.rejectButton]} onPress={onReject}>
-              <Text style={styles.rejectButtonText}>Reject</Text>
+              <AppText weight="semibold" color={theme.colors.error}>Reject</AppText>
             </TouchableOpacity>
             
             <TouchableOpacity style={[styles.button, styles.approveButton]} onPress={onApprove}>
-              <Text style={styles.approveButtonText}>Approve</Text>
+              <AppText weight="semibold" color={theme.colors.surface}>Approve</AppText>
             </TouchableOpacity>
           </View>
         </View>
@@ -60,82 +77,73 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: theme.spacing.lg,
   },
   modalContainer: {
-    backgroundColor: 'white',
-    borderRadius: 16,
-    padding: 24,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadii.xl,
+    padding: theme.spacing.xl,
     width: '100%',
     maxWidth: 400,
+    ...theme.shadows.card,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: theme.spacing.xl,
+  },
+  headerIcon: {
+    marginBottom: theme.spacing.sm,
   },
   title: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: '#333',
-    marginBottom: 20,
-    textAlign: 'center',
+    color: theme.colors.textMain,
   },
   detailsContainer: {
-    backgroundColor: '#f8f9fa',
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 20,
+    backgroundColor: theme.colors.background,
+    padding: theme.spacing.lg,
+    borderRadius: theme.borderRadii.lg,
+    marginBottom: theme.spacing.xl,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
   },
   detailRow: {
     flexDirection: 'column',
-    marginBottom: 12,
+    marginBottom: theme.spacing.md,
   },
   label: {
-    fontSize: 14,
-    color: '#6c757d',
-    fontWeight: '600',
-    marginBottom: 4,
+    marginBottom: theme.spacing.xs,
+    color: theme.colors.textDim,
   },
   value: {
-    fontSize: 16,
-    color: '#212529',
-    fontWeight: '500',
+    color: theme.colors.textMain,
   },
   infoBox: {
-    backgroundColor: '#e3f2fd',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 24,
-  },
-  infoText: {
-    color: '#0d47a1',
-    fontSize: 14,
-    textAlign: 'center',
-    marginBottom: 4,
+    flexDirection: 'row',
+    backgroundColor: theme.colors.secondaryLight,
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadii.md,
+    marginBottom: theme.spacing.xl,
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.2)', // light blue border
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: 12,
+    gap: theme.spacing.md,
   },
   button: {
     flex: 1,
-    paddingVertical: 14,
-    borderRadius: 12,
+    paddingVertical: theme.spacing.md,
+    borderRadius: theme.borderRadii.md,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   rejectButton: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.errorLight,
     borderWidth: 1,
-    borderColor: '#dc3545',
-  },
-  rejectButtonText: {
-    color: '#dc3545',
-    fontSize: 16,
-    fontWeight: '600',
+    borderColor: 'rgba(239, 68, 68, 0.3)',
   },
   approveButton: {
-    backgroundColor: '#14F195',
-  },
-  approveButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    backgroundColor: theme.colors.primary,
+    ...theme.shadows.button,
   },
 });

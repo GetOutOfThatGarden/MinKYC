@@ -6,12 +6,12 @@
 import React, { useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
   Linking,
+  Alert,
 } from 'react-native';
 import { useWallet } from '../hooks/useWallet';
 import { getIdentityPda } from '../utils/solana';
@@ -19,8 +19,10 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { getCommitment, hasPassportData, getPassportData, savePassportData, computeCommitment, saveCommitment } from '../utils/secureStorage';
 import { PassportData, MOCK_PROFILES } from '../constants/mockProfiles';
 import { useNFC } from '../hooks/useNFC';
-import { Alert } from 'react-native';
 import PassportDataModal from '../components/PassportDataModal';
+import { AppText } from '../components/AppText';
+import { theme } from '../constants/theme';
+import { ClipboardList, EyeOff, Eye, Shield, Link as LinkIcon, UserCircle, RefreshCcw } from 'lucide-react-native';
 
 const FIELD_LABELS: { key: keyof PassportData; label: string }[] = [
   { key: 'surname', label: 'Surname' },
@@ -145,8 +147,8 @@ const IdentityScreen: React.FC = () => {
   if (loading) {
     return (
       <View style={[styles.container, styles.centered]}>
-        <ActivityIndicator size="large" color="#9945FF" />
-        <Text style={styles.loadingText}>Loading identity...</Text>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
+        <AppText style={styles.loadingText}>Loading identity...</AppText>
       </View>
     );
   }
@@ -155,15 +157,15 @@ const IdentityScreen: React.FC = () => {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.emptyState}>
-          <Text style={styles.emptyIcon}>📋</Text>
-          <Text style={styles.emptyTitle}>No Identity Found</Text>
-          <Text style={styles.emptyText}>
+          <ClipboardList size={64} color={theme.colors.iconDim} style={styles.emptyIcon} />
+          <AppText variant="h2" style={styles.emptyTitle}>No Identity Found</AppText>
+          <AppText variant="subtext" style={styles.emptyText} align="center">
             Create an on-chain identity to start using MinKYC. Your identity
             will be stored as a cryptographic commitment — no personal data
             is revealed.
-          </Text>
+          </AppText>
           <TouchableOpacity style={styles.createButton} onPress={() => navigation.navigate('Onboarding')}>
-            <Text style={styles.createButtonText}>Get Started</Text>
+            <AppText weight="semibold" color={theme.colors.surface}>Get Started</AppText>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -171,80 +173,97 @@ const IdentityScreen: React.FC = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      {/* Blur Toggle */}
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       <TouchableOpacity
         style={styles.toggleButton}
         onPress={() => setIsMasked(!isMasked)}
       >
-        <Text style={styles.toggleText}>
-          {isMasked ? '👁 Show Sensitive Data' : '🙈 Hide Sensitive Data'}
-        </Text>
+        <View style={styles.toggleContent}>
+          {isMasked ? (
+            <Eye size={18} color={theme.colors.primary} style={styles.toggleIcon} />
+          ) : (
+            <EyeOff size={18} color={theme.colors.primary} style={styles.toggleIcon} />
+          )}
+          <AppText color={theme.colors.primary} weight="semibold">
+            {isMasked ? 'Reveal Details' : 'Hide Private Data'}
+          </AppText>
+        </View>
       </TouchableOpacity>
 
       {/* Passport Data Card */}
       <View style={styles.dataCard}>
         <View style={styles.cardHeader}>
-          <Text style={styles.cardTitle}>Passport Data</Text>
+          <AppText variant="h3">Secure Credentials</AppText>
           <TouchableOpacity 
             style={[styles.miniReadButton, scanning && styles.disabledButton]} 
             onPress={startNFCScan}
             disabled={scanning}
           >
-            <Text style={styles.miniReadButtonText}>
-              {scanning ? '...' : '🔄 Read Passport'}
-            </Text>
+            <View style={styles.miniReadContent}>
+              {!scanning && <RefreshCcw size={14} color={theme.colors.surface} style={{ marginRight: 4 }} />}
+              <AppText variant="caption" color={theme.colors.surface} weight="semibold">
+                {scanning ? 'Reading...' : 'Update'}
+              </AppText>
+            </View>
           </TouchableOpacity>
         </View>
 
         {FIELD_LABELS.map(({ key, label }) => (
           <View key={key} style={styles.fieldRow}>
-            <Text style={styles.fieldLabel}>{label}</Text>
-            <Text style={styles.fieldValue}>{maskValue(passportData[key])}</Text>
+            <AppText variant="subtext">{label}</AppText>
+            <AppText style={styles.fieldValue}>{maskValue(passportData[key])}</AppText>
           </View>
         ))}
       </View>
 
       {/* Commitment Card */}
       <View style={styles.commitmentCard}>
-        <Text style={styles.cardTitle}>On-Chain Identity</Text>
+        <AppText variant="h3" style={styles.commitmentCardTitle}>On-Chain Identity</AppText>
 
         {commitmentHex && (
           <View style={styles.commitmentSection}>
-            <Text style={styles.fieldLabel}>Commitment Hash</Text>
-            <Text style={styles.commitmentValue}>
+            <AppText variant="subtext">Commitment Hash</AppText>
+            <AppText style={styles.commitmentValue}>
               {formatCommitment(commitmentHex)}
-            </Text>
-            <Text style={styles.commitmentHint}>
+            </AppText>
+            <AppText variant="caption" style={styles.commitmentHint}>
               Cryptographic hash of your identity data — this is the only thing stored on-chain.
-            </Text>
+            </AppText>
           </View>
         )}
 
         <View style={styles.fieldRow}>
-          <Text style={styles.fieldLabel}>Status</Text>
+          <AppText variant="subtext">Status</AppText>
           <View style={styles.statusBadge}>
-            <Text style={styles.statusText}>Active</Text>
+            <AppText variant="caption" color={theme.colors.success}>Active</AppText>
           </View>
         </View>
 
         <TouchableOpacity style={styles.explorerButton} onPress={openExplorer}>
-          <Text style={styles.explorerButtonText}>🔗 View on Solana Explorer</Text>
+          <View style={styles.explorerContent}>
+            <LinkIcon size={16} color={theme.colors.primary} style={{ marginRight: 6 }} />
+            <AppText weight="semibold" color={theme.colors.primary}>View on Solana Explorer</AppText>
+          </View>
         </TouchableOpacity>
       </View>
 
       <View style={styles.infoBox}>
-        <Text style={styles.infoTitle}>🔒 How It Works</Text>
-        <Text style={styles.infoText}>
+        <View style={styles.infoHeader}>
+          <Shield size={20} color={theme.colors.primary} style={{ marginRight: 8 }} />
+          <AppText variant="h3" color={theme.colors.primary}>How It Works</AppText>
+        </View>
+        <AppText variant="subtext" style={styles.infoText}>
           1. Your passport data is hashed with a secret{'\n'}
           2. Only the hash (commitment) is stored on-chain{'\n'}
           3. Original data never leaves your device{'\n'}
           4. Zero-knowledge proofs verify requirements
-        </Text>
+        </AppText>
       </View>
 
       <View style={styles.demoSection}>
-        <Text style={styles.demoTitle}>🧪 Demo: Select Mock Profile</Text>
+        <AppText variant="h3" color={theme.colors.textMain} style={styles.demoTitle}>
+          Development Profiles
+        </AppText>
         <View style={styles.mockProfilesList}>
           {Object.keys(MOCK_PROFILES).map((key, index) => {
             const profile = MOCK_PROFILES[key];
@@ -254,9 +273,12 @@ const IdentityScreen: React.FC = () => {
                 style={styles.mockProfileButton}
                 onPress={() => handlePassportRead(profile)}
               >
-                <Text style={styles.mockProfileText}>
-                  {profile.sex === 'M' ? '👨' : '👩'} {profile.givenNames} ({profile.nationality})
-                </Text>
+                <View style={styles.mockProfileContent}>
+                  <UserCircle size={20} color={theme.colors.iconDim} style={{ marginRight: 8 }} />
+                  <AppText>
+                    {profile.givenNames} ({profile.nationality})
+                  </AppText>
+                </View>
               </TouchableOpacity>
             );
           })}
@@ -276,96 +298,79 @@ const IdentityScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: theme.colors.background,
+  },
+  contentContainer: {
+    paddingBottom: 40,
   },
   centered: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   loadingText: {
-    marginTop: 12,
-    color: '#666',
+    marginTop: theme.spacing.md,
+    color: theme.colors.textDim,
   },
   emptyState: {
-    padding: 24,
+    padding: theme.spacing.lg,
     alignItems: 'center',
     marginTop: 40,
   },
   emptyIcon: {
-    fontSize: 64,
-    marginBottom: 16,
+    marginBottom: theme.spacing.md,
   },
   emptyTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 8,
+    marginBottom: theme.spacing.sm,
   },
   emptyText: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'center',
-    lineHeight: 20,
-    marginBottom: 24,
+    marginBottom: theme.spacing.lg,
+    paddingHorizontal: theme.spacing.md,
   },
   createButton: {
-    backgroundColor: '#9945FF',
-    paddingHorizontal: 32,
-    paddingVertical: 16,
-    borderRadius: 12,
-  },
-  createButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    backgroundColor: theme.colors.primary,
+    paddingHorizontal: theme.spacing.xl,
+    paddingVertical: theme.spacing.md,
+    borderRadius: theme.borderRadii.md,
   },
   toggleButton: {
-    backgroundColor: '#e8f4f8',
-    margin: 16,
+    backgroundColor: theme.colors.primaryLight,
+    margin: theme.spacing.md,
     marginBottom: 0,
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadii.sm,
     borderWidth: 1,
-    borderColor: '#b3e5fc',
+    borderColor: 'transparent',
   },
-  toggleText: {
-    color: '#0288d1',
-    fontWeight: '600',
-    fontSize: 14,
+  toggleContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  toggleIcon: {
+    marginRight: theme.spacing.sm,
   },
   dataCard: {
-    backgroundColor: '#fff',
-    margin: 16,
-    padding: 20,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    backgroundColor: theme.colors.surface,
+    margin: theme.spacing.md,
+    padding: theme.spacing.lg,
+    borderRadius: theme.borderRadii.lg,
+    ...theme.shadows.card,
   },
   cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 16,
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
+    marginBottom: theme.spacing.md,
   },
   miniReadButton: {
-    backgroundColor: '#14F195',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
+    backgroundColor: theme.colors.secondary,
+    paddingHorizontal: theme.spacing.md,
+    paddingVertical: theme.spacing.sm,
+    borderRadius: theme.borderRadii.sm,
   },
-  miniReadButtonText: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: '600',
+  miniReadContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   disabledButton: {
     opacity: 0.5,
@@ -374,119 +379,98 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: theme.spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  fieldLabel: {
-    fontSize: 13,
-    color: '#888',
+    borderBottomColor: theme.colors.border,
   },
   fieldValue: {
-    fontSize: 13,
     fontWeight: '500',
-    color: '#333',
     fontFamily: 'monospace',
   },
   commitmentCard: {
-    backgroundColor: '#fff',
-    margin: 16,
+    backgroundColor: theme.colors.surface,
+    margin: theme.spacing.md,
     marginTop: 0,
-    padding: 20,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    padding: theme.spacing.lg,
+    borderRadius: theme.borderRadii.lg,
+    ...theme.shadows.card,
+  },
+  commitmentCardTitle: {
+    marginBottom: theme.spacing.md,
   },
   commitmentSection: {
-    marginBottom: 12,
+    marginBottom: theme.spacing.md,
   },
   commitmentValue: {
-    fontSize: 14,
     fontFamily: 'monospace',
-    color: '#9945FF',
-    marginTop: 4,
+    color: theme.colors.primary,
+    marginTop: theme.spacing.xs,
   },
   commitmentHint: {
-    fontSize: 12,
-    color: '#999',
     marginTop: 4,
   },
   statusBadge: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: theme.colors.successLight,
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
-  },
-  statusText: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: '600',
+    borderWidth: 1,
+    borderColor: theme.colors.success,
   },
   explorerButton: {
-    marginTop: 20,
-    backgroundColor: '#fff',
+    marginTop: theme.spacing.lg,
+    backgroundColor: theme.colors.surface,
     borderWidth: 1,
-    borderColor: '#9945FF',
-    paddingVertical: 12,
-    borderRadius: 8,
+    borderColor: theme.colors.border,
+    paddingVertical: theme.spacing.md,
+    borderRadius: theme.borderRadii.sm,
     alignItems: 'center',
   },
-  explorerButtonText: {
-    color: '#9945FF',
-    fontWeight: '600',
-    fontSize: 14,
+  explorerContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   infoBox: {
-    backgroundColor: '#e8f4f8',
-    margin: 16,
+    backgroundColor: theme.colors.primaryLight,
+    margin: theme.spacing.md,
     marginTop: 0,
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 32,
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadii.lg,
+    marginBottom: theme.spacing.xl,
   },
-  infoTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 12,
-    color: '#333',
+  infoHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.sm,
   },
   infoText: {
-    fontSize: 14,
-    color: '#555',
     lineHeight: 22,
   },
   demoSection: {
-    margin: 16,
-    padding: 16,
-    backgroundColor: '#fff',
-    borderRadius: 12,
+    margin: theme.spacing.md,
+    padding: theme.spacing.md,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadii.lg,
     borderWidth: 1,
-    borderColor: '#eee',
+    borderColor: theme.colors.border,
     marginBottom: 40,
   },
   demoTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#9945FF',
-    marginBottom: 12,
+    marginBottom: theme.spacing.md,
   },
   mockProfilesList: {
     gap: 8,
   },
   mockProfileButton: {
-    padding: 12,
-    backgroundColor: '#f8f4ff',
-    borderRadius: 8,
+    padding: theme.spacing.md,
+    backgroundColor: theme.colors.background,
+    borderRadius: theme.borderRadii.sm,
     borderWidth: 1,
-    borderColor: '#e0d0ff',
+    borderColor: theme.colors.border,
   },
-  mockProfileText: {
-    fontSize: 14,
-    color: '#333',
-    fontWeight: '500',
+  mockProfileContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

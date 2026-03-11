@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Modal,
   View,
-  Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
@@ -12,6 +11,8 @@ import {
   Keyboard,
   Alert,
 } from 'react-native';
+import { AppText } from './AppText';
+import { theme } from '../constants/theme';
 
 interface PassportDataModalProps {
   visible: boolean;
@@ -57,25 +58,25 @@ const PassportDataModal: React.FC<PassportDataModalProps> = ({
             style={styles.modalContainer}
           >
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Enter Passport Details</Text>
-              <Text style={styles.modalSubtitle}>
+              <AppText variant="h3" style={styles.modalTitle}>Enter Passport Details</AppText>
+              <AppText variant="caption" style={styles.modalSubtitle}>
                 Required for secure NFC authentication (Basic Access Control).
-              </Text>
+              </AppText>
 
               <View style={styles.inputGroup}>
-                <Text style={styles.label}>Passport Number</Text>
+                <AppText variant="caption" style={styles.label}>Passport Number</AppText>
                 <TextInput
                   style={styles.input}
                   placeholder="e.g. L898902C"
                   value={passportNumber}
                   onChangeText={setPassportNumber}
                   autoCapitalize="characters"
-                  placeholderTextColor="#999"
+                  placeholderTextColor={theme.colors.textDim}
                 />
               </View>
 
               <View style={styles.inputGroup}>
-                <Text style={styles.label}>Date of Birth (YYMMDD)</Text>
+                <AppText variant="caption" style={styles.label}>Date of Birth (YYMMDD)</AppText>
                 <TextInput
                   style={styles.input}
                   placeholder="e.g. 800101"
@@ -83,12 +84,12 @@ const PassportDataModal: React.FC<PassportDataModalProps> = ({
                   onChangeText={setDateOfBirth}
                   keyboardType="number-pad"
                   maxLength={6}
-                  placeholderTextColor="#999"
+                  placeholderTextColor={theme.colors.textDim}
                 />
               </View>
 
               <View style={styles.inputGroup}>
-                <Text style={styles.label}>Expiry Date (YYMMDD)</Text>
+                <AppText variant="caption" style={styles.label}>Expiry Date (YYMMDD)</AppText>
                 <TextInput
                   style={styles.input}
                   placeholder="e.g. 300101"
@@ -96,7 +97,7 @@ const PassportDataModal: React.FC<PassportDataModalProps> = ({
                   onChangeText={setExpiryDate}
                   keyboardType="number-pad"
                   maxLength={6}
-                  placeholderTextColor="#999"
+                  placeholderTextColor={theme.colors.textDim}
                 />
               </View>
 
@@ -106,16 +107,16 @@ const PassportDataModal: React.FC<PassportDataModalProps> = ({
                   onPress={onClose}
                   disabled={isLoading}
                 >
-                  <Text style={styles.cancelButtonText}>Cancel</Text>
+                  <AppText weight="semibold" color={theme.colors.textDim}>Cancel</AppText>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.button, styles.submitButton, isLoading && styles.disabledButton]}
                   onPress={handleSubmit}
                   disabled={isLoading}
                 >
-                  <Text style={styles.submitButtonText}>
+                  <AppText weight="semibold" color={theme.colors.surface}>
                     {isLoading ? 'Processing...' : 'Start Scan'}
-                  </Text>
+                  </AppText>
                 </TouchableOpacity>
               </View>
             </View>
@@ -131,75 +132,58 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
-    padding: 20,
+    padding: theme.spacing.xl,
   },
   modalContainer: {
     width: '100%',
   },
   modalContent: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 24,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
-    elevation: 5,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadii.xl,
+    padding: theme.spacing.xl,
+    ...theme.shadows.card,
   },
   modalTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#333',
-    marginBottom: 8,
+    marginBottom: theme.spacing.xs,
   },
   modalSubtitle: {
-    fontSize: 14,
-    color: '#666',
-    lineHeight: 20,
-    marginBottom: 24,
+    color: theme.colors.textDim,
+    marginBottom: theme.spacing.lg,
   },
   inputGroup: {
-    marginBottom: 16,
+    marginBottom: theme.spacing.md,
   },
   label: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#555',
-    marginBottom: 6,
+    marginBottom: theme.spacing.xs,
+    color: theme.colors.textMain,
   },
   input: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: theme.colors.background,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    color: '#333',
+    borderColor: theme.colors.border,
+    borderRadius: theme.borderRadii.md,
+    padding: theme.spacing.md,
+    fontSize: theme.typography.sizes.base,
+    color: theme.colors.textMain,
   },
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: 12,
+    marginTop: theme.spacing.lg,
   },
   button: {
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    marginLeft: 12,
+    paddingVertical: theme.spacing.md,
+    paddingHorizontal: theme.spacing.xl,
+    borderRadius: theme.borderRadii.md,
+    marginLeft: theme.spacing.md,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cancelButton: {
-    backgroundColor: '#f5f5f5',
-  },
-  cancelButtonText: {
-    color: '#666',
-    fontWeight: '600',
+    backgroundColor: theme.colors.background,
   },
   submitButton: {
-    backgroundColor: '#9945FF',
-  },
-  submitButtonText: {
-    color: '#fff',
-    fontWeight: '600',
+    backgroundColor: theme.colors.primary,
   },
   disabledButton: {
     opacity: 0.5,

@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+import * as crypto from 'crypto';
 
 export interface MockPassportData {
     documentType: "P";
@@ -23,7 +23,7 @@ const IRL_GIVEN_NAMES = ['JAMES', 'MARY', 'JOHN', 'PATRICIA', 'MICHAEL', 'CATHER
 const CAN_SURNAMES = ['SMITH', 'JOHNSON', 'WILLIAMS', 'BROWN', 'JONES', 'GARCIA', 'MILLER', 'DAVIS', 'RODRIGUEZ', 'MARTINEZ', 'WILSON', 'ANDERSON', 'THOMAS', 'TAYLOR', 'MOORE', 'JACKSON', 'MARTIN', 'LEE', 'THOMPSON', 'WHITE'];
 const CAN_GIVEN_NAMES = ['JAMES', 'MARY', 'JOHN', 'PATRICIA', 'ROBERT', 'JENNIFER', 'MICHAEL', 'LINDA', 'WILLIAM', 'ELIZABETH', 'DAVID', 'BARBARA', 'RICHARD', 'SUSAN', 'JOSEPH', 'JESSICA', 'THOMAS', 'SARAH', 'CHARLES', 'KAREN'];
 
-function getRandomElement<T>(array: T[]): T {
+function getRandomElement<T>(array: readonly T[]): T {
     return array[Math.floor(Math.random() * array.length)];
 }
 

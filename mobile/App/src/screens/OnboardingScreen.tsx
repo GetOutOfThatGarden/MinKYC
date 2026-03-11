@@ -1,13 +1,11 @@
 /**
  * Onboarding Screen
  * First screen for new users: scan a passport via NFC or select a mock profile.
- * Mock profiles are expandable accordions showing all passport fields.
  */
 
 import React, { useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
@@ -18,6 +16,9 @@ import { useNFC } from '../hooks/useNFC';
 import { savePassportData, computeCommitment, saveCommitment } from '../utils/secureStorage';
 import { useNavigation } from '@react-navigation/native';
 import PassportDataModal from '../components/PassportDataModal';
+import { AppText } from '../components/AppText';
+import { theme } from '../constants/theme';
+import { ShieldCheck, Nfc, Users, ChevronDown, ChevronUp, Lock } from 'lucide-react-native';
 
 const FIELD_LABELS: Record<keyof PassportData, string> = {
   documentType: 'Document Type',
@@ -91,92 +92,108 @@ const OnboardingScreen: React.FC = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
-        <Text style={styles.headerEmoji}>🛂</Text>
-        <Text style={styles.headerTitle}>Welcome to MinKYC</Text>
-        <Text style={styles.headerSubtitle}>
-          To get started, read your passport or choose a test profile below.
-        </Text>
-      </View>
-
-      {/* NFC Section */}
-      {isSupported && (
-        <TouchableOpacity
-          style={[styles.nfcButton, scanning && styles.nfcButtonScanning]}
-          onPress={startNFCScan}
-          disabled={scanning}
-        >
-          <Text style={styles.nfcButtonText}>
-            {scanning ? '📡 Scanning...' : '📡 Read Passport via NFC'}
-          </Text>
-        </TouchableOpacity>
-      )}
-
-      {!isSupported && (
-        <View style={styles.nfcUnavailable}>
-          <Text style={styles.nfcUnavailableText}>
-            📡 NFC not available on this device. Please use a test profile below.
-          </Text>
+        <View style={styles.iconContainer}>
+          <ShieldCheck size={48} color={theme.colors.surface} />
         </View>
-      )}
-
-      {/* Mock Profiles */}
-      <View style={styles.profilesSection}>
-        <Text style={styles.sectionTitle}>Test Profiles</Text>
-        <Text style={styles.sectionSubtitle}>
-          Tap to preview passport data, then select to create your identity.
-        </Text>
-
-        {Object.keys(MOCK_PROFILES).map((key, index) => {
-          const profile = MOCK_PROFILES[key];
-          const isExpanded = expandedProfile === key;
-
-          return (
-            <View key={key} style={styles.profileCard}>
-              <TouchableOpacity
-                style={styles.profileHeader}
-                onPress={() => toggleExpand(key)}
-              >
-                <View style={styles.profileHeaderLeft}>
-                  <Text style={styles.profileName}>
-                    {profile.givenNames} {profile.surname}
-                  </Text>
-                  <Text style={styles.profileMeta}>
-                    {profile.nationality} • {profile.sex === 'M' ? 'Male' : profile.sex === 'F' ? 'Female' : 'Other'}
-                  </Text>
-                </View>
-                <Text style={styles.expandIcon}>{isExpanded ? '▲' : '▼'}</Text>
-              </TouchableOpacity>
-
-              {isExpanded && (
-                <View style={styles.profileDetails}>
-                  {(Object.keys(FIELD_LABELS) as (keyof PassportData)[]).map((field) => (
-                    <View key={field} style={styles.fieldRow}>
-                      <Text style={styles.fieldLabel}>{FIELD_LABELS[field]}</Text>
-                      <Text style={styles.fieldValue}>{profile[field]}</Text>
-                    </View>
-                  ))}
-
-                  <TouchableOpacity
-                    style={styles.selectButton}
-                    onPress={() => handleSelectProfile(profile)}
-                  >
-                    <Text style={styles.selectButtonText}>Use This Profile</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
-          );
-        })}
+        <AppText variant="h1" color={theme.colors.surface} align="center" style={styles.headerTitle}>
+          Welcome to MinKYC
+        </AppText>
+        <AppText variant="body" color={theme.colors.surface} align="center" style={styles.headerSubtitle}>
+          To get started, read your passport or choose a test profile below.
+        </AppText>
       </View>
 
-      <View style={styles.privacyNote}>
-        <Text style={styles.privacyTitle}>🔒 Your Data Stays Private</Text>
-        <Text style={styles.privacyText}>
-          Passport data is encrypted and stored only on your device.
-          Only a cryptographic hash is ever shared.
-        </Text>
+      <View style={styles.body}>
+        {/* NFC Section */}
+        {isSupported ? (
+          <TouchableOpacity
+            style={[styles.nfcButton, scanning && styles.nfcButtonScanning]}
+            onPress={startNFCScan}
+            disabled={scanning}
+          >
+            <Nfc size={20} color={theme.colors.surface} style={{ marginRight: 8 }} />
+            <AppText weight="semibold" color={theme.colors.surface}>
+              {scanning ? 'Scanning...' : 'Read Passport via NFC'}
+            </AppText>
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.nfcUnavailable}>
+            <Nfc size={20} color={theme.colors.warning} style={{ marginRight: 8 }} />
+            <AppText variant="subtext" color={theme.colors.warning} style={{ flex: 1 }}>
+              NFC not available on this device. Please use a test profile below.
+            </AppText>
+          </View>
+        )}
+
+        {/* Mock Profiles */}
+        <View style={styles.profilesSection}>
+          <View style={styles.sectionHeader}>
+            <Users size={20} color={theme.colors.primary} style={{ marginRight: 8 }} />
+            <AppText variant="h3">Test Profiles</AppText>
+          </View>
+          <AppText variant="subtext" style={styles.sectionSubtitle}>
+            Tap to preview passport data, then select to create your identity.
+          </AppText>
+
+          {Object.keys(MOCK_PROFILES).map((key) => {
+            const profile = MOCK_PROFILES[key];
+            const isExpanded = expandedProfile === key;
+
+            return (
+              <View key={key} style={styles.profileCard}>
+                <TouchableOpacity
+                  style={styles.profileHeader}
+                  onPress={() => toggleExpand(key)}
+                >
+                  <View style={styles.profileHeaderLeft}>
+                    <AppText weight="semibold">
+                      {profile.givenNames} {profile.surname}
+                    </AppText>
+                    <AppText variant="caption" style={styles.profileMeta}>
+                      {profile.nationality} • {profile.sex === 'M' ? 'Male' : profile.sex === 'F' ? 'Female' : 'Other'}
+                    </AppText>
+                  </View>
+                  {isExpanded ? (
+                    <ChevronUp size={20} color={theme.colors.border} />
+                  ) : (
+                    <ChevronDown size={20} color={theme.colors.border} />
+                  )}
+                </TouchableOpacity>
+
+                {isExpanded && (
+                  <View style={styles.profileDetails}>
+                    {(Object.keys(FIELD_LABELS) as (keyof PassportData)[]).map((field) => (
+                      <View key={field} style={styles.fieldRow}>
+                        <AppText variant="caption" style={styles.fieldLabel}>{FIELD_LABELS[field]}</AppText>
+                        <AppText variant="subtext" weight="medium" style={styles.fieldValue}>{profile[field]}</AppText>
+                      </View>
+                    ))}
+
+                    <TouchableOpacity
+                      style={styles.selectButton}
+                      onPress={() => handleSelectProfile(profile)}
+                    >
+                      <AppText weight="semibold" color={theme.colors.surface}>Use This Profile</AppText>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+            );
+          })}
+        </View>
+
+        <View style={styles.privacyNote}>
+          <View style={styles.privacyHeader}>
+            <Lock size={16} color={theme.colors.success} style={{ marginRight: 8 }} />
+            <AppText weight="semibold">Your Data Stays Private</AppText>
+          </View>
+          <AppText variant="caption" style={styles.privacyText}>
+            Passport data is encrypted and stored only on your device.
+            Only a cryptographic hash is ever shared.
+          </AppText>
+        </View>
       </View>
 
       <PassportDataModal
@@ -192,157 +209,133 @@ const OnboardingScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: theme.colors.background,
+  },
+  content: {
+    flexGrow: 1,
   },
   header: {
-    backgroundColor: '#9945FF',
-    padding: 32,
-    paddingTop: 24,
+    backgroundColor: theme.colors.primary,
+    paddingHorizontal: theme.spacing.xl,
+    paddingTop: theme.spacing.xxl,
+    paddingBottom: theme.spacing.xxl,
     alignItems: 'center',
+    borderBottomLeftRadius: theme.borderRadii.xl,
+    borderBottomRightRadius: theme.borderRadii.xl,
   },
-  headerEmoji: {
-    fontSize: 56,
-    marginBottom: 12,
+  iconContainer: {
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    padding: theme.spacing.lg,
+    borderRadius: theme.borderRadii.round,
+    marginBottom: theme.spacing.lg,
   },
   headerTitle: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 8,
+    marginBottom: theme.spacing.xs,
   },
   headerSubtitle: {
-    fontSize: 14,
-    color: '#e0d0ff',
-    textAlign: 'center',
-    lineHeight: 20,
+    opacity: 0.9,
+    paddingHorizontal: theme.spacing.lg,
+  },
+  body: {
+    padding: theme.spacing.md,
   },
   nfcButton: {
-    backgroundColor: '#14F195',
-    margin: 16,
-    padding: 18,
-    borderRadius: 12,
+    flexDirection: 'row',
+    backgroundColor: theme.colors.secondary,
+    padding: theme.spacing.lg,
+    borderRadius: theme.borderRadii.lg,
     alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: theme.spacing.xl,
+    ...theme.shadows.button,
   },
   nfcButtonScanning: {
     opacity: 0.7,
   },
-  nfcButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
   nfcUnavailable: {
-    backgroundColor: '#fff3cd',
-    margin: 16,
-    padding: 14,
-    borderRadius: 10,
-  },
-  nfcUnavailableText: {
-    color: '#856404',
-    fontSize: 13,
-    textAlign: 'center',
+    flexDirection: 'row',
+    backgroundColor: theme.colors.warningLight,
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadii.lg,
+    borderWidth: 1,
+    borderColor: 'rgba(245, 158, 11, 0.3)',
+    marginBottom: theme.spacing.xl,
+    alignItems: 'center',
   },
   profilesSection: {
-    margin: 16,
-    marginTop: 0,
+    marginBottom: theme.spacing.xl,
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 4,
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.xs,
   },
   sectionSubtitle: {
-    fontSize: 13,
-    color: '#888',
-    marginBottom: 16,
+    marginBottom: theme.spacing.lg,
   },
   profileCard: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    marginBottom: 12,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadii.lg,
+    marginBottom: theme.spacing.md,
     overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.06,
-    shadowRadius: 3,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    ...theme.shadows.card,
   },
   profileHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 16,
+    padding: theme.spacing.lg,
   },
   profileHeaderLeft: {
     flex: 1,
   },
-  profileName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
   profileMeta: {
-    fontSize: 13,
-    color: '#888',
-    marginTop: 2,
-  },
-  expandIcon: {
-    fontSize: 14,
-    color: '#9945FF',
-    marginLeft: 12,
+    marginTop: 4,
   },
   profileDetails: {
-    backgroundColor: '#fafafa',
-    padding: 16,
+    backgroundColor: theme.colors.background,
+    padding: theme.spacing.lg,
     borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
+    borderTopColor: theme.colors.border,
   },
   fieldRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    paddingVertical: theme.spacing.sm,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: theme.colors.border,
   },
   fieldLabel: {
-    fontSize: 13,
-    color: '#888',
+    color: theme.colors.textDim,
   },
   fieldValue: {
-    fontSize: 13,
-    fontWeight: '500',
-    color: '#333',
     fontFamily: 'monospace',
   },
   selectButton: {
-    backgroundColor: '#9945FF',
-    padding: 14,
-    borderRadius: 10,
+    backgroundColor: theme.colors.primary,
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadii.md,
     alignItems: 'center',
-    marginTop: 16,
-  },
-  selectButtonText: {
-    color: '#fff',
-    fontSize: 15,
-    fontWeight: '600',
+    marginTop: theme.spacing.lg,
+    ...theme.shadows.button,
   },
   privacyNote: {
-    backgroundColor: '#e8f4f8',
-    margin: 16,
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 32,
+    backgroundColor: theme.colors.successLight,
+    padding: theme.spacing.lg,
+    borderRadius: theme.borderRadii.lg,
+    borderWidth: 1,
+    borderColor: 'rgba(16, 185, 129, 0.2)',
+    marginBottom: theme.spacing.xxl,
   },
-  privacyTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    marginBottom: 6,
-    color: '#333',
+  privacyHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.xs,
   },
   privacyText: {
-    fontSize: 13,
-    color: '#666',
+    color: theme.colors.textDim,
     lineHeight: 18,
   },
 });

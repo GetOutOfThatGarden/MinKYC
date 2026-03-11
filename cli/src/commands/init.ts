@@ -19,8 +19,8 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 import { createCommitment, randomSecret } from '../utils/crypto';
 import { generateMockPassport } from '../utils/mockData';
 import { getProvider, getProgram } from '../utils/connection';
@@ -130,7 +130,7 @@ export const initCommand = new Command('init')
                     identity: identityPda,
                     owner: owner,
                     systemProgram: SystemProgram.programId,
-                })
+                } as any)
                 .rpc();
             
             spinner.succeed('Identity created successfully!');

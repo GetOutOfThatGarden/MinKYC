@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { useRoute, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
+import { AppText } from '../components/AppText';
+import { theme } from '../constants/theme';
+import { CheckCircle, XCircle } from 'lucide-react-native';
 
 type VerificationRecordRouteProp = RouteProp<RootStackParamList, 'HistoryDetail'>;
 
@@ -9,48 +12,60 @@ const VerificationRecordScreen: React.FC = () => {
   const route = useRoute<VerificationRecordRouteProp>();
   const { item } = route.params;
 
+  const isSatisfied = item.satisfied !== false;
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.card}>
-        <Text style={styles.label}>Platform</Text>
-        <Text style={styles.value}>{item.receipt.platformId}</Text>
+        <View style={styles.statusHeader}>
+          {isSatisfied ? (
+            <View style={[styles.statusBanner, styles.statusSuccess]}>
+              <CheckCircle size={24} color={theme.colors.success} style={{ marginRight: 8 }} />
+              <AppText variant="h2" color={theme.colors.success}>Verified</AppText>
+            </View>
+          ) : (
+            <View style={[styles.statusBanner, styles.statusFailed]}>
+              <XCircle size={24} color={theme.colors.error} style={{ marginRight: 8 }} />
+              <AppText variant="h2" color={theme.colors.error}>Failed</AppText>
+            </View>
+          )}
+        </View>
+
+        <AppText variant="caption" style={styles.label}>Platform</AppText>
+        <AppText variant="h3" style={styles.value}>{item.receipt.platformId}</AppText>
         
-        <Text style={styles.label}>Date Verified</Text>
-        <Text style={styles.value}>
+        <AppText variant="caption" style={styles.label}>Date Verified</AppText>
+        <AppText style={styles.value}>
           {new Date(item.receipt.timestamp).toLocaleString()}
-        </Text>
+        </AppText>
 
-        <Text style={styles.label}>Condition Met</Text>
-        <Text style={styles.value}>{item.condition}</Text>
-
-        <Text style={styles.label}>Satisfied</Text>
-        <Text style={[styles.value, { color: item.satisfied ? '#14F195' : '#ff4d4f' }]}>
-          {item.satisfied ? 'YES' : 'NO'}
-        </Text>
+        <AppText variant="caption" style={styles.label}>Condition Required</AppText>
+        <AppText style={styles.value}>{item.condition}</AppText>
 
         {item.approvingUserName && (
-          <>
-            <Text style={styles.label}>Approved by</Text>
-            <Text style={styles.value}>{item.approvingUserName}</Text>
-          </>
+          <View style={styles.highlightBox}>
+            <AppText variant="caption" style={styles.label}>Approved by</AppText>
+            <AppText weight="bold" style={styles.value}>{item.approvingUserName}</AppText>
+          </View>
         )}
         
         <View style={styles.divider} />
         
-        <Text style={styles.label}>Receipt ID</Text>
-        <Text style={styles.code}>{item.receipt.receiptId}</Text>
+        <AppText variant="caption" style={styles.label}>Receipt ID</AppText>
+        <AppText style={styles.code}>{item.receipt.receiptId}</AppText>
 
-        <Text style={styles.label}>Request ID</Text>
-        <Text style={styles.code}>{item.receipt.requestId}</Text>
+        <AppText variant="caption" style={styles.label}>Request ID</AppText>
+        <AppText style={styles.code}>{item.receipt.requestId}</AppText>
         
         <View style={styles.divider} />
 
-        <Text style={styles.label}>ZK Proof Data</Text>
-        <Text style={styles.subLabel}>Protocol</Text>
-        <Text style={styles.code}>{item.receipt.proof.protocol} ({item.receipt.proof.curve})</Text>
+        <AppText variant="h3" style={styles.sectionTitle}>ZK Proof Data</AppText>
+        
+        <AppText variant="caption" style={styles.subLabel}>Protocol</AppText>
+        <AppText style={styles.code}>{item.receipt.proof.protocol} ({item.receipt.proof.curve})</AppText>
 
-        <Text style={styles.subLabel}>Public Signals</Text>
-        <Text style={styles.code}>{JSON.stringify(item.receipt.publicSignals, null, 2)}</Text>
+        <AppText variant="caption" style={styles.subLabel}>Public Signals</AppText>
+        <AppText style={styles.codeBlock}>{JSON.stringify(item.receipt.publicSignals, null, 2)}</AppText>
       </View>
     </ScrollView>
   );
@@ -59,50 +74,81 @@ const VerificationRecordScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    padding: 16,
+    backgroundColor: theme.colors.background,
+  },
+  content: {
+    padding: theme.spacing.md,
   },
   card: {
-    backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    backgroundColor: theme.colors.surface,
+    padding: theme.spacing.xl,
+    borderRadius: theme.borderRadii.xl,
+    ...theme.shadows.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+  },
+  statusHeader: {
+    marginBottom: theme.spacing.xl,
+  },
+  statusBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: theme.spacing.lg,
+    borderRadius: theme.borderRadii.lg,
+    borderWidth: 1,
+  },
+  statusSuccess: {
+    backgroundColor: theme.colors.successLight,
+    borderColor: 'rgba(16, 185, 129, 0.2)',
+  },
+  statusFailed: {
+    backgroundColor: theme.colors.errorLight,
+    borderColor: 'rgba(239, 68, 68, 0.2)',
   },
   label: {
-    fontSize: 12,
-    color: '#888',
     textTransform: 'uppercase',
     letterSpacing: 1,
-    marginTop: 12,
+    marginTop: theme.spacing.md,
+    marginBottom: theme.spacing.xs,
   },
   subLabel: {
-    fontSize: 12,
-    color: '#aaa',
-    marginTop: 8,
+    marginTop: theme.spacing.md,
+    marginBottom: theme.spacing.xs,
   },
   value: {
-    fontSize: 16,
-    color: '#333',
-    fontWeight: '500',
-    marginTop: 4,
+    color: theme.colors.textMain,
+  },
+  highlightBox: {
+    marginTop: theme.spacing.lg,
+    backgroundColor: theme.colors.primaryLight,
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadii.md,
+  },
+  sectionTitle: {
+    marginTop: theme.spacing.sm,
+    marginBottom: theme.spacing.md,
+    color: theme.colors.primary,
   },
   code: {
-    fontSize: 12,
-    color: '#9945FF',
     fontFamily: 'monospace',
-    marginTop: 4,
-    backgroundColor: '#f9f9f9',
-    padding: 8,
-    borderRadius: 4,
+    color: theme.colors.textDim,
+  },
+  codeBlock: {
+    fontFamily: 'monospace',
+    color: theme.colors.textMain,
+    backgroundColor: theme.colors.background,
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadii.md,
+    overflow: 'hidden',
+    marginTop: theme.spacing.xs,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
   },
   divider: {
     height: 1,
-    backgroundColor: '#eee',
-    marginVertical: 16,
+    backgroundColor: theme.colors.border,
+    marginVertical: theme.spacing.xl,
   },
 });
 

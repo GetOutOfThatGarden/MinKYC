@@ -1,20 +1,16 @@
 /**
  * Scan Screen
- * NFC passport scanning interface
+ * QR code scanning interface
  */
 
 import React, { useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
-  Platform,
   Alert,
   ScrollView,
 } from 'react-native';
-import { MOCK_PROFILES, PassportData } from '../constants/mockProfiles';
-import { savePassportData, computeCommitment, saveCommitment } from '../utils/secureStorage';
 import { useNavigation } from '@react-navigation/native';
 import { Camera, useCameraDevice, useCodeScanner } from 'react-native-vision-camera';
 import { VerificationRequestModal } from '../components/VerificationRequestModal';
@@ -23,14 +19,14 @@ import { parseVerificationRequest } from '../utils/qrParser';
 import { sendReceipt } from '../utils/receiptSender';
 import { saveHistoryItem } from '../utils/historyStorage';
 import { VerificationRequest, VerificationReceipt } from '../types/verification';
+import { AppText } from '../components/AppText';
+import { theme } from '../constants/theme';
+import { QrCode, ShieldPlus, X } from 'lucide-react-native';
 
 const ScanScreen: React.FC = () => {
-  const [scanning, setScanning] = useState(false);
   const [scanningQR, setScanningQR] = useState(false);
-  const [scannedData, setScannedData] = useState<PassportData | null>(null);
   const [scannedRequest, setScannedRequest] = useState<VerificationRequest | null>(null);
   const [executingRequest, setExecutingRequest] = useState<VerificationRequest | null>(null);
-  const [isMasked, setIsMasked] = useState(true);
   const navigation = useNavigation<any>();
   const device = useCameraDevice('back');
 
@@ -43,7 +39,7 @@ const ScanScreen: React.FC = () => {
     }
   };
 
-   const codeScanner = useCodeScanner({
+  const codeScanner = useCodeScanner({
     codeTypes: ['qr'],
     onCodeScanned: (codes) => {
       if (scanningQR && codes.length > 0 && codes[0].value) {
@@ -58,121 +54,42 @@ const ScanScreen: React.FC = () => {
     }
   });
 
-  const saveToIdentity = async () => {
-    if (!scannedData) return;
-    try {
-      await savePassportData(scannedData);
-      const secret = "min_kyc_secret_nonce_2026";
-      const commitmentHash = computeCommitment(scannedData, secret);
-      await saveCommitment(commitmentHash);
-      
-      Alert.alert('Success', 'Passport data securely isolated. Identity commitment created.', [
-        { text: 'View Identity', onPress: () => navigation.navigate('Identity') }
-      ]);
-    } catch (e) {
-      Alert.alert('Error', 'Failed to securely store passport data.');
-    }
-  };
-
-  const selectMockProfile = (profileKey: string) => {
-    setScannedData(MOCK_PROFILES[profileKey]);
-    setIsMasked(true);
-  };
-
-  const injectTestQR = () => {
-    const mockQR = JSON.stringify({
-      minkyc: true,
-      type: 'verify_request',
-      platformId: 'MockPlatform_EMU',
-      requestId: `req_${Date.now()}`,
-      condition: 'Age >= 18',
-      userId: 'user_anon_2026'
-    });
-    try {
-      const req = parseVerificationRequest(mockQR);
-      setScannedRequest(req);
-    } catch (e: any) {
-      Alert.alert('Testing Error', e.message);
-    }
-  };
-
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView style={styles.container}>
-        {!scannedData ? (
-          <>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.headerSpacer} />
+        
+        <View style={styles.scanCard}>
+          <QrCode size={64} color={theme.colors.primary} style={styles.scanIcon} />
+          <AppText variant="h2" align="center" style={styles.title}>
+            Scan KYC Request
+          </AppText>
+          <AppText variant="subtext" align="center" style={styles.instructions}>
+            Scan a QR code from a supported platform to securely verify your identity without revealing your underlying data.
+          </AppText>
+
           <TouchableOpacity
-            style={[styles.scanButton, { backgroundColor: '#3498db', marginTop: 100 }]}
+            style={styles.scanButton}
             onPress={enableQRScanner}
           >
-            <Text style={styles.scanButtonText}>
-              Scan QR
-            </Text>
-          </TouchableOpacity>
-
-          <View style={styles.securityNote}>
-            <Text style={styles.securityTitle}>🔒 Security Note</Text>
-            <Text style={styles.securityText}>
-              Verification is performed locally. Only a zero-knowledge proof
-              is generated to prove you satisfy the requirements.
-            </Text>
-          </View>
-        </>
-      ) : (
-        <View style={styles.resultContainer}>
-          <Text style={styles.resultTitle}>✓ Scan Complete</Text>
-
-          <TouchableOpacity
-            style={styles.toggleMaskButton}
-            onPress={() => setIsMasked(!isMasked)}
-          >
-            <Text style={styles.toggleMaskText}>
-              {isMasked ? '👁️ Show Sensitive Data' : '🙈 Hide Sensitive Data'}
-            </Text>
-          </TouchableOpacity>
-
-          <View style={styles.dataCard}>
-            <View style={styles.dataRow}>
-              <Text style={styles.dataLabel}>Surname</Text>
-              <Text style={styles.dataValue}>{isMasked ? '****' : scannedData.surname}</Text>
-            </View>
-
-            <View style={styles.dataRow}>
-              <Text style={styles.dataLabel}>Given Names</Text>
-              <Text style={styles.dataValue}>{isMasked ? '****' : scannedData.givenNames}</Text>
-            </View>
-
-            <View style={styles.dataRow}>
-              <Text style={styles.dataLabel}>Nationality</Text>
-              <Text style={styles.dataValue}>{isMasked ? '****' : scannedData.nationality}</Text>
-            </View>
-
-            <View style={styles.dataRow}>
-              <Text style={styles.dataLabel}>Date of Birth</Text>
-              <Text style={styles.dataValue}>{isMasked ? '****' : scannedData.dateOfBirth}</Text>
-            </View>
-
-            <View style={styles.dataRow}>
-              <Text style={styles.dataLabel}>Passport No.</Text>
-              <Text style={styles.dataValue}>***{scannedData.passportNumber.slice(-4)}</Text>
-            </View>
-          </View>
-
-          <TouchableOpacity style={styles.saveButton} onPress={saveToIdentity}>
-            <Text style={styles.saveButtonText}>Create Identity</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.scanAgainButton}
-            onPress={() => setScannedData(null)}
-          >
-            <Text style={styles.scanAgainText}>Scan Again</Text>
+            <AppText weight="bold" color={theme.colors.surface}>
+              Start Scanner
+            </AppText>
           </TouchableOpacity>
         </View>
-      )}
+
+        <View style={styles.securityNote}>
+          <View style={styles.securityHeader}>
+            <ShieldPlus size={20} color={theme.colors.success} style={{ marginRight: 8 }} />
+            <AppText weight="semibold" color={theme.colors.textMain}>Local Verification</AppText>
+          </View>
+          <AppText variant="caption" style={styles.securityText}>
+            MinKYC performs identity checks locally on your device. Only a zero-knowledge proof is sent to the requesting platform. Your actual passport data is never transmitted.
+          </AppText>
+        </View>
       </ScrollView>
 
-       {scanningQR && device != null && (
+      {scanningQR && device != null && (
         <View style={StyleSheet.absoluteFill}>
           <Camera
             style={StyleSheet.absoluteFill}
@@ -180,33 +97,44 @@ const ScanScreen: React.FC = () => {
             isActive={scanningQR}
             codeScanner={codeScanner}
           />
-          <TouchableOpacity 
-            style={styles.cancelQRButton} 
-            onPress={() => setScanningQR(false)}
-          >
-            <Text style={styles.cancelQRText}>Cancel</Text>
-          </TouchableOpacity>
+          <View style={styles.qrHeader}>
+            <TouchableOpacity 
+              style={styles.cancelQRButton} 
+              onPress={() => setScanningQR(false)}
+            >
+              <X size={24} color={theme.colors.surface} />
+            </TouchableOpacity>
+          </View>
           <View style={styles.qrOverlay}>
-            <View style={styles.qrTargetBox} />
-            <Text style={styles.qrInstructionText}>Align QR code within the frame</Text>
+            <View style={styles.qrTargetBox}>
+              <View style={[styles.corner, styles.topLeft]} />
+              <View style={[styles.corner, styles.topRight]} />
+              <View style={[styles.corner, styles.bottomLeft]} />
+              <View style={[styles.corner, styles.bottomRight]} />
+            </View>
+            <View style={styles.instructionPill}>
+              <AppText variant="caption" color={theme.colors.surface} weight="semibold">
+                Align QR code within the frame
+              </AppText>
+            </View>
           </View>
         </View>
       )}
 
       {scanningQR && device == null && (
-        <View style={StyleSheet.absoluteFill}>
-          <Text style={{ marginTop: 100, textAlign: 'center' }}>No camera device found</Text>
+        <View style={[StyleSheet.absoluteFill, styles.noCameraContainer]}>
+          <AppText align="center">No camera device found</AppText>
           <TouchableOpacity 
-            style={styles.cancelQRButton} 
+            style={[styles.scanButton, { marginTop: theme.spacing.xl }]} 
             onPress={() => setScanningQR(false)}
           >
-            <Text style={styles.cancelQRText}>Cancel</Text>
+            <AppText color={theme.colors.surface}>Cancel</AppText>
           </TouchableOpacity>
         </View>
       )}
 
       {executingRequest && (
-        <View style={[StyleSheet.absoluteFill, { backgroundColor: '#fff', zIndex: 100, justifyContent: 'center' }]}>
+        <View style={[StyleSheet.absoluteFill, styles.executionOverlay]}>
           <VerificationExecutor
             request={executingRequest}
             onReceipt={async (receipt: VerificationReceipt, satisfied: boolean, approvingUserName?: string) => {
@@ -229,7 +157,7 @@ const ScanScreen: React.FC = () => {
                   Alert.alert('Verification Successful', 'Requirement satisfied. ZK Proof generated, but failed to deliver receipt.');
                 }
               } else {
-                Alert.alert('Verification Failed', 'Requirement NOT satisfied (Age check failed). ZK Proof generated but reflects failure.');
+                Alert.alert('Verification Failed', 'Requirement NOT satisfied. ZK Proof generated but reflects failure.');
               }
             }}
             onError={(error: string) => {
@@ -260,220 +188,74 @@ const ScanScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    padding: 16,
+    backgroundColor: theme.colors.background,
   },
-  scanArea: {
-    flex: 1,
-    justifyContent: 'center',
+  scrollContent: {
+    padding: theme.spacing.md,
+  },
+  headerSpacer: {
+    height: theme.spacing.xxl,
+  },
+  scanCard: {
+    backgroundColor: theme.colors.surface,
+    padding: theme.spacing.xl,
+    borderRadius: theme.borderRadii.xl,
     alignItems: 'center',
+    marginBottom: theme.spacing.xl,
+    ...theme.shadows.card,
   },
-  nfcIcon: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: '#9945FF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  scanningActive: {
-    backgroundColor: '#14F195',
-  },
-  nfcIconText: {
-    fontSize: 48,
+  scanIcon: {
+    marginBottom: theme.spacing.lg,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 12,
+    marginBottom: theme.spacing.sm,
+    color: theme.colors.textMain,
   },
   instructions: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'center',
-    paddingHorizontal: 32,
+    marginBottom: theme.spacing.xl,
     lineHeight: 20,
-  },
-  progressBar: {
-    width: 200,
-    height: 4,
-    backgroundColor: '#e0e0e0',
-    borderRadius: 2,
-    marginTop: 24,
-    overflow: 'hidden',
-  },
-  progressFill: {
-    width: '60%',
-    height: '100%',
-    backgroundColor: '#9945FF',
+    paddingHorizontal: theme.spacing.sm,
   },
   scanButton: {
-    backgroundColor: '#9945FF',
-    padding: 18,
-    borderRadius: 12,
+    backgroundColor: theme.colors.primary,
+    paddingVertical: theme.spacing.md,
+    paddingHorizontal: theme.spacing.xxl,
+    borderRadius: theme.borderRadii.lg,
     alignItems: 'center',
-    marginBottom: 16,
-  },
-  scanningButton: {
-    backgroundColor: '#14F195',
-  },
-  scanButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  infoSection: {
-    backgroundColor: '#fff',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 16,
-  },
-  infoTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 12,
-    color: '#333',
-  },
-  step: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  stepNumber: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#9945FF',
-    color: '#fff',
-    textAlign: 'center',
-    lineHeight: 24,
-    marginRight: 12,
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  stepText: {
-    fontSize: 14,
-    color: '#555',
-  },
-  mockProfilesSection: {
-    backgroundColor: '#fff',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 16,
-  },
-  mockProfileButton: {
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  mockProfileText: {
-    fontSize: 14,
-    color: '#9945FF',
-    fontWeight: '500',
+    width: '100%',
+    ...theme.shadows.button,
   },
   securityNote: {
-    backgroundColor: '#e8f4f8',
-    padding: 16,
-    borderRadius: 12,
+    backgroundColor: theme.colors.successLight,
+    padding: theme.spacing.lg,
+    borderRadius: theme.borderRadii.lg,
+    borderWidth: 1,
+    borderColor: 'rgba(16, 185, 129, 0.2)', // translucent success
   },
-  securityTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    marginBottom: 8,
-    color: '#333',
+  securityHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.sm,
   },
   securityText: {
-    fontSize: 13,
-    color: '#666',
+    color: theme.colors.textDim,
     lineHeight: 18,
   },
-  resultContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  resultTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#14F195',
-    textAlign: 'center',
-    marginBottom: 24,
-  },
-  dataCard: {
-    backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 12,
-    marginBottom: 24,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  toggleMaskButton: {
-    backgroundColor: '#e8f4f8',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#b3e5fc',
-  },
-  toggleMaskText: {
-    color: '#0288d1',
-    fontWeight: '600',
-    fontSize: 14,
-  },
-  dataRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-  },
-  dataLabel: {
-    fontSize: 14,
-    color: '#666',
-  },
-  dataValue: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#333',
-  },
-  saveButton: {
-    backgroundColor: '#14F195',
-    padding: 18,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  saveButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  scanAgainButton: {
-    padding: 12,
-    alignItems: 'center',
-  },
-  scanAgainText: {
-    color: '#9945FF',
-    fontSize: 14,
-  },
-  cancelQRButton: {
+  qrHeader: {
     position: 'absolute',
-    top: 60,
-    right: 20,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    padding: 12,
-    borderRadius: 8,
+    top: 0,
+    left: 0,
+    right: 0,
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     zIndex: 10,
   },
-  cancelQRText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+  cancelQRButton: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    padding: 10,
+    borderRadius: theme.borderRadii.round,
   },
   qrOverlay: {
     position: 'absolute',
@@ -485,20 +267,62 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   qrTargetBox: {
-    width: 250,
-    height: 250,
-    borderWidth: 2,
-    borderColor: '#14F195',
+    width: 260,
+    height: 260,
     backgroundColor: 'transparent',
+    position: 'relative',
   },
-  qrInstructionText: {
-    color: '#fff',
-    fontSize: 16,
-    marginTop: 20,
-    textAlign: 'center',
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    padding: 8,
-    borderRadius: 8,
+  corner: {
+    position: 'absolute',
+    width: 40,
+    height: 40,
+    borderColor: theme.colors.secondary,
+  },
+  topLeft: {
+    top: 0,
+    left: 0,
+    borderTopWidth: 4,
+    borderLeftWidth: 4,
+    borderTopLeftRadius: 16,
+  },
+  topRight: {
+    top: 0,
+    right: 0,
+    borderTopWidth: 4,
+    borderRightWidth: 4,
+    borderTopRightRadius: 16,
+  },
+  bottomLeft: {
+    bottom: 0,
+    left: 0,
+    borderBottomWidth: 4,
+    borderLeftWidth: 4,
+    borderBottomLeftRadius: 16,
+  },
+  bottomRight: {
+    bottom: 0,
+    right: 0,
+    borderBottomWidth: 4,
+    borderRightWidth: 4,
+    borderBottomRightRadius: 16,
+  },
+  instructionPill: {
+    marginTop: theme.spacing.xl,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: theme.borderRadii.round,
+  },
+  noCameraContainer: {
+    backgroundColor: theme.colors.background,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: theme.spacing.xl,
+  },
+  executionOverlay: {
+    backgroundColor: theme.colors.background,
+    zIndex: 100,
+    justifyContent: 'center',
   },
 });
 

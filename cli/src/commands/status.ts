@@ -14,8 +14,8 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 import { getProvider, getProgram } from '../utils/connection';
 import { PublicKey } from '@solana/web3.js';
 import { BN } from '@coral-xyz/anchor';
@@ -95,9 +95,9 @@ export const statusCommand = new Command('status')
                 console.log(`Address:              ${identityPda.toString()}`);
                 console.log(`Owner:                ${identityAccount.owner.toString()}`);
                 console.log(`Index:                ${identityAccount.index.toString()}`);
-                console.log(`Revoked:              ${identityAccount.revoked ? chalk.red('YES') : chalk.green('NO')}`);
-                console.log(`Verification Count:   ${identityAccount.verificationCount?.toString() || '0'}`);
-                console.log(`Commitment:           ${Buffer.from(identityAccount.commitment).toString('hex')}`);
+                console.log(`Revoked:              ${(identityAccount as any).revoked ? chalk.red('YES') : chalk.green('NO')}`);
+                console.log(`Verification Count:   ${(identityAccount as any).verificationCount?.toString() || '0'}`);
+                console.log(`Commitment:           ${Buffer.from((identityAccount as any).commitment).toString('hex')}`);
                 
                 console.log('\n' + chalk.green('✔ Identity is active on Solana Devnet'));
 

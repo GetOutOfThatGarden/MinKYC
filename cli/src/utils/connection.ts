@@ -3,8 +3,8 @@ import { Program } from "@coral-xyz/anchor";
 import { Minkyc } from "../../../target/types/minkyc";
 import IDL from "../../../target/idl/minkyc.json";
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
-import fs from 'fs';
-import os from 'os';
+import * as fs from 'fs';
+import * as os from 'os';
 
 export function getProvider() {
     // Default to devnet

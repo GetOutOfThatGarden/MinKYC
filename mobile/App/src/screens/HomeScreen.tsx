@@ -7,7 +7,6 @@
 import React, { useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
@@ -15,10 +14,12 @@ import {
 } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../../App';
 import { useWallet } from '../hooks/useWallet';
 import { hasPassportData, getPassportData } from '../utils/secureStorage';
-import { PassportData } from '../constants/mockProfiles';
+import { AppText } from '../components/AppText';
+import { theme } from '../constants/theme';
+import { ScanLine, UserSquare, ScrollText, Settings, CheckCircle } from 'lucide-react-native';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -56,7 +57,7 @@ const HomeScreen: React.FC = () => {
   if (loading) {
     return (
       <View style={[styles.container, styles.centered]}>
-        <ActivityIndicator size="large" color="#9945FF" />
+        <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
   }
@@ -64,70 +65,91 @@ const HomeScreen: React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>MinKYC</Text>
-        <Text style={styles.subtitle}>
+        <AppText variant="h1" color={theme.colors.surface}>MinKYC</AppText>
+        <AppText variant="subtext" color={theme.colors.surface} style={styles.subtitle}>
           Privacy-Preserving Identity on Solana
-        </Text>
+        </AppText>
       </View>
 
       <View style={styles.identitySection}>
-        <Text style={styles.identityLabel}>Identity Status</Text>
+        <AppText variant="caption" style={styles.identityLabel}>Identity Status</AppText>
 
         {userName && (
-          <Text style={styles.identityName}>
-            ✅ {userName}
-          </Text>
+          <View style={styles.identityNameContainer}>
+            <CheckCircle size={20} color={theme.colors.success} style={styles.iconMargin} />
+            <AppText variant="h2">{userName}</AppText>
+          </View>
         )}
 
         {publicKey && (
-          <Text style={styles.accountId}>
+          <AppText style={styles.accountId}>
             Account ID: {formatAddress(publicKey.toString())}
-          </Text>
+          </AppText>
         )}
       </View>
 
       <View style={styles.actionsSection}>
-        <Text style={styles.sectionTitle}>Actions</Text>
+        <AppText variant="h3" style={styles.sectionTitle}>Identity Actions</AppText>
 
         <TouchableOpacity
           style={styles.actionButton}
           onPress={() => navigation.navigate('Identity')}
         >
-          <Text style={styles.actionButtonText}>📋 My Identity</Text>
-          <Text style={styles.actionButtonSubtext}>View your passport data & commitment</Text>
+          <View style={styles.actionIconContainer}>
+            <UserSquare size={24} color={theme.colors.primary} />
+          </View>
+          <View style={styles.actionTextContainer}>
+            <AppText weight="semibold">My Identity</AppText>
+            <AppText variant="subtext">Secure passport credentials & proofs</AppText>
+          </View>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.actionButton}
           onPress={() => navigation.navigate('Scan')}
         >
-          <Text style={styles.actionButtonText}>📷 Scan QR</Text>
-          <Text style={styles.actionButtonSubtext}>Scan a QR code to verify your identity</Text>
+          <View style={styles.actionIconContainer}>
+            <ScanLine size={24} color={theme.colors.primary} />
+          </View>
+          <View style={styles.actionTextContainer}>
+            <AppText weight="semibold">Verify Identity</AppText>
+            <AppText variant="subtext">Scan request for zero-knowledge verification</AppText>
+          </View>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.actionButton}
           onPress={() => navigation.navigate('History')}
         >
-          <Text style={styles.actionButtonText}>📜 Verification History</Text>
-          <Text style={styles.actionButtonSubtext}>View past verifications & receipts</Text>
+          <View style={styles.actionIconContainer}>
+            <ScrollText size={24} color={theme.colors.primary} />
+          </View>
+          <View style={styles.actionTextContainer}>
+            <AppText weight="semibold">Audit Log</AppText>
+            <AppText variant="subtext">Review past verification history</AppText>
+          </View>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.actionButton}
           onPress={() => navigation.navigate('Settings' as any)}
         >
-          <Text style={styles.actionButtonText}>⚙️ Settings</Text>
-          <Text style={styles.actionButtonSubtext}>Reset identity, app preferences</Text>
+          <View style={styles.actionIconContainer}>
+            <Settings size={24} color={theme.colors.iconDim} />
+          </View>
+          <View style={styles.actionTextContainer}>
+            <AppText weight="semibold">Security Settings</AppText>
+            <AppText variant="subtext">Manage keys and identity data</AppText>
+          </View>
         </TouchableOpacity>
       </View>
 
       <View style={styles.infoSection}>
-        <Text style={styles.infoTitle}>About MinKYC</Text>
-        <Text style={styles.infoText}>
+        <AppText weight="semibold" style={styles.infoTitle}>About MinKYC</AppText>
+        <AppText variant="subtext" style={styles.infoText}>
           MinKYC is a privacy-preserving identity protocol. Your passport data
           never leaves your device — only cryptographic proofs are shared.
-        </Text>
+        </AppText>
       </View>
     </ScrollView>
   );
@@ -136,104 +158,101 @@ const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: theme.colors.background,
   },
   centered: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   header: {
-    backgroundColor: '#9945FF',
-    padding: 24,
+    backgroundColor: theme.colors.primary,
+    padding: theme.spacing.lg,
+    paddingTop: theme.spacing.xxl,
     alignItems: 'center',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#fff',
+    borderBottomLeftRadius: theme.borderRadii.xl,
+    borderBottomRightRadius: theme.borderRadii.xl,
+    shadowColor: theme.colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 5,
   },
   subtitle: {
-    fontSize: 14,
-    color: '#e0e0e0',
-    marginTop: 8,
+    marginTop: theme.spacing.xs,
+    opacity: 0.9,
   },
   identitySection: {
-    padding: 16,
-    backgroundColor: '#fff',
-    margin: 16,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    padding: theme.spacing.lg,
+    backgroundColor: theme.colors.surface,
+    margin: theme.spacing.md,
+    marginTop: -theme.spacing.lg, // Overlap header slightly
+    borderRadius: theme.borderRadii.lg,
+    ...theme.shadows.card,
     alignItems: 'center',
   },
   identityLabel: {
-    fontSize: 12,
-    color: '#666',
     textTransform: 'uppercase',
     letterSpacing: 1,
-    marginBottom: 8,
+    marginBottom: theme.spacing.sm,
   },
-  identityName: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 6,
+  identityNameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.xs,
+  },
+  iconMargin: {
+    marginRight: theme.spacing.sm,
   },
   accountId: {
-    fontSize: 12,
-    color: '#888',
+    color: theme.colors.textLight,
     fontFamily: 'monospace',
+    fontSize: theme.typography.sizes.sm,
+    marginTop: theme.spacing.xs,
   },
   actionsSection: {
-    padding: 16,
+    padding: theme.spacing.md,
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 12,
-    color: '#333',
+    marginBottom: theme.spacing.md,
+    color: theme.colors.textMain,
   },
   actionButton: {
-    backgroundColor: '#fff',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.surface,
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadii.lg,
+    marginBottom: theme.spacing.sm,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    ...theme.shadows.card,
   },
-  actionButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+  actionIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: theme.borderRadii.md,
+    backgroundColor: theme.colors.background,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: theme.spacing.md,
   },
-  actionButtonSubtext: {
-    fontSize: 13,
-    color: '#666',
-    marginTop: 4,
+  actionTextContainer: {
+    flex: 1,
   },
   infoSection: {
-    padding: 16,
-    margin: 16,
-    marginTop: 0,
-    backgroundColor: '#e8f4f8',
-    borderRadius: 12,
+    padding: theme.spacing.lg,
+    margin: theme.spacing.md,
+    marginTop: theme.spacing.xs,
+    backgroundColor: theme.colors.primaryLight,
+    borderRadius: theme.borderRadii.lg,
   },
   infoTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 8,
+    color: theme.colors.primary,
+    marginBottom: theme.spacing.xs,
   },
   infoText: {
-    fontSize: 14,
-    color: '#555',
     lineHeight: 20,
+    color: theme.colors.textDim,
   },
 });
 
