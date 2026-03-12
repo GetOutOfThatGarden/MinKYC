@@ -18,7 +18,7 @@ user-wallet*.json
 
 # Hackathon Submission Assets (Keep Local)
 SUBMISSION_DRAFT.html
-Screenshots/
+# Screenshots/ (Uncommented so README images work)
 
 # IDE
 .idea
