@@ -16,6 +16,10 @@ user-wallet*.json
 .env
 .env.*
 
+# Hackathon Submission Assets (Keep Local)
+SUBMISSION_DRAFT.html
+Screenshots/
+
 # IDE
 .idea
 .vscode
