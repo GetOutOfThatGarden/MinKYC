@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinKYC - Solana Seeker Hackathon Submission</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #9945FF;
+            --secondary: #10B981;
+            --dark: #111827;
+            --light: #F9FAFB;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .logo-area h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-area p {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hackathon-badge {
+            background: var(--dark);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 50px 0 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 26px;
+            background: var(--secondary);
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #374151;
+        }
+
+        strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .hero-statement {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--dark);
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 30px 0;
+            background: rgba(153, 69, 255, 0.03);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .callout {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--secondary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .callout h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .screenshot-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .screenshot-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .screenshot-caption {
+            padding: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            text-align: center;
+            background: var(--light);
+        }
+
+        .screenshot-desc {
+            padding: 0 15px 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            background: var(--light);
+        }
+
+        footer {
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            background: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #374151;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        @media print {
+            body { padding: 0; background: white; }
+            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; }
+            .screenshot-item { break-inside: avoid; }
+            h2 { page-break-after: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-area">
+                <p>Project Submission</p>
+                <h1>MinKYC</h1>
+            </div>
+            <div class="hackathon-badge">SOLANA SEEKER: MONOLITH</div>
+        </header>
+
+        <section id="quick-reference" style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--secondary); padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+            <h3 style="color: var(--secondary); margin-bottom: 10px; font-size: 16px;">Quick Reference for Judges</h3>
+            <ul style="list-style-type: none; margin: 0; padding: 0;">
+                <li style="margin-bottom: 5px;"><strong>Landing Page:</strong> <a href="https://getoutofthatgarden.github.io/minkyc-website/" style="color: var(--primary); text-decoration: none; font-weight: 500;">https://getoutofthatgarden.github.io/minkyc-website/</a></li>
+                <li><strong>GitHub Repo & APK:</strong> <a href="https://github.com/GetOutOfThatGarden/MinKYC" style="color: var(--primary); text-decoration: none; font-weight: 500;">https://github.com/GetOutOfThatGarden/MinKYC</a></li>
+            </ul>
+        </section>
+
+        <section id="executive-summary">
+            <div class="hero-statement">
+                MinKYC is the privacy-first compliance layer for Solana Mobile. We eliminate KYC data breach liability by proving identity with on-device Zero-Knowledge cryptography—delivering unmatched PMF for Web3 platforms.
+            </div>
+            <p>
+                In the Web3 ecosystem, users demand privacy, yet regulatory pressures force platforms to collect vast amounts of sensitive personal data (passports, IDs, facial biometrics). MinKYC solves this paradox. By turning the smartphone into a localized compliance hub, users verify their identity entirely on their device, sharing only mathematical proofs—never their underlying data.
+            </p>
+        </section>
+
+        <section id="the-problem">
+            <h2>The "Toxic Asset" Problem</h2>
+            <p>Today's KYC infrastructure is fundamentally broken because it relies on centralized data hoarding. When a user signs up for an exchange or a token launchpad, they surrender their most sensitive documents to a third-party server.</p>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>For Users: The Identity Honeypot</h3>
+                    <p>Users lose control of their data. Centralized databases act as massive honeypots for hackers. When these servers are inevitably breached, users suffer catastrophic identity theft that cannot be undone.</p>
+                </div>
+                <div class="card">
+                    <h3>For Platforms: Crippling Liability</h3>
+                    <p>For dApps and exchanges, holding user data is not an asset; it is a <strong>Toxic Liability</strong>. The costs of securing this data, navigating GDPR/CCPA regulations, and the existential threat of a devastating hack stifle innovation and increase go-to-market costs.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="the-solution">
+            <h2>The Solution: Zero-Knowledge KYC</h2>
+            <p>MinKYC flips the centralized model on its head by moving the verification process to the edge—directly onto the user's mobile device. We leverage <strong>Noir Zero-Knowledge (ZK) circuits</strong> to decouple identity verification from data collection.</p>
+            
+            <ul>
+                <li><strong>Local Data Extraction:</strong> The user scans their passport using the MinKYC app. NFC and OCR data extraction happens entirely locally on the phone's secure hardware. PII never touches our servers.</li>
+                <li><strong>Cryptographic Proof Generation:</strong> When a platform requires KYC (e.g., "Is this user over 18?" or "Is this user a non-US resident?"), the app generates a Noir ZK proof locally.</li>
+                <li><strong>Zero Data Egress:</strong> The platform receives a cryptographic <code>true/false</code> confirmation and a mathematically sound proof. They get the compliance guarantee <em>without</em> holding the toxic asset.</li>
+            </ul>
+        </section>
+
+        <section id="why-solana">
+            <h2>Why MinKYC is Built on Solana</h2>
+            <p>Solana is the only blockchain infrastructure capable of supporting a high-volume, real-time ZK-KYC network.</p>
+            <div class="callout">
+                <h3>The Perfect Synergy</h3>
+                <p>To replace traditional APIs, KYC verifications must be instant and cost pennies. Solana's high throughput and sub-second finality allow platforms to verify Noir ZK proofs on-chain instantly during user onboarding. Furthermore, Solana's low fees make it economically viable to mint immutable, verifiable audit receipts for every KYC transaction, creating a transparent yet completely private compliance trail.</p>
+            </div>
+        </section>
+
+        <section id="seeker-advantage">
+            <h2>The Solana Seeker Advantage</h2>
+            <p>MinKYC is uniquely designed to shine on the Solana Seeker device, representing a massive leap in UX and security for Web3 mobile applications.</p>
+            <ul>
+                <li><strong>Native SMS Integration:</strong> By integrating deeply with the Solana Mobile Stack (SMS), MinKYC can leverage Mobile Wallet Adapter (MWA) flows, making identity verification as seamless as signing a transaction.</li>
+                <li><strong>Secure Hardware Utilization:</strong> The Seeker's dedicated secure enclave provides the perfect trusted execution environment for storing localized passport data and generating computationally intensive ZK proofs quickly without compromising mobile battery life.</li>
+                <li><strong>Frictionless dApp Experience:</strong> Seeker users no longer need to upload IDs to five different dApps. They scan once into MinKYC, and instantly provide ZK proofs to any ecosystem app with a single tap.</li>
+            </ul>
+        </section>
+
+        <section id="tech-stack">
+            <h2>Technical Architecture & Innovation</h2>
+            <p>Our stack is designed for absolute privacy, speed, and developer ease of integration.</p>
+            <div class="tech-tags">
+                <span class="tech-tag">Solana Mobile Stack (SMS)</span>
+                <span class="tech-tag">Noir (ZK Circuits)</span>
+                <span class="tech-tag">React Native / Expo</span>
+                <span class="tech-tag">NFC Data Protocol</span>
+                <span class="tech-tag">Anchor</span>
+                <span class="tech-tag">Rust</span>
+            </div>
+        </section>
+
+        <section id="product-walkthrough">
+            <h2>Product UX & Mobile Experience</h2>
+            <p>MinKYC provides a polished, intuitive interface designed to make complex cryptography invisible to the end user. Below is the end-to-end journey from identity scanning to platform verification and audit logging.</p>
+            
+            <div class="screenshot-gallery">
+                <div class="screenshot-item">
+                    <img src="Screenshots/1_home.png" alt="Home Screen">
+                    <div class="screenshot-caption">Native Home Interface</div>
+                    <div class="screenshot-desc">A clean dashboard displaying current identity status and quick actions, built for the Seeker screen.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/2_identity.png" alt="Identity Screen">
+                    <div class="screenshot-caption">Encrypted Identity Vault</div>
+                    <div class="screenshot-desc">User credentials are encrypted and stored locally. Data never leaves the device.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/3_scan.png" alt="Scan Screen">
+                    <div class="screenshot-caption">Platform Bridge Scanner</div>
+                    <div class="screenshot-desc">Users scan a QR from a dApp to initiate a seamless mobile-to-web verification handshake.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/6_verify_modal.png" alt="Verification Modal">
+                    <div class="screenshot-caption">The ZK Proof Request</div>
+                    <div class="screenshot-desc">The user is prompted to generate a specific proof (e.g., Age > 18) without revealing their birthdate.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/7_verify_success.png" alt="Success Screen">
+                    <div class="screenshot-caption">Instant Verification</div>
+                    <div class="screenshot-desc">Sub-second proof generation and Solana network verification result in a frictionless onboarding.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/9_verification history_successful.png" alt="Successful Audit">
+                    <div class="screenshot-caption">Immutable Audit Log</div>
+                    <div class="screenshot-desc">A local, private ledger of all successful proofs provided to platforms.</div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 MinKYC — Built for the Solana Seeker Hackathon</p>
+            <p style="font-size: 11px; margin-top: 10px; color: var(--primary); font-weight: 600;">Monolith Track Submission</p>
+        </footer>
+    </div>
+</body>
+</html>

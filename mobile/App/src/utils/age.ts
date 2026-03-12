@@ -27,12 +27,12 @@ export function calculateAge(birthDateStr: string): number {
 }
 
 /**
- * Checks if a condition (e.g. "Age >= 18") is satisfied given a birthdate
+ * Checks if a condition (e.g. "age >= 18") is satisfied given a birthdate
  */
 export function checkCondition(birthDateStr: string, condition: string): boolean {
   const age = calculateAge(birthDateStr);
   
-  if (condition.toLowerCase().includes('age >= 18')) {
+  if (condition === 'age >= 18') {
     return age >= 18;
   }
   
