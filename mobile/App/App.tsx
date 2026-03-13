@@ -56,7 +56,10 @@ function App(): React.JSX.Element {
             <Stack.Screen 
               name="Home" 
               component={HomeScreen} 
-              options={{ title: 'MinKYC' }}
+              options={{ 
+                title: 'MinKYC',
+                animationTypeForReplace: 'push',
+              }}
             />
             <Stack.Screen 
               name="Onboarding" 

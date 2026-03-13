@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   ScrollView,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -20,12 +21,37 @@ import { hasPassportData, getPassportData } from '../utils/secureStorage';
 import { AppText } from '../components/AppText';
 import { theme } from '../constants/theme';
 import { ScanLine, UserSquare, ScrollText, Settings, CheckCircle } from 'lucide-react-native';
+import { LucideIcon } from 'lucide-react-native';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
+interface ActionButtonProps {
+  label: string;
+  description: string;
+  icon: LucideIcon;
+  onPress: () => void;
+  iconColor?: string;
+}
+
+const ActionButton = React.memo(({ label, description, icon: Icon, onPress, iconColor }: ActionButtonProps) => (
+  <TouchableOpacity
+    style={styles.actionButton}
+    onPress={onPress}
+    activeOpacity={0.7}
+  >
+    <View style={styles.actionIconContainer}>
+      <Icon size={24} color={iconColor || theme.colors.primary} />
+    </View>
+    <View style={styles.actionTextContainer}>
+      <AppText weight="semibold">{label}</AppText>
+      <AppText variant="subtext">{description}</AppText>
+    </View>
+  </TouchableOpacity>
+));
+
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const { connected, publicKey } = useWallet();
+  const { publicKey } = useWallet();
   const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState<string | null>(null);
 
@@ -63,7 +89,7 @@ const HomeScreen: React.FC = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
       <View style={styles.header}>
         <AppText variant="h1" color={theme.colors.surface}>MinKYC</AppText>
         <AppText variant="subtext" color={theme.colors.surface} style={styles.subtitle}>
@@ -91,57 +117,34 @@ const HomeScreen: React.FC = () => {
       <View style={styles.actionsSection}>
         <AppText variant="h3" style={styles.sectionTitle}>Identity Actions</AppText>
 
-        <TouchableOpacity
-          style={styles.actionButton}
+        <ActionButton
+          label="My Identity"
+          description="Secure passport credentials & proofs"
+          icon={UserSquare}
           onPress={() => navigation.navigate('Identity')}
-        >
-          <View style={styles.actionIconContainer}>
-            <UserSquare size={24} color={theme.colors.primary} />
-          </View>
-          <View style={styles.actionTextContainer}>
-            <AppText weight="semibold">My Identity</AppText>
-            <AppText variant="subtext">Secure passport credentials & proofs</AppText>
-          </View>
-        </TouchableOpacity>
+        />
 
-        <TouchableOpacity
-          style={styles.actionButton}
+        <ActionButton
+          label="Verify Identity"
+          description="Scan request for zero-knowledge verification"
+          icon={ScanLine}
           onPress={() => navigation.navigate('Scan')}
-        >
-          <View style={styles.actionIconContainer}>
-            <ScanLine size={24} color={theme.colors.primary} />
-          </View>
-          <View style={styles.actionTextContainer}>
-            <AppText weight="semibold">Verify Identity</AppText>
-            <AppText variant="subtext">Scan request for zero-knowledge verification</AppText>
-          </View>
-        </TouchableOpacity>
+        />
 
-        <TouchableOpacity
-          style={styles.actionButton}
+        <ActionButton
+          label="Audit Log"
+          description="Review past verification history"
+          icon={ScrollText}
           onPress={() => navigation.navigate('History')}
-        >
-          <View style={styles.actionIconContainer}>
-            <ScrollText size={24} color={theme.colors.primary} />
-          </View>
-          <View style={styles.actionTextContainer}>
-            <AppText weight="semibold">Audit Log</AppText>
-            <AppText variant="subtext">Review past verification history</AppText>
-          </View>
-        </TouchableOpacity>
+        />
 
-        <TouchableOpacity
-          style={styles.actionButton}
+        <ActionButton
+          label="Security Settings"
+          description="Manage keys and identity data"
+          icon={Settings}
+          iconColor={theme.colors.iconDim}
           onPress={() => navigation.navigate('Settings' as any)}
-        >
-          <View style={styles.actionIconContainer}>
-            <Settings size={24} color={theme.colors.iconDim} />
-          </View>
-          <View style={styles.actionTextContainer}>
-            <AppText weight="semibold">Security Settings</AppText>
-            <AppText variant="subtext">Manage keys and identity data</AppText>
-          </View>
-        </TouchableOpacity>
+        />
       </View>
 
       <View style={styles.infoSection}>
@@ -160,6 +163,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.background,
   },
+  scrollContent: {
+    paddingBottom: theme.spacing.xl,
+  },
   centered: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -171,11 +177,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomLeftRadius: theme.borderRadii.xl,
     borderBottomRightRadius: theme.borderRadii.xl,
-    shadowColor: theme.colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    elevation: 5,
+    // Modern platform shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: theme.colors.primary,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.15,
+        shadowRadius: 12,
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
   },
   subtitle: {
     marginTop: theme.spacing.xs,
@@ -185,7 +198,7 @@ const styles = StyleSheet.create({
     padding: theme.spacing.lg,
     backgroundColor: theme.colors.surface,
     margin: theme.spacing.md,
-    marginTop: -theme.spacing.lg, // Overlap header slightly
+    marginTop: -theme.spacing.lg,
     borderRadius: theme.borderRadii.lg,
     ...theme.shadows.card,
     alignItems: 'center',
@@ -215,6 +228,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     marginBottom: theme.spacing.md,
     color: theme.colors.textMain,
+    marginLeft: theme.spacing.xs,
   },
   actionButton: {
     flexDirection: 'row',
