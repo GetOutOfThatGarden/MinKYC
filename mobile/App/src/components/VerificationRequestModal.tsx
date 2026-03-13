@@ -37,7 +37,7 @@ export const VerificationRequestModal: React.FC<VerificationRequestModalProps> =
               <AppText variant="h3" style={styles.value}>{request.platformId}</AppText>
             </View>
             <View style={styles.detailRow}>
-              <AppText variant="caption" style={styles.label}>Requested Condition</AppText>
+              <AppText variant="caption" style={styles.label}>What they want to verify</AppText>
               <AppText variant="body" weight="medium" style={styles.value}>
                 Confirm that user is {request.condition}
               </AppText>

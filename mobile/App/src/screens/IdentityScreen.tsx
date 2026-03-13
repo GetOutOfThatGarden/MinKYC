@@ -160,9 +160,9 @@ const IdentityScreen: React.FC = () => {
           <ClipboardList size={64} color={theme.colors.iconDim} style={styles.emptyIcon} />
           <AppText variant="h2" style={styles.emptyTitle}>No Identity Found</AppText>
           <AppText variant="subtext" style={styles.emptyText} align="center">
-            Create an on-chain identity to start using MinKYC. Your identity
-            will be stored as a cryptographic commitment — no personal data
-            is revealed.
+            Create a private identity credential to start using MinKYC. Your identity
+            will be protected by a secure seal — no personal data
+            is revealed or transmitted.
           </AppText>
           <TouchableOpacity style={styles.createButton} onPress={() => navigation.navigate('Onboarding')}>
             <AppText weight="semibold" color={theme.colors.surface}>Get Started</AppText>
@@ -198,6 +198,7 @@ const IdentityScreen: React.FC = () => {
             style={[styles.miniReadButton, scanning && styles.disabledButton]} 
             onPress={startNFCScan}
             disabled={scanning}
+            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
           >
             <View style={styles.miniReadContent}>
               {!scanning && <RefreshCcw size={14} color={theme.colors.surface} style={{ marginRight: 4 }} />}
@@ -216,18 +217,18 @@ const IdentityScreen: React.FC = () => {
         ))}
       </View>
 
-      {/* Commitment Card */}
+      {/* Security Seal Card */}
       <View style={styles.commitmentCard}>
-        <AppText variant="h3" style={styles.commitmentCardTitle}>On-Chain Identity</AppText>
+        <AppText variant="h3" style={styles.commitmentCardTitle}>Private Identity Credential</AppText>
 
         {commitmentHex && (
           <View style={styles.commitmentSection}>
-            <AppText variant="subtext">Commitment Hash</AppText>
+            <AppText variant="subtext">Security Seal</AppText>
             <AppText style={styles.commitmentValue}>
               {formatCommitment(commitmentHex)}
             </AppText>
             <AppText variant="caption" style={styles.commitmentHint}>
-              Cryptographic hash of your identity data — this is the only thing stored on-chain.
+              A unique, locked security seal that protects your data. Only this seal is verified, keeping your personal details strictly on your device.
             </AppText>
           </View>
         )}
@@ -242,7 +243,7 @@ const IdentityScreen: React.FC = () => {
         <TouchableOpacity style={styles.explorerButton} onPress={openExplorer}>
           <View style={styles.explorerContent}>
             <LinkIcon size={16} color={theme.colors.primary} style={{ marginRight: 6 }} />
-            <AppText weight="semibold" color={theme.colors.primary}>View on Solana Explorer</AppText>
+            <AppText weight="semibold" color={theme.colors.primary}>View Verification Record</AppText>
           </View>
         </TouchableOpacity>
       </View>
@@ -253,10 +254,10 @@ const IdentityScreen: React.FC = () => {
           <AppText variant="h3" color={theme.colors.primary}>How It Works</AppText>
         </View>
         <AppText variant="subtext" style={styles.infoText}>
-          1. Your passport data is hashed with a secret{'\n'}
-          2. Only the hash (commitment) is stored on-chain{'\n'}
+          1. Your passport data is protected with a secure key{'\n'}
+          2. Only a unique security seal is recorded{'\n'}
           3. Original data never leaves your device{'\n'}
-          4. Zero-knowledge proofs verify requirements
+          4. Verifications happen locally without sharing specifics
         </AppText>
       </View>
 

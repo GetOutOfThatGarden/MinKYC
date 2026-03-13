@@ -128,8 +128,8 @@ const VerifyScreen: React.FC = () => {
                 <Text style={styles.stepNumberText}>1</Text>
               </View>
               <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>Generate Proof</Text>
-                <Text style={styles.stepDesc}>Create ZK proof locally on your device</Text>
+                <Text style={styles.stepTitle}>Secure Verification</Text>
+                <Text style={styles.stepDesc}>Your device securely verifies your details</Text>
               </View>
             </View>
 
@@ -138,8 +138,8 @@ const VerifyScreen: React.FC = () => {
                 <Text style={styles.stepNumberText}>2</Text>
               </View>
               <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>Submit Verification</Text>
-                <Text style={styles.stepDesc}>Send proof to Solana blockchain</Text>
+                <Text style={styles.stepTitle}>Submit Anonymously</Text>
+                <Text style={styles.stepDesc}>Send anonymous verification to the network</Text>
               </View>
             </View>
 
@@ -148,8 +148,8 @@ const VerifyScreen: React.FC = () => {
                 <Text style={styles.stepNumberText}>3</Text>
               </View>
               <View style={styles.stepContent}>
-                <Text style={styles.stepTitle}>Get Receipt</Text>
-                <Text style={styles.stepDesc}>Receive on-chain verification receipt</Text>
+                <Text style={styles.stepTitle}>Receive Confirmation</Text>
+                <Text style={styles.stepDesc}>Get a digital receipt of your secure verification</Text>
               </View>
             </View>
           </View>
@@ -171,7 +171,7 @@ const VerifyScreen: React.FC = () => {
               {generating ? (
                 <>
                   <ActivityIndicator color="#fff" style={styles.buttonSpinner} />
-                  <Text style={styles.approveButtonText}>Proving...</Text>
+                  <Text style={styles.approveButtonText}>Verifying...</Text>
                 </>
               ) : (
                 <Text style={styles.approveButtonText}>Approve</Text>
@@ -195,7 +195,7 @@ const VerifyScreen: React.FC = () => {
 
           <Text style={styles.successTitle}>Verified!</Text>
           <Text style={styles.successText}>
-            Your identity has been verified on-chain.
+            Verification successfully completed and logged.
           </Text>
 
           <View style={styles.receiptCard}>

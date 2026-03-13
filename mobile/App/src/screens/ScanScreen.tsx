@@ -31,12 +31,25 @@ const ScanScreen: React.FC = () => {
   const device = useCameraDevice('back');
 
   const enableQRScanner = async () => {
-    const permission = await Camera.requestCameraPermission();
-    if (permission === 'granted') {
-      setScanningQR(true);
-    } else {
-      Alert.alert('Permission Denied', 'Camera access is required to scan QR codes.');
-    }
+    // Pre-Education Prompt (Privacy UX)
+    Alert.alert(
+      'Camera Access',
+      'We need camera access to scan QR codes. All processing happens on your device and no image data is saved.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { 
+          text: 'Allow', 
+          onPress: async () => {
+            const permission = await Camera.requestCameraPermission();
+            if (permission === 'granted') {
+              setScanningQR(true);
+            } else {
+              Alert.alert('Permission Denied', 'Camera access is required to scan QR codes.');
+            }
+          }
+        }
+      ]
+    );
   };
 
   const injectMockRequest = () => {
@@ -100,10 +113,10 @@ const ScanScreen: React.FC = () => {
         <View style={styles.securityNote}>
           <View style={styles.securityHeader}>
             <ShieldPlus size={20} color={theme.colors.success} style={{ marginRight: 8 }} />
-            <AppText weight="semibold" color={theme.colors.textMain}>Local Verification</AppText>
+            <AppText weight="semibold" color={theme.colors.textMain}>Local Processing</AppText>
           </View>
           <AppText variant="caption" style={styles.securityText}>
-            MinKYC performs identity checks locally on your device. Only a zero-knowledge proof is sent to the requesting platform. Your actual passport data is never transmitted.
+            MinKYC checks your identity directly on your phone. We only send a mathematical 'yes' or 'no' to the requesting platform. Your passport data is never shared.
           </AppText>
         </View>
       </ScrollView>
