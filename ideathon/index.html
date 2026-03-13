@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinKYC - Superteam Ireland Ideathon Submission</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #9945FF;
+            --secondary: #10B981;
+            --dark: #111827;
+            --light: #F9FAFB;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .event-logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .logo-area h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-area p {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0;
+        }
+
+        .hackathon-badge {
+            background: var(--dark);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: right;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 50px 0 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 26px;
+            background: var(--secondary);
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #374151;
+        }
+
+        strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .hero-statement {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--dark);
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 30px 0;
+            background: rgba(153, 69, 255, 0.03);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .callout {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--secondary);
+            padding: 24px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .callout h3 {
+            color: var(--secondary);
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .problem-alert {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid #EF4444;
+            padding: 24px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .problem-alert h3 {
+            color: #EF4444;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .screenshot-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .screenshot-caption {
+            padding: 15px 15px 5px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            text-align: center;
+            background: var(--light);
+        }
+
+        .screenshot-desc {
+            padding: 0 15px 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            background: var(--light);
+        }
+
+        .technical-sidebar {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 30px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+            margin: 30px 0;
+        }
+
+        .technical-sidebar h4 {
+            color: #38bdf8;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .technical-sidebar ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .technical-sidebar li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .technical-sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: #38bdf8;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            background: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .quick-links {
+            background: rgba(153, 69, 255, 0.05);
+            border: 1px solid var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .quick-links p {
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .quick-links ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .quick-links li {
+            margin-bottom: 5px;
+        }
+
+        .quick-links a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* PRINT OPTIMIZATIONS */
+        @page {
+            margin: 0.5in;
+        }
+
+        @media print {
+            body { padding: 0; background: white; }
+            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; }
+            section, .card, .screenshot-item, .callout, .quick-links, .problem-alert, .technical-sidebar { 
+                break-inside: avoid; 
+                page-break-inside: avoid;
+            }
+            h2 { page-break-after: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-area">
+                <img src="867945d7-4c38-4971-8213-39e52df1a1cd.webp" alt="Superteam Ireland" class="event-logo">
+                <div>
+                    <p>Superteam Ireland Submission</p>
+                    <h1>MinKYC</h1>
+                </div>
+            </div>
+            <div class="hackathon-badge">
+                IDEATHON @ DOGPATCH LABS<br>
+                FRIDAY MARCH 13, 2026
+            </div>
+        </header>
+
+        <section class="quick-links">
+            <p>Direct Reference Links:</p>
+            <ul>
+                <li><strong>Website:</strong> <a href="https://getoutofthatgarden.github.io/minkyc-website/">https://getoutofthatgarden.github.io/minkyc-website/</a></li>
+                <li><strong>Repository:</strong> <a href="https://github.com/GetOutOfThatGarden/MinKYC">https://github.com/GetOutOfThatGarden/MinKYC</a></li>
+            </ul>
+        </section>
+
+        <section id="ideathon-context" class="callout">
+            <h3>Hackathon Submission Note</h3>
+            <p>
+                This is my official submission for the Superteam Ireland Ideathon. While I cannot be physically at Dogpatch Labs today, I am actively participating in this guided ideation session to build a concrete foundation for the <strong>Solana Colosseum Hackathon</strong> starting in April. I am grateful for any feedback offered, as it will directly assist in refining the project for the global competition.
+            </p>
+        </section>
+
+        <section id="executive-summary">
+            <div class="hero-statement">
+                MinKYC is the privacy-first compliance layer for Solana Mobile. I eliminate KYC data breach liability by proving identity with on-device Zero-Knowledge cryptography—designed specifically for the Solana Seeker.
+            </div>
+        </section>
+
+        <section id="the-problem">
+            <h2>The "Toxic Asset" Problem</h2>
+            <p>In the current internet landscape, your personal data is a toxic asset. Storing passports and IDs turns servers into high-value targets for hackers, creating a multi-million dollar liability for every platform.</p>
+            
+            <div class="problem-alert">
+                <h3>Case Study: The 2025 Discord Scandal</h3>
+                <p>
+                    In September 2025, Discord suffered a catastrophic data breach via a third-party support vendor (5CA/Zendesk). <strong>Over 2.1 million government ID photos</strong> were allegedly stolen, affecting users who had simply appealed for age verification. Discord confirmed that at least 70,000 highly sensitive documents were exposed.
+                </p>
+                <p style="margin-bottom: 0;"><strong>The Lesson:</strong> If you hold the data, you will eventually lose the data. Platforms can no longer afford the "Trust Us" model of identity.</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Immense Financial Costs</h3>
+                    <p>The average cost of a data breach in 2025 hit <strong>$4.88 Million</strong> globally. For U.S.-based entities, that cost skyrockets to over <strong>$10 Million</strong> per incident, including fines, forensic audits, and legal settlements.</p>
+                </div>
+                <div class="card">
+                    <h3>The Regulatory Trap</h3>
+                    <p>New laws like the UK's Online Safety Act and Europe's GDPR mandate strict age verification but impose crippling penalties for data mismanagement. Platforms are caught between compliance and liability.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <h2>How It Works: Technical Deep-Dive</h2>
+            <p>MinKYC moves the verification process to the "edge"—directly onto the user's mobile device—leveraging <strong>Noir ZK circuits</strong> and the hardware enclaves of modern smartphones.</p>
+            
+            <div class="technical-sidebar">
+                <h4>The Noir ZK Pipeline</h4>
+                <ul>
+                    <li><strong>Hardware Extraction:</strong> The mobile app uses NFC to scan the user's biometric passport. The data is held only in the device's secure memory—never written to disk or sent to a server.</li>
+                    <li><strong>Circuit Generation:</strong> A Noir ZK circuit processes the signed passport data. It mathematically confirms that the signature matches a trusted government authority and that the "Birth Date" field satisfies a condition (e.g., <code>age >= 18</code>).</li>
+                    <li><strong>Zero-Knowledge Export:</strong> The app exports a cryptographic proof of the result. This proof contains <strong>zero PII</strong>. It is a mathematical string that says "This claim is true" without revealing the underlying data.</li>
+                    <li><strong>On-Chain Verification:</strong> The Solana smart contract (or any dApp via Mobile Wallet Adapter) receives this proof. It verifies the proof on-chain in milliseconds for a fraction of a cent.</li>
+                </ul>
+            </div>
+
+            <div class="screenshot-gallery">
+                <div class="screenshot-item">
+                    <img src="Screenshots/1_home.png" alt="Home Screen">
+                    <div class="screenshot-caption">Native Home Interface</div>
+                    <div class="screenshot-desc">A clean dashboard displaying current identity status and quick actions, built for the Seeker screen.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/2_identity.png" alt="Identity Screen">
+                    <div class="screenshot-caption">Encrypted Identity Vault</div>
+                    <div class="screenshot-desc">User credentials are encrypted and stored locally. Data never leaves the device.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/3_scan.png" alt="Scan Screen">
+                    <div class="screenshot-caption">Platform Bridge Scanner</div>
+                    <div class="screenshot-desc">Users scan a QR from a dApp to initiate a seamless mobile-to-web verification handshake.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/6_verify_modal.png" alt="Verification Modal">
+                    <div class="screenshot-caption">The ZK Proof Request</div>
+                    <div class="screenshot-desc">The user is prompted to generate a specific proof (e.g., Age > 18) without revealing their birthdate.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy">
+            <h2>Go-To-Market (GTM) Strategy</h2>
+            <p>I am targeting the most compliance-sensitive verticals in the Solana ecosystem first, where the cost of verification is currently high and the risk of centralization is a deterrent.</p>
+            
+            <ul style="margin-left: 0; list-style: none;">
+                <li style="margin-bottom: 20px;">
+                    <strong>Phase 1: High-Compliance DeFi & Prediction Markets</strong><br>
+                    Integrating with Solana protocols that require "Accredited Investor" status or geographic fencing (e.g., Parcl, Drift). MinKYC allows them to stay compliant without becoming a "Bank".
+                </li>
+                <li style="margin-bottom: 20px;">
+                    <strong>Phase 2: The Seeker Ecosystem</strong><br>
+                    By partnering with Solana Mobile, MinKYC aims to be the default identity provider for the dApp Store. Seeker owners get a "Verified Human" badge across all apps without exposing their data.
+                </li>
+                <li>
+                    <strong>Phase 3: Web2 Pivot</strong><br>
+                    Transitioning to traditional age-gated retail and online services (gaming, social media) that are reeling from the Discord-style breaches.
+                </li>
+            </ul>
+        </section>
+
+        <section id="pricing">
+            <h2>Possible Pricing Strategies</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Transactional (Pay-per-Proof)</h3>
+                    <p>Platforms pay <strong>$0.50 per successful ZK verification</strong>. This replaces the expensive $2.00+ fees charged by traditional OCR services like Persona or Jumio.</p>
+                </div>
+                <div class="card">
+                    <h3>"The Compliance Shield"</h3>
+                    <p>A yearly subscription for platforms that offloads all data-handling liability. For a fixed fee, I provide the ZK-infrastructure and the platforms never touch an ID photo again.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-solana">
+            <h2>Why Solana?</h2>
+            <p>To replace traditional APIs, KYC verifications must be instant and cheap. Solana's high throughput and sub-dollar fees allow for sub-second ZK proof verification and the minting of immutable audit receipts, creating a transparent yet private compliance trail.</p>
+        </section>
+
+        <footer>
+            <p>© 2026 MinKYC — Superteam Ireland Ideathon Project</p>
+        </footer>
+    </div>
+</body>
+</html>
