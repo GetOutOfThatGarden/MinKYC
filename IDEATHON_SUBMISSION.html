@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinKYC - Superteam Ireland Ideathon Submission</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #9945FF;
+            --secondary: #10B981;
+            --dark: #111827;
+            --light: #F9FAFB;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .event-logo {
+            height: 60px;
+            width: auto;
+        }
+
+        .logo-area h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-area p {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0;
+        }
+
+        .hackathon-badge {
+            background: var(--dark);
+            color: white;
+            padding: 8px 16px;
+            border_radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: right;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 50px 0 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 26px;
+            background: var(--secondary);
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #374151;
+        }
+
+        strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .hero-statement {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--dark);
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 30px 0;
+            background: rgba(153, 69, 255, 0.03);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .callout {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--secondary);
+            padding: 24px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .callout h3 {
+            color: var(--secondary);
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .screenshot-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .screenshot-caption {
+            padding: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            text-align: center;
+            background: var(--light);
+        }
+
+        footer {
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            background: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #374151;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        @media print {
+            body { padding: 0; background: white; }
+            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; }
+            .screenshot-item { break-inside: avoid; }
+            h2 { page-break-after: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-area">
+                <img src="file:///Users/user2/Developer/MinKYC/867945d7-4c38-4971-8213-39e52df1a1cd.webp" alt="Superteam Ireland" class="event-logo">
+                <div>
+                    <p>Superteam Ireland Submission</p>
+                    <h1>MinKYC</h1>
+                </div>
+            </div>
+            <div class="hackathon-badge">
+                IDEATHON @ DOGPATCH LABS<br>
+                FRIDAY MARCH 13, 2026
+            </div>
+        </header>
+
+        <section id="ideathon-context" class="callout">
+            <h3>The Ideathon Challenge</h3>
+            <p>
+                As part of the guided ideation session at Dogpatch Labs, MinKYC is being pressure-tested to provide a concrete, buildable foundation for the upcoming <strong>Colosseum Hackathon</strong>. We are focusing on real-world privacy problems and Solana's unique advantages in local cryptographic verification.
+            </p>
+        </section>
+
+        <section id="executive-summary">
+            <div class="hero-statement">
+                MinKYC is the privacy-first compliance layer for Solana Mobile. We eliminate KYC data breach liability by proving identity with on-device Zero-Knowledge cryptography—designed specifically for the Solana Seeker.
+            </div>
+            <p>
+                In the Web3 ecosystem, users demand privacy, yet regulatory pressures force platforms to collect vast amounts of sensitive personal data. MinKYC solves this paradox by turning the smartphone into a localized compliance hub. Users verify their identity entirely on their device, sharing only mathematical proofs—never their underlying data.
+            </p>
+        </section>
+
+        <section id="the-problem">
+            <h2>The "Toxic Asset" Problem</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>For Users: The Identity Honeypot</h3>
+                    <p>Centralized KYC databases act as massive honeypots for hackers. When breached, users suffer catastrophic identity theft that cannot be undone.</p>
+                </div>
+                <div class="card">
+                    <h3>For Platforms: Crippling Liability</h3>
+                    <p>Holding user data is a <strong>Toxic Liability</strong>. The costs of secure storage and regulatory compliance (GDPR/CCPA) stifle early-stage innovation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="the-solution">
+            <h2>The Solution: Zero-Knowledge KYC</h2>
+            <p>MinKYC moves the verification process to the edge—directly onto the user's mobile device—leveraging <strong>Noir ZK circuits</strong>.</p>
+            <ul>
+                <li><strong>Local Data Extraction:</strong> NFC passport scanning happens entirely in the device enclave. PII never touches a server.</li>
+                <li><strong>ZK Proof Generation:</strong> The app generates Noir ZK proofs locally (e.g., "Age > 18") with zero data egress.</li>
+                <li><strong>Solana Verification:</strong> Platforms receive a <code>true/false</code> confirmation via a cryptographic proof verified on-chain.</li>
+            </ul>
+        </section>
+
+        <section id="why-solana">
+            <h2>Why Solana?</h2>
+            <p>To replace traditional APIs, KYC verifications must be instant and cheap. Solana's high throughput and sub-dollar fees allow for sub-second ZK proof verification and the minting of immutable audit receipts, creating a transparent yet private compliance trail.</p>
+        </section>
+
+        <section id="tech-stack">
+            <h2>Technical Stack</h2>
+            <div class="tech-tags">
+                <span class="tech-tag">Solana Mobile Stack (SMS)</span>
+                <span class="tech-tag">Noir (ZK Circuits)</span>
+                <span class="tech-tag">React Native</span>
+                <span class="tech-tag">NFC Data Protocol</span>
+                <span class="tech-tag">Rust</span>
+            </div>
+        </section>
+
+        <section id="quick-reference" style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 40px;">
+            <p style="font-weight: 700; color: var(--primary);">Judge Reference Links:</p>
+            <ul style="list-style-type: none; margin: 0; padding: 0;">
+                <li><strong>Website:</strong> <a href="https://getoutofthatgarden.github.io/minkyc-website/" style="color: var(--primary); text-decoration: none;">https://getoutofthatgarden.github.io/minkyc-website/</a></li>
+                <li><strong>Repository:</strong> <a href="https://github.com/GetOutOfThatGarden/MinKYC" style="color: var(--primary); text-decoration: none;">https://github.com/GetOutOfThatGarden/MinKYC</a></li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>© 2026 MinKYC — Superteam Ireland Ideathon Project</p>
+        </footer>
+    </div>
+</body>
+</html>
