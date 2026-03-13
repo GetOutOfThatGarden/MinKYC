@@ -81,7 +81,7 @@
             background: var(--dark);
             color: white;
             padding: 8px 16px;
-            border_radius: 20px;
+            border-radius: 20px;
             font-size: 11px;
             font-weight: 700;
             text-align: right;
@@ -190,10 +190,18 @@
         }
 
         .screenshot-caption {
-            padding: 15px;
+            padding: 15px 15px 5px;
             font-size: 14px;
             font-weight: 600;
             color: var(--dark);
+            text-align: center;
+            background: var(--light);
+        }
+
+        .screenshot-desc {
+            padding: 0 15px 15px;
+            font-size: 13px;
+            color: var(--text-muted);
             text-align: center;
             background: var(--light);
         }
@@ -234,10 +242,18 @@
             margin-bottom: 8px;
         }
 
+        /* PRINT OPTIMIZATIONS */
+        @page {
+            margin: 0.5in;
+        }
+
         @media print {
             body { padding: 0; background: white; }
             .container { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; }
-            .screenshot-item { break-inside: avoid; }
+            section, .card, .screenshot-item, .callout { 
+                break-inside: avoid; 
+                page-break-inside: avoid;
+            }
             h2 { page-break-after: avoid; }
         }
     </style>
@@ -246,7 +262,7 @@
     <div class="container">
         <header>
             <div class="logo-area">
-                <img src="file:///Users/user2/Developer/MinKYC/867945d7-4c38-4971-8213-39e52df1a1cd.webp" alt="Superteam Ireland" class="event-logo">
+                <img src="867945d7-4c38-4971-8213-39e52df1a1cd.webp" alt="Superteam Ireland" class="event-logo">
                 <div>
                     <p>Superteam Ireland Submission</p>
                     <h1>MinKYC</h1>
@@ -272,6 +288,44 @@
             <p>
                 In the Web3 ecosystem, users demand privacy, yet regulatory pressures force platforms to collect vast amounts of sensitive personal data. MinKYC solves this paradox by turning the smartphone into a localized compliance hub. Users verify their identity entirely on their device, sharing only mathematical proofs—never their underlying data.
             </p>
+        </section>
+
+        <section id="product-walkthrough">
+            <h2>Product UX & Mobile Experience</h2>
+            <p>MinKYC provides a polished, intuitive interface designed to make complex cryptography invisible to the end user.</p>
+            
+            <div class="screenshot-gallery">
+                <div class="screenshot-item">
+                    <img src="Screenshots/1_home.png" alt="Home Screen">
+                    <div class="screenshot-caption">Native Home Interface</div>
+                    <div class="screenshot-desc">A clean dashboard displaying current identity status and quick actions, built for the Seeker screen.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/2_identity.png" alt="Identity Screen">
+                    <div class="screenshot-caption">Encrypted Identity Vault</div>
+                    <div class="screenshot-desc">User credentials are encrypted and stored locally. Data never leaves the device.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/3_scan.png" alt="Scan Screen">
+                    <div class="screenshot-caption">Platform Bridge Scanner</div>
+                    <div class="screenshot-desc">Users scan a QR from a dApp to initiate a seamless mobile-to-web verification handshake.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/6_verify_modal.png" alt="Verification Modal">
+                    <div class="screenshot-caption">The ZK Proof Request</div>
+                    <div class="screenshot-desc">The user is prompted to generate a specific proof (e.g., Age > 18) without revealing their birthdate.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/7_verify_success.png" alt="Success Screen">
+                    <div class="screenshot-caption">Instant Verification</div>
+                    <div class="screenshot-desc">Sub-second proof generation and Solana network verification result in a frictionless onboarding.</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="Screenshots/9_verification history_successful.png" alt="Successful Audit">
+                    <div class="screenshot-caption">Immutable Audit Log</div>
+                    <div class="screenshot-desc">A local, private ledger of all successful proofs provided to platforms.</div>
+                </div>
+            </div>
         </section>
 
         <section id="the-problem">
