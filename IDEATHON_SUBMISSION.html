@@ -242,6 +242,40 @@
             margin-bottom: 8px;
         }
 
+        .quick-links {
+            background: rgba(153, 69, 255, 0.05);
+            border: 1px solid var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .quick-links p {
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .quick-links ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .quick-links li {
+            margin-bottom: 5px;
+        }
+
+        .quick-links a {
+            color: var(--primary);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .quick-links a:hover {
+            text-decoration: underline;
+        }
+
         /* PRINT OPTIMIZATIONS */
         @page {
             margin: 0.5in;
@@ -250,7 +284,7 @@
         @media print {
             body { padding: 0; background: white; }
             .container { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 0; }
-            section, .card, .screenshot-item, .callout { 
+            section, .card, .screenshot-item, .callout, .quick-links { 
                 break-inside: avoid; 
                 page-break-inside: avoid;
             }
@@ -274,19 +308,27 @@
             </div>
         </header>
 
+        <section class="quick-links">
+            <p>Direct Reference Links:</p>
+            <ul>
+                <li><strong>Website:</strong> <a href="https://getoutofthatgarden.github.io/minkyc-website/">https://getoutofthatgarden.github.io/minkyc-website/</a></li>
+                <li><strong>Repository:</strong> <a href="https://github.com/GetOutOfThatGarden/MinKYC">https://github.com/GetOutOfThatGarden/MinKYC</a></li>
+            </ul>
+        </section>
+
         <section id="ideathon-context" class="callout">
-            <h3>The Ideathon Challenge</h3>
+            <h3>Hackathon Submission Note</h3>
             <p>
-                As part of the guided ideation session at Dogpatch Labs, MinKYC is being pressure-tested to provide a concrete, buildable foundation for the upcoming <strong>Colosseum Hackathon</strong>. We are focusing on real-world privacy problems and Solana's unique advantages in local cryptographic verification.
+                This is my official submission for the Superteam Ireland Ideathon. While I cannot be physically at Dogpatch Labs today, I am actively participating in this guided ideation session to build a concrete foundation for the <strong>Solana Colosseum Hackathon</strong> starting in April. I am grateful for any feedback offered, as it will directly assist in refining the project for the global competition.
             </p>
         </section>
 
         <section id="executive-summary">
             <div class="hero-statement">
-                MinKYC is the privacy-first compliance layer for Solana Mobile. We eliminate KYC data breach liability by proving identity with on-device Zero-Knowledge cryptography—designed specifically for the Solana Seeker.
+                MinKYC is the privacy-first compliance layer for Solana Mobile. I eliminate KYC data breach liability by proving identity with on-device Zero-Knowledge cryptography—designed specifically for the Solana Seeker.
             </div>
             <p>
-                In the Web3 ecosystem, users demand privacy, yet regulatory pressures force platforms to collect vast amounts of sensitive personal data. MinKYC solves this paradox by turning the smartphone into a localized compliance hub. Users verify their identity entirely on their device, sharing only mathematical proofs—never their underlying data.
+                In the Web3 ecosystem, users demand privacy, yet regulatory pressures force platforms to collect vast amounts of sensitive personal data. I am solving this paradox by turning the smartphone into a localized compliance hub. Users verify their identity entirely on their device, sharing only mathematical proofs—never their underlying data.
             </p>
         </section>
 
@@ -344,7 +386,7 @@
 
         <section id="the-solution">
             <h2>The Solution: Zero-Knowledge KYC</h2>
-            <p>MinKYC moves the verification process to the edge—directly onto the user's mobile device—leveraging <strong>Noir ZK circuits</strong>.</p>
+            <p>I am moving the verification process to the edge—directly onto the user's mobile device—leveraging <strong>Noir ZK circuits</strong>.</p>
             <ul>
                 <li><strong>Local Data Extraction:</strong> NFC passport scanning happens entirely in the device enclave. PII never touches a server.</li>
                 <li><strong>ZK Proof Generation:</strong> The app generates Noir ZK proofs locally (e.g., "Age > 18") with zero data egress.</li>
@@ -366,14 +408,6 @@
                 <span class="tech-tag">NFC Data Protocol</span>
                 <span class="tech-tag">Rust</span>
             </div>
-        </section>
-
-        <section id="quick-reference" style="margin-top: 40px; border-top: 1px solid var(--border); padding-top: 40px;">
-            <p style="font-weight: 700; color: var(--primary);">Judge Reference Links:</p>
-            <ul style="list-style-type: none; margin: 0; padding: 0;">
-                <li><strong>Website:</strong> <a href="https://getoutofthatgarden.github.io/minkyc-website/" style="color: var(--primary); text-decoration: none;">https://getoutofthatgarden.github.io/minkyc-website/</a></li>
-                <li><strong>Repository:</strong> <a href="https://github.com/GetOutOfThatGarden/MinKYC" style="color: var(--primary); text-decoration: none;">https://github.com/GetOutOfThatGarden/MinKYC</a></li>
-            </ul>
         </section>
 
         <footer>
