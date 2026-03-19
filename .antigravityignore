@@ -1,0 +1,13 @@
+node_modules/
+target/
+.git/
+dist/
+build/
+.next/
+.expo/
+.turbo/
+venv/
+__pycache__/
+.pytest_cache/
+*.log
+.DS_Store
