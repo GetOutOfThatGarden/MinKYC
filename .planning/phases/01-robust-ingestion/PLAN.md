@@ -20,12 +20,12 @@ We will first establish a production-grade Expo environment using Development Bu
 - **[V] Verification**: Final manual verification on a physical Android device.
 
 ## Progress Tracking
-- [ ] 01-01: Universal Expo Foundation
-- [ ] 01-02: MRZ OCR Scanning
-- [ ] 01-03: High-Reliability NFC
-- [ ] 01-04: Testing & Quality Assurance
+- [x] 01-01: Universal Expo Foundation
+- [x] 01-02: MRZ OCR Scanning
+- [x] 01-03: High-Reliability NFC
+- [x] 01-04: Testing & Quality Assurance
 
 ## Success Criteria
-- [ ] App builds and runs on standard Android devices using Expo Development Builds.
-- [ ] NFC scanning successfully reads ePassport data using automated MRZ extraction.
-- [ ] Scanning flow is verified by automated E2E tests.
+- [x] App builds and runs on standard Android devices using Expo Development Builds.
+- [x] NFC scanning successfully reads ePassport data using automated MRZ extraction.
+- [x] Scanning flow is verified by automated E2E tests.

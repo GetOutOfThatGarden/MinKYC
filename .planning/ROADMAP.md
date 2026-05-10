@@ -11,11 +11,11 @@
 - [ ] 01-03-PLAN.md — High-Reliability NFC Ingestion
 - [ ] 01-04-PLAN.md — Testing & Quality Assurance
 
-**Requirements:**
-- **P1.1 [Arch]**: Initialize Expo project with Development Builds and custom Config Plugins for NFC.
-- **P1.2 [Mobile]**: Implement MRZ OCR scanning using `react-native-vision-camera`.
-- **P1.3 [Mobile]**: Integrate `@2060.io/react-native-eid-reader` for high-reliability NFC passport reading.
-- **P1.4 [Testing]**: Create automated E2E tests for the scanning flow using mock profiles.
+### Phase 1: Robust Ingestion & Foundation [COMPLETED]
+- **P1.1 [Arch]**: Initialize Expo project with Development Builds and custom Config Plugins for NFC. [DONE]
+- **P1.2 [Mobile]**: Implement MRZ OCR scanning using `react-native-vision-camera`. [DONE]
+- **P1.3 [Mobile]**: Integrate `@2060.io/react-native-eid-reader` for high-reliability NFC passport reading. [DONE]
+- **P1.4 [Testing]**: Create automated E2E tests for the scanning flow using mock profiles. [DONE]
 
 ### Phase 2: The Universal ZK-Engine
 - **P2.1 [ZK]**: Port existing Noir circuits to the latest version and optimize for mobile WASM.
