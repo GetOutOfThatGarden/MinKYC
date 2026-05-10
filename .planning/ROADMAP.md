@@ -35,15 +35,24 @@
 **Goal:** Upgrade the Anchor program to support Nullifier-based verification and Proof Binding.
 
 **Plans:** 3 plans
-- [ ] 03-01-PLAN.md — Anchor Privacy Upgrades
-- [ ] 03-02-PLAN.md — Mobile Verification Bridge
-- [ ] 03-03-PLAN.md — Security & Replay Tests
+- [x] 03-01-PLAN.md — Anchor Privacy Upgrades
+- [x] 03-02-PLAN.md — Mobile Verification Bridge
+- [x] 03-03-PLAN.md — Security & Replay Tests
 
-- **P3.1 [Backend]**: Upgrade Anchor program to support Nullifier-based verification and Proof Binding.
-- **P3.2 [Backend]**: Implement on-chain CSCA (Country Signing Certificate Authority) certificate registry (MVP).
-- **P3.3 [Testing]**: Integrate on-chain verification tests into the CI/CD pipeline.
+### Phase 3: Solana Privacy Layer [COMPLETED]
+- **P3.1 [Backend]**: Upgrade Anchor program to support Nullifier-based verification and Proof Binding. [DONE]
+- **P3.2 [Backend]**: Implement on-chain CSCA (Country Signing Certificate Authority) certificate registry (MVP). [DONE]
+- **P3.3 [Testing]**: Integrate on-chain verification tests into the CI/CD pipeline. [DONE]
 
 ### Phase 4: Developer SDK & Compliance
+**Goal:** Build a unified TypeScript SDK for dApp integration and conduct a regulatory compliance self-audit.
+
+**Plans:** 3 plans
+- [ ] 04-01-PLAN.md — @minkyc/sdk Foundation & Core
+- [ ] 04-02-PLAN.md — React Integration & Dev Dashboard
+- [ ] 04-03-PLAN.md — Compliance Audit & Final Demo
+
+### Phase 4: Developer SDK & Compliance [IN PROGRESS]
 - **P4.1 [Arch]**: Build a unified TypeScript SDK for dApp integration.
 - **P4.2 [Frontend]**: Update the MinKYC website with a developer dashboard and SDK documentation.
 - **P4.3 [Verification]**: Conduct a self-audit against UK DIATF and EU eIDAS 2.0 standards.
