@@ -9,12 +9,11 @@ interface ZKProverProps {
   onProofGenerated: (proof: Uint8Array, publicInputs: string[]) => void;
   onError: (error: string) => void;
   inputs: {
-    dob: string;
-    passport_name_hash: string;
-    submitted_name_hash: string;
-    secret: string;
-    current_date: string;
-    salt: string;
+    dob: number;
+    secret_nonce: number;
+    current_date: number;
+    verifier_id: number;
+    caller_pubkey: number;
     commitment: string;
   } | null;
 }
@@ -22,101 +21,86 @@ interface ZKProverProps {
 /**
  * ZKProver Component — Generates a ZK proof inside a WebView.
  * 
- * PRODUCTION NOTE: For real ZK proof generation, the Barretenberg and Noir WASM files
- * must be bundled as local assets within the app (not loaded from CDN). The CDN approach
- * fails because esm.sh cannot properly serve the WASM binaries with correct MIME types
- * in the mobile WebView context.
- * 
- * For the MVP demo, this component computes a deterministic proof-like hash from the
- * inputs using the Web Crypto API (SHA-256), demonstrating the full verification UX flow.
- * The proof structure matches what Noir would produce, making it easy to swap in real
- * WASM proof generation once the WASM files are bundled locally.
+ * This component uses the real Barretenberg (UltraHonk) backend and Noir JS
+ * to generate a cryptographically valid proof on-device.
  */
 export const ZKProver: React.FC<ZKProverProps> = ({ inputs, onProofGenerated, onError }) => {
   const webviewRef = useRef<WebView>(null);
   const [webviewReady, setWebviewReady] = useState(false);
 
+  // HTML content with Noir & Barretenberg JS libraries
+  // We use ESM modules from a CDN as a bridge.
   const html = `
     <!DOCTYPE html>
     <html>
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+        body { font-family: sans-serif; background: #f0f0f0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .status { font-size: 12px; color: #666; }
+      </style>
     </head>
     <body>
-      <script>
+      <div class="status" id="status">Initializing ZK Engine...</div>
+      
+      <script type="module">
+        import { Noir } from 'https://unpkg.com/@noir-lang/noir_js@1.0.0-beta.19/dist/index.js';
+        import { BarretenbergBackend } from 'https://unpkg.com/@noir-lang/backend_barretenberg@0.36.0/dist/index.js';
+
         function log(msg) {
+          document.getElementById('status').innerText = msg;
           window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'LOG', msg: msg }));
         }
 
         function reportError(err) {
-          window.ReactNativeWebView.postMessage(JSON.stringify({ 
-            type: 'ERROR', 
-            error: typeof err === 'string' ? err : (err.message || err.toString()) 
-          }));
+          var errMsg = typeof err === 'string' ? err : (err.message || err.toString());
+          log('Error: ' + errMsg);
+          window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'ERROR', error: errMsg }));
         }
 
-        /**
-         * Generate a deterministic proof from the verification inputs.
-         * 
-         * In production, this would be:
-         *   const noir = new Noir(circuit);
-         *   const backend = new UltraHonkBackend(circuit.bytecode);
-         *   const { witness } = await noir.execute(inputs);
-         *   const proof = await backend.generateProof(witness);
-         */
+        let noir;
+        let backend;
+
+        async function init() {
+          try {
+            log('Loading WASM Backend...');
+            // In a real app, circuit would be fetched or passed as a prop
+            // For now we wait for generateProof call which provides the circuit
+            window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'READY' }));
+          } catch (err) {
+            reportError(err);
+          }
+        }
+
         window.generateProof = async function(inputsStr, circuitStr) {
           try {
-            var inputs = JSON.parse(inputsStr);
-            var circuit = JSON.parse(circuitStr);
+            const inputs = JSON.parse(inputsStr);
+            const circuit = JSON.parse(circuitStr);
             
-            log('Step 1: Validating circuit inputs...');
+            log('Initializing backend...');
+            backend = new BarretenbergBackend(circuit.bytecode);
+            noir = new Noir(circuit, backend);
             
-            // Validate all required fields are present
-            var requiredFields = ['dob', 'passport_name_hash', 'submitted_name_hash', 
-                                  'secret', 'current_date', 'salt', 'commitment'];
-            for (var i = 0; i < requiredFields.length; i++) {
-              if (!inputs[requiredFields[i]] && inputs[requiredFields[i]] !== '0') {
-                throw new Error('Missing required input: ' + requiredFields[i]);
-              }
-            }
+            log('Computing witness...');
+            const startTime = performance.now();
             
-            log('Step 2: Computing witness from ' + Object.keys(inputs).length + ' inputs...');
+            // Execute circuit to get witness
+            const { witness } = await noir.execute(inputs);
             
-            // Simulate witness computation time
-            await new Promise(function(resolve) { setTimeout(resolve, 1500); });
+            log('Generating UltraHonk proof...');
+            // Generate the ZK proof
+            const proof = await backend.generateProof(witness);
             
-            log('Step 3: Generating ZK proof (SHA-256 based demo)...');
+            const endTime = performance.now();
+            const duration = ((endTime - startTime) / 1000).toFixed(2);
             
-            // Create deterministic proof bytes from inputs using Web Crypto SHA-256
-            var inputData = JSON.stringify({
-              circuit_hash: circuit.hash || 'minkyc_v1',
-              inputs: inputs,
-              timestamp: Date.now()
-            });
-            
-            var encoder = new TextEncoder();
-            var data = encoder.encode(inputData);
-            var hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            var proofBytes = new Uint8Array(hashBuffer);
-            
-            // Expand to a realistic proof size (Barretenberg proofs are ~2KB)
-            var fullProof = new Uint8Array(2048);
-            for (var j = 0; j < fullProof.length; j++) {
-              fullProof[j] = proofBytes[j % proofBytes.length] ^ (j & 0xFF);
-            }
-            
-            // Simulate proof generation time
-            await new Promise(function(resolve) { setTimeout(resolve, 2000); });
-            
-            log('Proof generated successfully! (' + fullProof.length + ' bytes)');
-            
-            // Build public inputs matching the Noir circuit's public outputs
-            var publicInputs = [inputs.commitment];
+            log('Proof generated in ' + duration + 's');
             
             window.ReactNativeWebView.postMessage(JSON.stringify({ 
               type: 'SUCCESS', 
-              proof: Array.from(fullProof), 
-              publicInputs: publicInputs
+              proof: Array.from(proof.proof), 
+              publicInputs: proof.publicInputs,
+              duration: duration
             }));
             
           } catch (err) {
@@ -124,18 +108,15 @@ export const ZKProver: React.FC<ZKProverProps> = ({ inputs, onProofGenerated, on
           }
         };
 
-        // Signal ready
-        log('ZK engine ready');
-        window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'READY' }));
+        init();
       </script>
     </body>
     </html>
   `;
 
-  // Inject proof generation script once WebView is ready AND inputs are available
   const triggerProofGeneration = useCallback(() => {
     if (inputs && webviewReady && webviewRef.current) {
-      console.log('[ZKProver] Triggering proof generation...');
+      console.log('[ZKProver] Triggering real ZK proof generation...');
       const inputsStr = JSON.stringify(inputs).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
       const circuitStr = JSON.stringify(circuit).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
       const script = `window.generateProof('${inputsStr}', '${circuitStr}'); true;`;
@@ -151,13 +132,14 @@ export const ZKProver: React.FC<ZKProverProps> = ({ inputs, onProofGenerated, on
     try {
       const data = JSON.parse(event.nativeEvent.data);
       if (data.type === 'SUCCESS') {
+        console.log(`[ZKProver] Proof generated successfully in ${data.duration}s`);
         onProofGenerated(new Uint8Array(data.proof), data.publicInputs);
       } else if (data.type === 'ERROR') {
         onError(data.error);
       } else if (data.type === 'LOG') {
         console.log('[ZKProver]', data.msg);
       } else if (data.type === 'READY') {
-        console.log('[ZKProver] WebView ready, engine loaded');
+        console.log('[ZKProver] WebView ready, engine initialized');
         setWebviewReady(true);
       }
     } catch (e) {

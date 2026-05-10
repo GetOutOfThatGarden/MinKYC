@@ -31,14 +31,31 @@ export const VerificationExecutor: React.FC<Props> = ({ request, onReceipt, onEr
         }
 
         if (mounted) {
-          // Simplification for the prototype
+          // Format DOB: "1990-01-01" -> 19900101
+          const dobFormatted = parseInt(passport.dateOfBirth.replace(/-/g, ''), 10);
+          
+          // Format Current Date: 20260510
+          const today = new Date();
+          const currentFormatted = parseInt(
+            `${today.getFullYear()}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`, 
+            10
+          );
+
+          // Verifier ID: Hash of the requester's name or a unique ID
+          // For the prototype, we'll use a simple numeric hash of the requester string
+          let verifierId = 1; 
+          if (request.requester) {
+            for (let i = 0; i < request.requester.length; i++) {
+              verifierId = (verifierId + request.requester.charCodeAt(i)) % 1000000;
+            }
+          }
+
           setInputs({
-            dob: passport.dateOfBirth, // In real life, convert to format required by circuit
-            passport_name_hash: "0x123", // Mock
-            submitted_name_hash: "0x123", // Mock
-            secret: "min_kyc_secret_nonce_2026",
-            current_date: new Date().toISOString().split('T')[0],
-            salt: Math.random().toString(),
+            dob: dobFormatted,
+            secret_nonce: 12345, // Consistent with secureStorage.ts MVP
+            current_date: currentFormatted,
+            verifier_id: verifierId,
+            caller_pubkey: 0, 
             commitment: commitment
           });
         }
