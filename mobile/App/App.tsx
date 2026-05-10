@@ -24,6 +24,7 @@ import VerifyScreen from './src/screens/VerifyScreen';
 import VerificationHistoryScreen from './src/screens/VerificationHistoryScreen';
 import VerificationRecordScreen from './src/screens/VerificationRecordScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import MRZScanScreen from './src/screens/MRZScanScreen';
 import { VerificationHistoryItem } from './src/types/verification';
 
 export type RootStackParamList = {
@@ -32,6 +33,7 @@ export type RootStackParamList = {
   Identity: undefined;
   Scan: undefined;
   ScanQR: undefined;
+  MRZScan: undefined;
   Verify: { request?: any };
   History: undefined;
   HistoryDetail: { item: VerificationHistoryItem };
@@ -95,6 +97,11 @@ function App(): React.JSX.Element {
               name="Settings" 
               component={SettingsScreen} 
               options={{ title: 'Settings' }}
+            />
+            <Stack.Screen 
+              name="MRZScan" 
+              component={MRZScanScreen} 
+              options={{ title: 'Scan Passport MRZ', headerShown: false }}
             />
             <Stack.Screen 
               name="HistoryDetail" 
