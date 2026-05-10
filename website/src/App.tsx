@@ -1,51 +1,92 @@
 import { ShieldCheck, FileCheck, Lock, Building, Scale, Clock, ArrowRight, Shield } from 'lucide-react';
+import './App.css';
 
 function App() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="flex justify-between items-center px-6 py-4 border-b border-gray-100 max-w-7xl mx-auto">
+      <nav className="flex justify-between items-center px-4 sm:px-6 py-4 border-b border-gray-100 max-w-7xl mx-auto sticky top-0 bg-white/80 backdrop-blur-md z-50">
         <div className="flex items-center space-x-2">
           <Shield className="w-8 h-8 text-[#9945FF]" />
           <span className="text-xl font-bold tracking-tight text-gray-900">MinKYC</span>
         </div>
-        <div className="flex items-center space-x-6">
-          <a href="#problem" className="text-gray-600 hover:text-gray-900 font-medium">Why MinKYC?</a>
-          <a href="#how-it-works" className="text-gray-600 hover:text-gray-900 font-medium">How It Works</a>
-          <a href="#use-cases" className="text-gray-600 hover:text-gray-900 font-medium">Use Cases</a>
-          <button className="bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:bg-gray-800 transition-colors">
+        <div className="hidden md:flex items-center space-x-6">
+          <a href="#problem" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Why MinKYC?</a>
+          <a href="#how-it-works" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">How It Works</a>
+          <a href="#use-cases" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Use Cases</a>
+          <a 
+            href="https://forms.gle/CZkWhv2dFbK4A9x26" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:bg-gray-800 transition-colors shadow-sm"
+          >
             Request Demo
-          </button>
+          </a>
+        </div>
+        <div className="md:hidden">
+          <a 
+            href="https://forms.gle/CZkWhv2dFbK4A9x26" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="bg-[#111827] text-white px-4 py-2 rounded-lg text-sm font-medium shadow-sm"
+          >
+            Demo
+          </a>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-24 pb-20 px-6">
+      <section className="pt-16 md:pt-24 pb-16 md:pb-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center space-x-2 bg-purple-50 text-[#7A37CC] px-4 py-2 rounded-full font-medium mb-8">
+          <div className="inline-flex items-center space-x-2 bg-purple-50 text-[#7A37CC] px-3 py-1.5 md:px-4 md:py-2 rounded-full text-sm font-medium mb-6 md:mb-8">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9945FF] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9945FF]"></span>
             </span>
             <span>Live on Solana Devnet</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 tracking-tight leading-tight">
-            Achieve KYC Compliance <br />
+          <h1 className="text-4xl md:text-7xl font-bold text-gray-900 mb-6 md:mb-8 tracking-tight leading-tight">
+            Achieve KYC Compliance <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9945FF] to-[#14F195]">
               Without the Data Liability.
             </span>
           </h1>
-          <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-600 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed">
             Verify your users meet regulatory requirements (age, residency, accredited status) instantly. You get the cryptographic compliance receipt, not the sensitive data.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <button className="w-full sm:w-auto bg-[#111827] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg hover:-translate-y-0.5 transition-all transform flex items-center justify-center">
-              Request Platform Demo
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </button>
-            <button className="w-full sm:w-auto bg-white border border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-50 transition-colors">
-              Read Regulatory Whitepaper
-            </button>
+          <div className="flex justify-center flex-col items-center">
+            <div className="relative inline-block">
+              <a 
+                href="https://forms.gle/CZkWhv2dFbK4A9x26"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto bg-[#111827] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg hover:-translate-y-0.5 transition-all transform flex items-center justify-center relative z-10"
+              >
+                Request Platform Demo
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </a>
+              
+              {/* Subtle Pointer Animation */}
+              <div className="absolute -right-28 -bottom-16 w-40 h-32 hidden lg:block pointer-events-none transform rotate-6 z-20">
+                <svg width="160" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="animate-floating">
+                  <path 
+                    d="M140 100C110 100 40 80 18 25" 
+                    stroke="#9945FF" 
+                    strokeWidth="2.5" 
+                    strokeLinecap="round" 
+                    strokeDasharray="8 8" 
+                    className="animate-dash-scroll"
+                  />
+                  <path 
+                    d="M18 25L22 40M18 25L35 28" 
+                    stroke="#9945FF" 
+                    strokeWidth="2.5" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -137,12 +178,12 @@ function App() {
               </div>
             </div>
             
-            <div className="flex-1">
-              <div className="bg-gradient-to-tr from-gray-50 to-gray-100 rounded-3xl p-8 border border-gray-200 shadow-inner relative overflow-hidden">
+            <div className="flex-1 w-full overflow-hidden">
+              <div className="bg-gradient-to-tr from-gray-50 to-gray-100 rounded-2xl md:rounded-3xl p-4 md:p-8 border border-gray-200 shadow-inner relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#9945FF] opacity-5 blur-3xl rounded-full"></div>
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#10B981] opacity-5 blur-3xl rounded-full"></div>
                 
-                <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-6 relative z-10 font-mono text-sm">
+                <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-4 md:p-6 mb-0 relative z-10 font-mono text-xs sm:text-sm overflow-x-auto">
                   <div className="flex items-center justify-between mb-4 border-b border-gray-100 pb-4">
                     <span className="text-gray-500">MinKYC Verification API</span>
                     <span className="text-[#10B981] bg-green-50 px-2 py-1 rounded text-xs">200 OK</span>
@@ -211,8 +252,8 @@ function App() {
 
       {/* Footer */}
       <footer className="bg-white py-12 border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-          <div className="mb-6 md:mb-0">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
+          <div className="text-center md:text-left">
             <div className="flex items-center space-x-2 justify-center md:justify-start mb-2">
               <Shield className="w-6 h-6 text-[#9945FF]" />
               <span className="text-lg font-bold text-gray-900">MinKYC</span>
@@ -220,11 +261,7 @@ function App() {
             <p className="text-sm text-gray-500">Privacy-Preserving Compliance Infrastructure</p>
           </div>
           
-          <div className="flex space-x-6 text-sm">
-            <a href="https://github.com/GetOutOfThatGarden/MinKYC" className="text-gray-500 hover:text-gray-900 transition-colors">GitHub Repository</a>
-            <a href="https://colosseum.com/agent-hackathon/projects/minkyc-e5qc5l" className="text-gray-500 hover:text-gray-900 transition-colors">Colosseum Project</a>
-            <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors">Documentation</a>
-          </div>
+
         </div>
       </footer>
     </div>

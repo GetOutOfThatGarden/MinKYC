@@ -1,0 +1,16 @@
+{
+  "project_name": "MinKYC",
+  "milestone": 1,
+  "objective": "Productionize Universal Mobile ZK-KYC",
+  "tech_stack": {
+    "mobile": "Expo",
+    "blockchain": "Solana (Anchor)",
+    "zk": "Noir"
+  },
+  "research_level": "deep",
+  "workflow": {
+    "tdd": true,
+    "map_codebase": true,
+    "automatic": false
+  }
+}

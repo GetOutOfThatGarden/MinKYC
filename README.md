@@ -1,33 +1,32 @@
-# MinKYC — Privacy-Preserving KYC on Solana
+# MinKYC — Universal Privacy-Preserving KYC
 
-[![Solana Seeker Monolith](https://img.shields.io/badge/Hackathon-Solana_Seeker_Monolith-9945FF?style=flat-square&logo=solana)](https://solanamobile.radiant.nexus/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-**MinKYC is the privacy-first compliance layer built for the Solana Seeker.**
+**MinKYC is the privacy-first compliance layer for the global mobile ecosystem.**
 
-It enables dApps to verify user constraints (e.g., Age > 18, EU Resident) using on-device NFC passport scanning and Zero-Knowledge proofs, completely eliminating the need for centralized platforms to store toxic PII (Personally Identifiable Information).
+It enables dApps to verify user constraints (e.g., Age > 18, EU Resident) using on-device NFC passport scanning and Zero-Knowledge proofs, completely eliminating the need for centralized platforms to store toxic PII (Personally Identifiable Information). While originally prototyped for the Solana Seeker, MinKYC is designed to turn **any** NFC-enabled smartphone into a self-sovereign identity vault.
 
 ---
 
-## 📱 The Mobile Experience (Solana Seeker)
+## 📱 The Mobile Experience (Universal Android & iOS)
 
-The MinKYC Solana Seeker app is the core of the ecosystem. It turns a user's phone into a self-sovereign identity vault.
+The MinKYC app turns a user's phone into a self-sovereign identity vault. No specialized hardware required—just your phone and your passport.
 
 | Scan ePassport | Zero-Knowledge Proof | Audit Log |
 | :---: | :---: | :---: |
 | <img src="Screenshots/3_scan.png" width="250" /> | <img src="Screenshots/6_verify_modal.png" width="250" /> | <img src="Screenshots/9_verification history_successful.png" width="250" /> |
 
-*   **Local Data Extraction**: Reads NFC ePassports directly into the Seeker's secure environment.
+*   **Universal Data Extraction**: Reads NFC ePassports directly into the device's secure environment on any modern smartphone.
 *   **Zero-Knowledge Proofs**: Proves constraints locally without revealing the underlying data.
-*   **On-Chain Receipts**: Anchors immutable proof receipts to the Solana blockchain.
+*   **On-Chain Receipts**: Anchors immutable proof receipts to the Solana blockchain for global verification.
 
 ---
 
 ## 🌐 The MinKYC Ecosystem
 
-MinKYC is not just an app; it is a complete, decoupled architecture for the future of compliance.
+MinKYC is a complete, decoupled architecture for the future of decentralized compliance.
 
-1.  **The Seeker App**: The consumer-facing mobile wallet for managing identity and generating proofs locally.
+1.  **The Mobile App**: The consumer-facing identity wallet for managing identity and generating proofs locally on standard mobile devices.
 2.  **The CLI Tooling**: Infrastructure for platforms and regulators to request proofs and audit compliance.
 3.  **The OSINT Intelligence Feed**: An autonomous AI agent that monitors global news for centralized KYC data breaches, highlighting the urgent need for ZK solutions. 
     * 🔗 **[Explore the MinKYC Website & Breach Tracker](https://getoutofthatgarden.github.io/minkyc-website/)**
@@ -44,9 +43,9 @@ cd MinKYC/mobile/App
 npm install
 ```
 
-### Running on a Physical Android Device (Recommended for NFC)
+### Running on a Physical Android Device
 1. **Enable Developer Mode**: Go to Settings > About phone > Build number (tap 7 times) and enable **USB Debugging**.
-2. **Connect**: Plug your phone into your Mac.
+2. **Connect**: Plug your phone into your workstation.
 3. **Forward Port**: Run `adb reverse tcp:8081 tcp:8081` to link the Metro bundler.
 4. **Launch**:
    ```bash
