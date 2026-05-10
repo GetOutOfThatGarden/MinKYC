@@ -1,4 +1,4 @@
-import { ShieldCheck, FileCheck, Lock, Building, Scale, Clock, ArrowRight, Shield } from 'lucide-react';
+import { ShieldCheck, FileCheck, Lock, Building, Scale, Clock, ArrowRight, Shield, Code, Terminal, Cpu } from 'lucide-react';
 import './App.css';
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
         <div className="hidden md:flex items-center space-x-6">
           <a href="#problem" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Why MinKYC?</a>
           <a href="#how-it-works" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">How It Works</a>
+          <a href="#developers" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Developers</a>
           <a href="#use-cases" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">Use Cases</a>
           <a 
             href="https://forms.gle/CZkWhv2dFbK4A9x26" 
@@ -205,6 +206,90 @@ function App() {
                     <br />&nbsp;&nbsp;"timestamp": "2026-03-10T14:32:00Z"
                     <br />{"}"}
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Developers Section */}
+      <section id="developers" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-start gap-16">
+            <div className="flex-1 space-y-8">
+              <div>
+                <h2 className="text-4xl font-bold text-gray-900 mb-6">Build with MinKYC</h2>
+                <p className="text-xl text-gray-600 leading-relaxed">
+                  Integrate privacy-preserving KYC into your dApp with just a few lines of code. No PII storage, no liability.
+                </p>
+              </div>
+
+              <div className="grid gap-6">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-purple-50 rounded-xl text-[#9945FF]">
+                    <Terminal className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900">Unified SDK</h4>
+                    <p className="text-gray-600">A high-level TypeScript SDK for proof request generation and on-chain verification.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-green-50 rounded-xl text-[#14F195]">
+                    <Cpu className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900">React Hooks</h4>
+                    <p className="text-gray-600">First-class support for React with hooks for seamless mobile and web integration.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-blue-50 rounded-xl text-blue-500">
+                    <Code className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-900">Custom Noir Circuits</h4>
+                    <p className="text-gray-600">Extend the protocol with your own ZK circuits for custom constraint verification.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4">
+                <a 
+                  href="https://github.com/GetOutOfThatGarden/MinKYC" 
+                  target="_blank"
+                  className="inline-flex items-center text-[#9945FF] font-semibold hover:underline"
+                >
+                  Explore the SDK on GitHub
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            <div className="flex-1 w-full">
+              <div className="bg-[#111827] rounded-2xl p-6 shadow-2xl border border-gray-800 font-mono text-sm">
+                <div className="flex items-center gap-2 mb-6 border-b border-gray-800 pb-4">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <span className="text-gray-500 ml-2">App.tsx</span>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-pink-400">import <span className="text-gray-300">{"{"} MinKYCClient, useMinKYC {"}"}</span> from <span className="text-green-400">'@minkyc/sdk'</span>;</p>
+                  <p className="text-gray-500 mt-4">// 1. Initialize Client</p>
+                  <p className="text-purple-400">const <span className="text-blue-400">client</span> = <span className="text-blue-300">new</span> <span className="text-yellow-300">MinKYCClient</span>(connection);</p>
+                  <p className="text-gray-500 mt-4">// 2. Create Verification Request</p>
+                  <p className="text-purple-400">const <span className="text-blue-400">verifyUrl</span> = client.<span className="text-yellow-300">createRequest</span>({"{"}</p>
+                  <p className="text-blue-300 ml-4">requester: <span className="text-green-400">'My DEX'</span>,</p>
+                  <p className="text-blue-300 ml-4">requirements: {"{"} over18: <span className="text-orange-400">true</span> {"}"}</p>
+                  <p className="text-purple-400">{"}"});</p>
+                  <p className="text-gray-500 mt-4">// 3. Verify on Solana</p>
+                  <p className="text-purple-400"><span className="text-blue-300">await</span> program.methods</p>
+                  <p className="text-blue-300 ml-4">.<span className="text-yellow-300">verifyProof</span>(proof, publicInputs)</p>
+                  <p className="text-blue-300 ml-4">.<span className="text-yellow-300">rpc</span>();</p>
                 </div>
               </div>
             </div>
