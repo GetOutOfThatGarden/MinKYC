@@ -46,18 +46,20 @@ const VerifyScreen: React.FC = () => {
       return;
     }
     
-    // For MVP prototyping matching main.nr structure:
-    const dobInput = passportData.dateOfBirth.replace(/-/g, '');
-    const nameHash = '11111'; // Mock representing hashed names
-    const secret = 'min_kyc_secret_nonce_2026';
-    
+    // Format inputs for current circuit version
+    const dobNumeric = parseInt(passportData.dateOfBirth.replace(/-/g, ''), 10);
+    const today = new Date();
+    const currentNumeric = parseInt(
+      `${today.getFullYear()}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`, 
+      10
+    );
+
     setZkInputs({
-      dob: dobInput,
-      passport_name_hash: nameHash,
-      submitted_name_hash: nameHash,
-      secret: secret,
-      current_date: '20260220', // Mocking current block time Date
-      salt: '12345',
+      dob: dobNumeric,
+      secret_nonce: 12345, // Consistent with secureStorage/circuit MVP
+      current_date: currentNumeric,
+      verifier_id: 1, 
+      caller_pubkey: 0, 
       commitment: storedCommitmentHex
     });
   };

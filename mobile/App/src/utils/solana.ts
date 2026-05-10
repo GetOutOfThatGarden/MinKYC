@@ -1,15 +1,14 @@
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
+import * as BN from 'bn.js';
 
 // Define the connection to the Solana Devnet
 export const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
-// TODO: Replace with actual deployed MinKYC program ID on Devnet
-export const MINKYC_PROGRAM_ID = new PublicKey('MinKYC1111111111111111111111111111111111111');
+// Current Devnet Program ID
+export const MINKYC_PROGRAM_ID = new PublicKey('9zzT4KdUh7TEtiR8ioTMhDLWDa4c6ymzAjQsYYfvc3h1');
 
 /**
  * Utility to verify if an address is valid
- * @param address Base58 formatted address
- * @returns boolean
  */
 export const isValidAddress = (address: string): boolean => {
     try {
@@ -21,13 +20,23 @@ export const isValidAddress = (address: string): boolean => {
 };
 
 /**
- * Derives the Identity PDA for a given wallet address
- * @param walletAddress The user's public key
- * @returns { pda: PublicKey, bump: number }
+ * Derives the Identity PDA for a given wallet address and index
  */
-export const getIdentityPda = (walletAddress: PublicKey): { pda: PublicKey, bump: number } => {
+export const getIdentityPda = (walletAddress: PublicKey, index: number = 0): { pda: PublicKey, bump: number } => {
+    const indexLe = new BN(index).toArrayLike(Buffer, 'le', 8);
     const [pda, bump] = PublicKey.findProgramAddressSync(
-        [Buffer.from('identity'), walletAddress.toBuffer()],
+        [Buffer.from('identity'), walletAddress.toBuffer(), indexLe],
+        MINKYC_PROGRAM_ID
+    );
+    return { pda, bump };
+};
+
+/**
+ * Derives the Nullifier PDA
+ */
+export const getNullifierPda = (nullifier: Buffer): { pda: PublicKey, bump: number } => {
+    const [pda, bump] = PublicKey.findProgramAddressSync(
+        [Buffer.from('nullifier'), nullifier],
         MINKYC_PROGRAM_ID
     );
     return { pda, bump };
