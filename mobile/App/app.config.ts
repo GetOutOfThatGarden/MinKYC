@@ -17,5 +17,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   plugins: [
     'expo-dev-client',
+    './plugins/withNFC.js',
   ],
 });

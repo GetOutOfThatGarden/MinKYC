@@ -4,7 +4,7 @@
  * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
  * directory of this source tree.
  */
-package com.minkyc;
+package com.minkyc.app;
 
 import android.content.Context;
 import com.facebook.react.ReactInstanceManager;

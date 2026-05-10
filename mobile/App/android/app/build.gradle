@@ -74,13 +74,13 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.minkyc"
+    namespace 'com.minkyc.app'
     defaultConfig {
-        applicationId "com.minkyc"
+        applicationId 'com.minkyc.app'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.0"
         multiDexEnabled true
     }
     signingConfigs {

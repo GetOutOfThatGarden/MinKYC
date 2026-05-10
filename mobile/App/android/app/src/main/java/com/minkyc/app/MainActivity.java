@@ -1,4 +1,4 @@
-package com.minkyc;
+package com.minkyc.app;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

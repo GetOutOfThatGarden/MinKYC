@@ -1,4 +1,4 @@
-rootProject.name = 'minkyc'
+rootProject.name = 'MinKYC'
 
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
