@@ -285,12 +285,12 @@ const IdentityScreen: React.FC = () => {
               <TouchableOpacity
                 key={key}
                 style={styles.mockProfileButton}
-                onPress={() => handlePassportRead(profile)}
+                onPress={() => handlePassportRead(profile.data)}
               >
                 <View style={styles.mockProfileContent}>
                   <UserCircle size={20} color={theme.colors.iconDim} style={{ marginRight: 8 }} />
                   <AppText>
-                    {profile.givenNames} ({profile.nationality})
+                    {profile.data.givenNames} ({profile.data.nationality})
                   </AppText>
                 </View>
               </TouchableOpacity>

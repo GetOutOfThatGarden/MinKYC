@@ -161,10 +161,10 @@ const OnboardingScreen: React.FC = () => {
                 >
                   <View style={styles.profileHeaderLeft}>
                     <AppText weight="semibold">
-                      {profile.givenNames} {profile.surname}
+                      {profile.data.givenNames} {profile.data.surname}
                     </AppText>
                     <AppText variant="caption" style={styles.profileMeta}>
-                      {profile.nationality} • {profile.sex === 'M' ? 'Male' : profile.sex === 'F' ? 'Female' : 'Other'}
+                      {profile.data.nationality} • {profile.data.sex === 'M' ? 'Male' : profile.data.sex === 'F' ? 'Female' : 'Other'}
                     </AppText>
                   </View>
                   {isExpanded ? (
@@ -179,13 +179,13 @@ const OnboardingScreen: React.FC = () => {
                     {(Object.keys(FIELD_LABELS) as (keyof PassportData)[]).map((field) => (
                       <View key={field} style={styles.fieldRow}>
                         <AppText variant="caption" style={styles.fieldLabel}>{FIELD_LABELS[field]}</AppText>
-                        <AppText variant="subtext" weight="medium" style={styles.fieldValue}>{profile[field]}</AppText>
+                        <AppText variant="subtext" weight="medium" style={styles.fieldValue}>{profile.data[field]}</AppText>
                       </View>
                     ))}
 
                     <TouchableOpacity
                       style={styles.selectButton}
-                      onPress={() => handleSelectProfile(profile)}
+                      onPress={() => handleSelectProfile(profile.data)}
                     >
                       <AppText weight="semibold" color={theme.colors.surface}>Use This Profile</AppText>
                     </TouchableOpacity>
