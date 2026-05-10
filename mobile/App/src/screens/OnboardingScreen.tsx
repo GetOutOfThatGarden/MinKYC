@@ -14,8 +14,9 @@ import {
 import { MOCK_PROFILES, PassportData } from '../constants/mockProfiles';
 import { useNFC } from '../hooks/useNFC';
 import { savePassportData, computeCommitment, saveCommitment } from '../utils/secureStorage';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import PassportDataModal from '../components/PassportDataModal';
+import { NFCReadingProgress } from '../components/NFCReadingProgress';
 import { AppText } from '../components/AppText';
 import { theme } from '../constants/theme';
 import { ShieldCheck, Nfc, Users, ChevronDown, ChevronUp, Lock } from 'lucide-react-native';
@@ -36,8 +37,19 @@ const OnboardingScreen: React.FC = () => {
   const [scanning, setScanning] = useState(false);
   const [expandedProfile, setExpandedProfile] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { isSupported, readPassport } = useNFC();
+  const { isSupported, readPassport, nfcStep, nfcProgress, error: nfcError } = useNFC();
   const navigation = useNavigation<any>();
+  const route = useRoute<any>();
+
+  // Trigger NFC when returning from MRZScan with data
+  React.useEffect(() => {
+    if (route.params?.mrzData) {
+      const { documentNumber, dateOfBirth, expiryDate } = route.params.mrzData;
+      // Clear the params
+      navigation.setParams({ mrzData: undefined });
+      handleActualPassportScan(documentNumber, dateOfBirth, expiryDate);
+    }
+  }, [route.params?.mrzData]);
 
   const handleSelectProfile = async (data: PassportData) => {
     try {
@@ -62,29 +74,29 @@ const OnboardingScreen: React.FC = () => {
     try {
       const result = await readPassport(passportNumber, dateOfBirth, expiryDate);
       if (result) {
-        // Map NfcResult to PassportData
+        // Map EIdReadResult to PassportData
         const passportData: PassportData = {
-          surname: result.lastName,
-          givenNames: result.firstName,
-          nationality: result.nationality,
-          dateOfBirth: result.birthDate,
-          sex: result.gender === 'M' || result.gender === 'Male' ? 'M' : 'F',
-          passportNumber: result.documentNo,
-          expiryDate: result.expiryDate,
-          issuingCountry: result.nationality, // Simplified
+          surname: result.data.lastName || '',
+          givenNames: result.data.firstName || '',
+          nationality: result.data.nationality || '',
+          dateOfBirth: result.data.birthDate || '',
+          sex: result.data.gender === 'M' || result.data.gender === 'Male' ? 'M' : 'F',
+          passportNumber: result.data.documentNo || '',
+          expiryDate: result.data.expiryDate || '',
+          issuingCountry: result.data.nationality || '',
           documentType: 'P',
         };
         await handleSelectProfile(passportData);
       }
     } catch (err: any) {
-      Alert.alert('Scan Failed', err.message || 'Could not read passport chip. Please try again.');
+      // Handled by NFCReadingProgress
     } finally {
       setScanning(false);
     }
   };
 
   const startNFCScan = () => {
-    setIsModalVisible(true);
+    navigation.navigate('MRZScan');
   };
 
   const toggleExpand = (key: string) => {
@@ -201,6 +213,14 @@ const OnboardingScreen: React.FC = () => {
         onClose={() => setIsModalVisible(false)}
         onSubmit={handleActualPassportScan}
         isLoading={scanning}
+      />
+
+      <NFCReadingProgress
+        visible={scanning}
+        step={nfcStep}
+        progress={nfcProgress}
+        error={nfcError}
+        onClose={() => setScanning(false)}
       />
     </ScrollView>
   );

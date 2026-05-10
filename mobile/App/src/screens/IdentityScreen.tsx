@@ -15,11 +15,12 @@ import {
 } from 'react-native';
 import { useWallet } from '../hooks/useWallet';
 import { getIdentityPda } from '../utils/solana';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { getCommitment, hasPassportData, getPassportData, savePassportData, computeCommitment, saveCommitment } from '../utils/secureStorage';
 import { PassportData, MOCK_PROFILES } from '../constants/mockProfiles';
 import { useNFC } from '../hooks/useNFC';
 import PassportDataModal from '../components/PassportDataModal';
+import { NFCReadingProgress } from '../components/NFCReadingProgress';
 import { AppText } from '../components/AppText';
 import { theme } from '../constants/theme';
 import { ClipboardList, EyeOff, Eye, Shield, Link as LinkIcon, UserCircle, RefreshCcw } from 'lucide-react-native';
@@ -45,8 +46,19 @@ const IdentityScreen: React.FC = () => {
   const [isMasked, setIsMasked] = useState(true);
   const [scanning, setScanning] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { isSupported, isEnabled, readPassport } = useNFC();
+  const { isSupported, isEnabled, readPassport, nfcStep, nfcProgress, error: nfcError } = useNFC();
   const navigation = useNavigation<any>();
+  const route = useRoute<any>();
+
+  // Trigger NFC when returning from MRZScan with data
+  React.useEffect(() => {
+    if (route.params?.mrzData) {
+      const { documentNumber, dateOfBirth, expiryDate } = route.params.mrzData;
+      // Clear the params to prevent re-triggering
+      navigation.setParams({ mrzData: undefined });
+      handleActualPassportScan(documentNumber, dateOfBirth, expiryDate);
+    }
+  }, [route.params?.mrzData]);
 
   const handlePassportRead = async (data: PassportData) => {
     try {
@@ -70,22 +82,23 @@ const IdentityScreen: React.FC = () => {
     try {
       const result = await readPassport(passportNumber, dateOfBirth, expiryDate);
       if (result) {
-        // Map NfcResult to PassportData
+        // Map EIdReadResult to PassportData
+        // result is EIdReadResult from @2060.io
         const passportData: PassportData = {
-          surname: result.lastName,
-          givenNames: result.firstName,
-          nationality: result.nationality,
-          dateOfBirth: result.birthDate,
-          sex: result.gender === 'M' || result.gender === 'Male' ? 'M' : 'F',
-          passportNumber: result.documentNo,
-          expiryDate: result.expiryDate,
-          issuingCountry: result.nationality,
+          surname: result.data.lastName || '',
+          givenNames: result.data.firstName || '',
+          nationality: result.data.nationality || '',
+          dateOfBirth: result.data.birthDate || '',
+          sex: result.data.gender === 'M' || result.data.gender === 'Male' ? 'M' : 'F',
+          passportNumber: result.data.documentNo || '',
+          expiryDate: result.data.expiryDate || '',
+          issuingCountry: result.data.nationality || '',
           documentType: 'P',
         };
         await handlePassportRead(passportData);
       }
     } catch (err: any) {
-      Alert.alert('Scan Failed', err.message || 'Could not read passport. Please try again.');
+      // Error is also managed by the hook and displayed in NFCReadingProgress
     } finally {
       setScanning(false);
     }
@@ -96,7 +109,7 @@ const IdentityScreen: React.FC = () => {
       Alert.alert('NFC Unavailable', 'Please enable NFC in your device settings.');
       return;
     }
-    setIsModalVisible(true);
+    navigation.navigate('MRZScan');
   };
 
   useFocusEffect(
@@ -291,6 +304,14 @@ const IdentityScreen: React.FC = () => {
         onClose={() => setIsModalVisible(false)}
         onSubmit={handleActualPassportScan}
         isLoading={scanning}
+      />
+
+      <NFCReadingProgress
+        visible={scanning}
+        step={nfcStep}
+        progress={nfcProgress}
+        error={nfcError}
+        onClose={() => setScanning(false)}
       />
     </ScrollView>
   );
