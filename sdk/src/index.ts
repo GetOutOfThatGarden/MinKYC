@@ -13,7 +13,7 @@ export interface MinKYCRequest {
 export class MinKYCClient {
   constructor(
     public connection: Connection,
-    public programId: PublicKey = new PublicKey('9zzT4KdUh7TEtiR8ioTMhDLWDa4c6ymzAjQsYYfvc3h1')
+    public programId: PublicKey = new PublicKey('7RxKqJ7U6LuWCdYSZbQgwevb1GJE49aWGbtzwxGbaJAL')
   ) {}
 
   /**

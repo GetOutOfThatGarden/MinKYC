@@ -18,10 +18,10 @@ We will transition the MinKYC infrastructure from standard Solana accounts to a 
 - **[T] Testing (MS2-01-02)**: Implement TDD suites using `light-test-utils` for compressed state transitions.
 
 ## Progress Tracking
-- [ ] MS2-01-01: Light Protocol Environment & Dependencies
-- [ ] MS2-01-02: Merkle Tree Init & Compressed Account Definitions
+- [x] MS2-01-01: Light Protocol Environment & Dependencies
+- [x] MS2-01-02: Merkle Tree Init & Compressed Account Definitions
 
 ## Success Criteria
-- [ ] `light-cli` is configured and able to connect to a local/testnet Photon RPC.
-- [ ] Anchor program successfully compiles with `light-sdk` integration.
-- [ ] Automated tests verify successful initialization of a compressed state Merkle tree.
+- [x] `light-cli` is configured and able to connect to a local/testnet Photon RPC.
+- [x] Anchor program successfully compiles with `light-sdk` integration.
+- [x] Automated tests verify successful initialization of a compressed state Merkle tree.

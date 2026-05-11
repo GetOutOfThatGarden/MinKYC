@@ -5,7 +5,7 @@ import * as BN from 'bn.js';
 export const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
 
 // Current Devnet Program ID
-export const MINKYC_PROGRAM_ID = new PublicKey('9zzT4KdUh7TEtiR8ioTMhDLWDa4c6ymzAjQsYYfvc3h1');
+export const MINKYC_PROGRAM_ID = new PublicKey('7RxKqJ7U6LuWCdYSZbQgwevb1GJE49aWGbtzwxGbaJAL');
 
 /**
  * Utility to verify if an address is valid

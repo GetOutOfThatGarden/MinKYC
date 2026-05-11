@@ -7,10 +7,10 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-minkyc = "9zzT4KdUh7TEtiR8ioTMhDLWDa4c6ymzAjQsYYfvc3h1"
+minkyc = "7RxKqJ7U6LuWCdYSZbQgwevb1GJE49aWGbtzwxGbaJAL"
 
 [programs.devnet]
-minkyc = "9zzT4KdUh7TEtiR8ioTMhDLWDa4c6ymzAjQsYYfvc3h1"
+minkyc = "7RxKqJ7U6LuWCdYSZbQgwevb1GJE49aWGbtzwxGbaJAL"
 
 [registry]
 url = "https://api.apr.dev"

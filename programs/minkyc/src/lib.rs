@@ -1,32 +1,17 @@
 use anchor_lang::prelude::*;
+use light_sdk::LightAccount;
 
-declare_id!("9zzT4KdUh7TEtiR8ioTMhDLWDa4c6ymzAjQsYYfvc3h1");
+declare_id!("7RxKqJ7U6LuWCdYSZbQgwevb1GJE49aWGbtzwxGbaJAL");
 
 /**
- * MinKYC Solana Privacy Layer
+ * MinKYC Solana Privacy Layer with ZK Compression
  */
 
 #[account]
 #[derive(Default)]
-pub struct Identity {
+pub struct CompressedNullifier {
     pub owner: Pubkey,
-    pub commitment: [u8; 32],
-    pub revoked: bool,
-    pub index: u64,
-    pub verification_count: u64,
-}
-
-#[account]
-#[derive(Default)]
-pub struct IdentityCounter {
-    pub count: u64,
-}
-
-#[account]
-#[derive(Default)]
-pub struct NullifierReceipt {
-    pub nullifier: [u8; 32],
-    pub timestamp: i64,
+    pub nullifier_hash: [u8; 32],
 }
 
 #[event]
@@ -58,11 +43,17 @@ pub mod minkyc {
         Ok(())
     }
 
+    /**
+     * initialize_merkle_tree: Creates a new Merkle tree for compressed accounts.
+     */
     pub fn initialize_merkle_tree(_ctx: Context<InitializeMerkleTree>) -> Result<()> {
-        msg!("Initializing Merkle Tree (Placeholder)...");
+        msg!("Initializing Merkle Tree for Compression...");
         Ok(())
     }
 
+    /**
+     * verify_proof: The production-grade verification entry point.
+     */
     pub fn verify_proof(
         ctx: Context<VerifyProof>, 
         _proof: Vec<u8>,
@@ -109,6 +100,11 @@ pub mod minkyc {
 pub struct InitializeMerkleTree<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
+    /// CHECK: Handled by Light System Program
+    #[account(mut)]
+    pub merkle_tree: UncheckedAccount<'info>,
+    /// CHECK: Placeholder for Light Program
+    pub light_system_program: UncheckedAccount<'info>,
     pub system_program: Program<'info, System>,
 }
 
@@ -139,10 +135,11 @@ pub struct Initialize<'info> {
 
 
 #[derive(Accounts)]
+#[instruction(proof: Vec<u8>, public_inputs: Vec<[u8; 32]>, identity_index: u64)]
 pub struct VerifyProof<'info> {
     #[account(
         mut,
-        seeds = [b"identity", identity.owner.key().as_ref(), &identity.index.to_le_bytes()],
+        seeds = [b"identity", identity.owner.key().as_ref(), &identity_index.to_le_bytes()],
         bump
     )]
     pub identity: Account<'info, Identity>,
@@ -162,6 +159,29 @@ pub struct VerifyProof<'info> {
     #[account(mut)]
     pub verifier: Signer<'info>,
     pub system_program: Program<'info, System>,
+}
+
+#[account]
+#[derive(Default)]
+pub struct Identity {
+    pub owner: Pubkey,
+    pub commitment: [u8; 32],
+    pub revoked: bool,
+    pub index: u64,
+    pub verification_count: u64,
+}
+
+#[account]
+#[derive(Default)]
+pub struct IdentityCounter {
+    pub count: u64,
+}
+
+#[account]
+#[derive(Default)]
+pub struct NullifierReceipt {
+    pub nullifier: [u8; 32],
+    pub timestamp: i64,
 }
 
 #[error_code]

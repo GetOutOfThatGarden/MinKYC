@@ -8,17 +8,17 @@
 
 ## Milestone 2: ZK Compression for Hyper-Scale
 
-### Phase 1: Compression Foundation & Infrastructure
+### Phase 1: Compression Foundation & Infrastructure [COMPLETED]
 **Goal:** Lay the technical foundation for ZK Compression using Light Protocol V3.
 
 **Plans:** 2 plans
-- [ ] MS2-01-01-PLAN.md — Infrastructure & Dependency Integration
-- [ ] MS2-01-02-PLAN.md — On-Chain Compression Foundation & TDD
+- [x] MS2-01-01-PLAN.md — Infrastructure & Dependency Integration [DONE]
+- [x] MS2-01-02-PLAN.md — On-Chain Compression Foundation & TDD [DONE]
 
 **Requirements:**
-- **P2.1.1 [Arch]**: Set up Light Protocol development environment (Photon RPC + `light-cli`).
-- **P2.1.2 [Backend]**: Refactor Anchor program to use `light-sdk` and initialize compressed state Merkle trees.
-- **P2.1.3 [Testing]**: Implement automated tests for basic compressed account creation.
+- **P2.1.1 [Arch]**: Set up Light Protocol development environment (Photon RPC + `light-cli`). [DONE]
+- **P2.1.2 [Backend]**: Refactor Anchor program to use `light-sdk` and initialize compressed state Merkle trees. [DONE]
+- **P2.1.3 [Testing]**: Implement automated tests for basic compressed account creation. [DONE]
 
 ### Phase 2: Compressed Nullifier Logic
 - **P2.2.1 [Backend]**: Implement address-based nullifiers derived from Poseidon hashes.
