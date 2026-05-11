@@ -8,7 +8,7 @@ Execute Milestone 2: ZK Compression for Hyper-Scale.
 - **Milestone 2**: ZK Compression for Hyper-Scale [IN PROGRESS]
 
 ## Phase Status
-- **Phase 1**: Compression Foundation & Infrastructure [PLANNED]
+- **Phase 1**: Compression Foundation & Infrastructure [PLANNED] (.planning/phases/MS2-01-foundation/PLAN.md)
 - **Phase 2**: Compressed Nullifier Logic [PENDING]
 - **Phase 3**: Mobile & SDK Compression Bridge [PENDING]
 - **Phase 4**: Benchmarking & Finalization [PENDING]
@@ -20,4 +20,4 @@ Execute Milestone 2: ZK Compression for Hyper-Scale.
 - **Infrastructure**: Transitioning to Photon-enabled RPCs (Helius) for indexed compressed state.
 
 ## Immediate Next Action
-Execute: `/gsd-execute-phase MS2-01`
+Run `/gsd-execute-phase 1` (Milestone 2) to begin implementation of the Compression Foundation.

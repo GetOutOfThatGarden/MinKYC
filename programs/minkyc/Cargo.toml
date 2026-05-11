@@ -10,15 +10,14 @@ name = "minkyc"
 
 [features]
 default = []
-cpi = ["no-entrypoint"]
-no-entrypoint = []
+cpi = ["no-entry"]
+no-entry = []
 no-idl = []
 no-log-ix-name = []
 idl-build = ["anchor-lang/idl-build"]
 
-
 [dependencies]
 anchor-lang = { version = "0.31.1", features = ["init-if-needed"] }
 light-sdk = "0.23.0"
-light-hasher = "0.1.0"
-
+light-hasher = "5.0.0"
+borsh = "0.10.4"
