@@ -69,3 +69,15 @@ The project is organized into several decoupled components:
 ## ⚠️ Important Notes
 - The current mobile ZK engine in `ZKProver.tsx` uses a SHA-256 fallback for proof generation in the MVP demo due to WASM bundling complexities in React Native.
 - Ensure your Solana CLI is configured to `devnet` for the CLI simulation scripts to work correctly.
+
+---
+
+## 🔐 Secrets & Configuration
+Environment variables (.env) are **NOT** stored in Git. They are securely backed up in the **Apple Keychain**.
+
+### To Restore Secrets:
+If the `.env` file is missing, run:
+```bash
+python3 ~/Developer/env-keychain.py pull
+```
+Refer to [~/Developer/SECRETS.md](../SECRETS.md) for full security protocols.
