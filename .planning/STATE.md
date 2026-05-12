@@ -9,7 +9,7 @@ Execute Milestone 2: ZK Compression for Hyper-Scale.
 
 ## Phase Status
 - **Phase 1**: Compression Foundation & Infrastructure [COMPLETED] (.planning/phases/MS2-01-foundation/PLAN.md)
-- **Phase 2**: Compressed Nullifier Logic [PENDING]
+- **Phase 2**: Compressed Nullifier Logic [IN PROGRESS] (.planning/phases/MS2-02-nullifiers/)
 - **Phase 3**: Mobile & SDK Compression Bridge [PENDING]
 - **Phase 4**: Developer SDK & Compliance [PENDING]
 
@@ -18,6 +18,7 @@ Execute Milestone 2: ZK Compression for Hyper-Scale.
 - **Universal Mobile**: Successfully transitioned to Expo with native NFC Config Plugins.
 - **ZK Engine**: Real Noir/Barretenberg proofs are now running on-device.
 - **Infrastructure**: Light SDK integrated and Anchor program deployed with synchronized IDs (`7Rx...`).
+- **Phase 2 Planning**: Successfully decomposed into 3 plans covering Noir Poseidon integration, on-chain address derivation, and compressed nullifier enforcement.
 
 ## Immediate Next Action
-Run `/gsd-plan-phase 2` (Milestone 2) to implement the Compressed Nullifier logic.
+Execute MS2-02-01: `/gsd-execute-phase MS2-02 --plan 1`

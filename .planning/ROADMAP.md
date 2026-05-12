@@ -21,6 +21,14 @@
 - **P2.1.3 [Testing]**: Implement automated tests for basic compressed account creation. [DONE]
 
 ### Phase 2: Compressed Nullifier Logic
+**Goal:** Implement the core compressed nullifier logic in the Anchor program and Noir circuits.
+
+**Plans:** 3 plans
+- [ ] MS2-02-01-PLAN.md — Noir Circuit Poseidon Update
+- [ ] MS2-02-02-PLAN.md — Compressed Nullifier Address Derivation
+- [ ] MS2-02-03-PLAN.md — Compressed Nullifier Enforcement in `verify_proof`
+
+**Requirements:**
 - **P2.2.1 [Backend]**: Implement address-based nullifiers derived from Poseidon hashes.
 - **P2.2.2 [Backend]**: Upgrade `verify_proof` to check and spend compressed nullifiers.
 - **P2.2.3 [ZK]**: Update Noir circuits to return Poseidon-compatible nullifiers for on-chain address derivation.

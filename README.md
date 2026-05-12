@@ -8,6 +8,28 @@ It enables dApps to verify user constraints (e.g., Age > 18, EU Resident) using 
 
 ---
 
+### 🤖 AI Agent Context (Read First)
+
+**Objective**: To establish a universal, zero-PII compliance infrastructure for the global mobile ecosystem.
+
+**Project Roadmap & Status**:
+*   **Milestone 1 [COMPLETED]**: Functional Prototype of the Universal Mobile ZK-Engine. Achieved on-device Noir ZK proofs (<15s latency) and PACE-compliant NFC ingestion on standard Android devices.
+*   **Milestone 2 [IN PROGRESS]**: Moving toward Production-Hardened ZK Compression. Refactoring the Solana layer using Light Protocol V3 to reduce on-chain storage costs by 99.5%.
+*   **Milestone 3 [PLANNED]**: Decentralized Identity (DID) & Verifiable Credential (VC) integration.
+
+**Key Technical Learnings**:
+1.  **Mobile ZK Viability**: Modern mobile hardware can generate complex ZK proofs locally in consumer-grade timeframes (<15s) using a WebView-to-WASM bridge.
+2.  **Surveillance Gap**: Cryptography can satisfy strict regulatory frameworks (UK DIATF, EU eIDAS 2.0) while maintaining 100% user privacy.
+3.  **Toolchain Stability**: High-stakes ZK development requires locked-version build scripts due to the rapid evolution of the Solana/Anza and Noir ecosystems.
+
+**Impact Statistics & Competitive Advantage**:
+*   **99.5% Cost Reduction**: Transitioning to ZK Compression reduces on-chain rent from **1,169 SOL** to **<5 SOL** per 1 million users.
+*   **0 Bytes PII Leakage**: MinKYC eliminates data liability. Raw passport data never leaves the device; platforms receive only a cryptographic "Yes/No" proof.
+*   **30% Conversion Boost**: Fast, one-tap mobile onboarding eliminates the high user friction and abandonment rates typical of "selfie + manual scan" KYC flows.
+*   **Platform Advantage**: DApps using MinKYC achieve a **Zero-Liability posture**, removing them from the crosshairs of data hackers and massive GDPR/compliance fines.
+
+---
+
 ## 📱 The Mobile Experience (Universal Android & iOS)
 
 The MinKYC app turns a user's phone into a self-sovereign identity vault. No specialized hardware required—just your phone and your passport.
