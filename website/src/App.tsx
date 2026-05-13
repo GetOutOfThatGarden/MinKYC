@@ -53,7 +53,7 @@ function App() {
             </span>
           </h1>
           <p className="text-lg md:text-xl text-gray-600 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed">
-            MinKYC is a privacy-first infrastructure that enables dApps to verify user requirements instantly. You receive a cryptographic proof of compliance, while raw data stays where it belongs—with the user.
+            MinKYC is a privacy-first infrastructure that enables platforms to verify user requirements instantly. You receive a cryptographic proof of compliance, while raw data stays where it belongs—with the user.
           </p>
           <div className="flex justify-center flex-col items-center">
             <div className="relative inline-block">
