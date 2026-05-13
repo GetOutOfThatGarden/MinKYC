@@ -47,13 +47,13 @@ function App() {
             <span>Live on Solana Devnet</span>
           </div>
           <h1 className="text-4xl md:text-7xl font-bold text-gray-900 mb-6 md:mb-8 tracking-tight leading-tight">
-            Achieve KYC Compliance <br className="hidden md:block" />
+            Sovereign Identity <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9945FF] to-[#14F195]">
               Without the Data Liability.
             </span>
           </h1>
           <p className="text-lg md:text-xl text-gray-600 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed">
-            Verify your users meet regulatory requirements (age, residency, accredited status) instantly. You get the cryptographic compliance receipt, not the sensitive data.
+            MinKYC is a privacy-first infrastructure that enables dApps to verify user requirements instantly. You receive a cryptographic proof of compliance, while raw data stays where it belongs—with the user.
           </p>
           <div className="flex justify-center flex-col items-center">
             <div className="relative inline-block">
@@ -92,8 +92,41 @@ function App() {
         </div>
       </section>
 
+      {/* Performance by Design Section */}
+      <section className="py-24 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Performance by Design</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              MinKYC is architected to solve the core trade-off between strict regulatory compliance and user privacy.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-12">
+            <div className="space-y-4">
+              <h4 className="text-xl font-bold text-gray-900">Zero Data Liability</h4>
+              <p className="text-gray-600 leading-relaxed">
+                Raw identity data never leaves the user's device. By receiving only Zero-Knowledge proofs, your platform eliminates the $10M+ risk of PII data breaches and GDPR exposure.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-xl font-bold text-gray-900">Hyper-Scale Efficiency</h4>
+              <p className="text-gray-600 leading-relaxed">
+                Built with ZK Compression (Light Protocol V3), MinKYC reduces on-chain storage overhead by over 90% compared to standard accounts, making compliance economically viable for millions of users.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h4 className="text-xl font-bold text-gray-900">Consumer-Grade UX</h4>
+              <p className="text-gray-600 leading-relaxed">
+                Replace high-friction "selfie and scan" workflows with instant NFC ingestion. Verify age and residency in seconds, removing the manual review bottleneck that kills conversion.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Problem vs Solution Section */}
-      <section id="problem" className="py-20 bg-gray-50 border-y border-gray-100">
+      <section id="problem" className="py-20 bg-white border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">The Toxic Asset Problem</h2>
@@ -135,7 +168,7 @@ function App() {
       </section>
 
       {/* How it Works Section */}
-      <section id="how-it-works" className="py-24 bg-white">
+      <section id="how-it-works" className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="flex-1 space-y-8">
@@ -221,7 +254,7 @@ function App() {
               <div>
                 <h2 className="text-4xl font-bold text-gray-900 mb-6">Build with MinKYC</h2>
                 <p className="text-xl text-gray-600 leading-relaxed">
-                  Integrate privacy-preserving KYC into your dApp with just a few lines of code. No PII storage, no liability.
+                  Integrate privacy-preserving KYC into your platform with just a few lines of code. No PII storage, no liability.
                 </p>
               </div>
 
